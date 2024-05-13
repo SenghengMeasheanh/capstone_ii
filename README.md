@@ -21,9 +21,7 @@ run this command after clone the project
     + For success code, success message or general code use comment like this // * Caculate Sum value
     + For fail message or error message use comment like this // ! Failed messages
 
-+ **Rule 2**: When adding a package or library please do not add it with command. Rather, please go to copy the package name instead. Like below
-
-![alt text](image.png)
++ **Rule 2**: When adding a package or library please do not add it with command. Rather, please go to copy the package name instead.
 
 + **Rule 3**: When pasting the library name please also comment and also arrange it in alphabetical order.
 
