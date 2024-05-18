@@ -38,6 +38,9 @@ class Dimen {
   /// Default Radius 8.0
   static const defaultRadius = 8.0;
 
+  // Default Textfield Radius
+  static const textFieldRadius = 12.0;
+
   /// Content Padding 11.0
-  static const contentPadding = 11.0;
+  static const contentPadding = 21.0;
 }

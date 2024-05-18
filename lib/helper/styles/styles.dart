@@ -41,6 +41,32 @@ const modalBottomSheetShape = RoundedRectangleBorder(
   borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25)),
 );
 
+final textFormFieldTheme = InputDecorationTheme(
+  hintStyle: CustomTextStyle.bodyTextStyle(color: Colors.grey),
+  labelStyle: CustomTextStyle.bodyTextStyle(color: Colors.grey),
+  errorStyle: CustomTextStyle.captionTextStyle(color: Colors.red),
+  border: OutlineInputBorder(
+    borderSide: const BorderSide(color: Colors.black),
+    borderRadius: BorderRadius.circular(Dimen.textFieldRadius),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: const BorderSide(color: Colors.black),
+    borderRadius: BorderRadius.circular(Dimen.textFieldRadius),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderSide: const BorderSide(color: Colors.black),
+    borderRadius: BorderRadius.circular(Dimen.textFieldRadius),
+  ),
+  errorBorder: OutlineInputBorder(
+    borderSide: const BorderSide(color: Colors.red),
+    borderRadius: BorderRadius.circular(Dimen.textFieldRadius),
+  ),
+  focusedErrorBorder: OutlineInputBorder(
+    borderSide: const BorderSide(color: Colors.red),
+    borderRadius: BorderRadius.circular(Dimen.textFieldRadius),
+  ),
+);
+
 class CustomTextStyle {
   static TextStyle largeTitleTextStyle({
     Color? color,

@@ -180,3 +180,14 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  # Flutter Native Splash Config
+flutter_native_splash:
+  # Light
+  color: "#FFFFFF"
+  image: assets/images/ig_splash.png
+  # Dark
+  color_dark: "#FFFFFF"
+  image_dark: assets/images/ig_splash.png
+  # Others
+  fullscreen: true
+  web: false

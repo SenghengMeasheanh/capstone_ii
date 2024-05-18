@@ -19,7 +19,7 @@ Future<void> main() async {
 
   // * Initialize Flavor
   // Flavor.instance.init(flavor: QAFlavor());
-  
+
   // * Ensure App Preference Initialized
   await AppPreference.ensureInitialized();
 
@@ -75,9 +75,10 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: appBarTheme,
         snackBarTheme: snackBarTheme,
+        inputDecorationTheme: textFormFieldTheme,
         fontFamily: 'KantumruyPro',
       ),
-      home: const DashboardPage(),
+      home: const SignInPage(),
     );
   }
 }

@@ -2,6 +2,12 @@
 export 'items/item_slide_show.dart';
 // * Modals
 // * Pages
+// ? Pages (Authentication)
+export 'pages/authentication/forgot_password_page.dart';
+export 'pages/authentication/new_password_page.dart';
+export 'pages/authentication/sign_in_page.dart';
+export 'pages/authentication/sign_up_page.dart';
+export 'pages/authentication/verification_page.dart';
 // ? Pages (Dashboard)
 export 'pages/dashboard/dashboard_page.dart';
 export 'pages/dashboard/events/events_screen.dart';
