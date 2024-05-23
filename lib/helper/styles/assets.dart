@@ -65,6 +65,7 @@ class Assets {
   static const lottieInfo = '$_lottiePath/info.json';
   static const lottieNoInternet = '$_lottiePath/no_internet_connection.json';
   static const lottieSuccess = '$_lottiePath/success.json';
+  static const lottieMessageSent = '$_lottiePath/message_sent.json';
 
   // * Translations
   static const String translationPath = _translationPath;

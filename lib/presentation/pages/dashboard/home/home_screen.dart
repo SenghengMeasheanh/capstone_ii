@@ -32,21 +32,54 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('ExStreaming'),
+          title: Text('Home', style: CustomTextStyle.titleTextStyle(fontSize: 30, bold: true)),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.notifications,
+                size: 31,
+              ),
+            )
+          ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(top: Dimen.mediumSpace),
-          child: Column(
-            children: [
-              // * Title
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Dimen.mediumSpace),
-                child: Row(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(Dimen.contentPadding),
+            child: Column(
+              children: [
+                // * Search Bar
+                const SearchBarWidget(),
+                const SizedBox(height: Dimen.mediumSpace),
+                // * Menu
+                GridView.count(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: Dimen.mediumSpace,
+                  mainAxisSpacing: Dimen.mediumSpace,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: Menu.values
+                      .map(
+                        (e) => _MenuIcon(
+                          onTap: () => context.push(destination: const UniversityPage()),
+                          icon: Icon(
+                            getIconMenu(value: e),
+                            color: Colors.black,
+                            size: 31,
+                          ),
+                          title: getMenuTitle(value: e),
+                        ),
+                      )
+                      .toList(),
+                ),
+                const SizedBox(height: Dimen.largeSpace),
+                // * Title
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Popular Events',
-                      style: CustomTextStyle.titleTextStyle(),
+                      style: CustomTextStyle.largeTitleTextStyle(bold: true),
                     ),
                     TextButton(
                       onPressed: () {},
@@ -54,64 +87,107 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                   ],
                 ),
-              ),
-              const SizedBox(height: Dimen.mediumSpace),
-              // * Long Slides
-              CarouselSlider(
-                items: images.map((e) => ItemSlideShow(imageUrl: e)).toList(),
-                options: CarouselOptions(
-                  padEnds: false,
-                  height: 180,
-                  aspectRatio: 16 / 9,
-                  enlargeCenterPage: false,
-                  viewportFraction: 0.9,
-                  initialPage: 0,
-                  enableInfiniteScroll: false,
-                  reverse: false,
-                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  scrollDirection: Axis.horizontal,
-                  onPageChanged: (index, reason) => setState(() => _currentIndex = index),
+                const SizedBox(height: Dimen.mediumSpace),
+                // * Long Slides
+                CarouselSlider(
+                  items: images.map((e) => ItemSlideShow(imageUrl: e)).toList(),
+                  options: CarouselOptions(
+                    padEnds: false,
+                    height: 180,
+                    aspectRatio: 16 / 9,
+                    enlargeCenterPage: false,
+                    viewportFraction: 0.95,
+                    initialPage: 0,
+                    enableInfiniteScroll: false,
+                    reverse: false,
+                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    scrollDirection: Axis.horizontal,
+                    onPageChanged: (index, reason) => setState(() => _currentIndex = index),
+                  ),
                 ),
-              ),
-              // * Title
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Dimen.mediumSpace),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      ' Events',
-                      style: CustomTextStyle.titleTextStyle(),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text('View All'),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: Dimen.mediumSpace),
-              // * Long Slides
-              CarouselSlider(
-                items: smallImages.map((e) => ItemSlideShow(imageUrl: e)).toList(),
-                options: CarouselOptions(
-                  height: 220,
-                  padEnds: false,
-                  enlargeCenterPage: false,
-                  aspectRatio: 16 / 9,
-                  viewportFraction: 0.43,
-                  initialPage: 0,
-                  enableInfiniteScroll: false,
-                  reverse: false,
-                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  scrollDirection: Axis.horizontal,
-                  onPageChanged: (index, reason) => setState(() => _currentIndex = index),
-                ),
-              )
-            ],
+                // // * Title
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: Dimen.mediumSpace),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Text(
+                //         ' Events',
+                //         style: CustomTextStyle.titleTextStyle(),
+                //       ),
+                //       TextButton(
+                //         onPressed: () {},
+                //         child: const Text('View All'),
+                //       )
+                //     ],
+                //   ),
+                // ),
+                // const SizedBox(height: Dimen.mediumSpace),
+                // // * Long Slides
+                // CarouselSlider(
+                //   items: smallImages.map((e) => ItemSlideShow(imageUrl: e)).toList(),
+                //   options: CarouselOptions(
+                //     height: 220,
+                //     padEnds: false,
+                //     enlargeCenterPage: false,
+                //     aspectRatio: 16 / 9,
+                //     viewportFraction: 0.43,
+                //     initialPage: 0,
+                //     enableInfiniteScroll: false,
+                //     reverse: false,
+                //     autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                //     autoPlayCurve: Curves.fastOutSlowIn,
+                //     scrollDirection: Axis.horizontal,
+                //     onPageChanged: (index, reason) => setState(() => _currentIndex = index),
+                //   ),
+                // )
+              ],
+            ),
           ),
         ));
+  }
+}
+
+class _MenuIcon extends StatelessWidget {
+  final void Function() onTap;
+  final dynamic icon;
+  final String title;
+
+  const _MenuIcon({
+    required this.onTap,
+    required this.icon,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(Dimen.mediumSpace),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+          color: secondaryColor,
+        ),
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // * Icon
+            icon,
+            // * Title
+            Container(
+              margin: const EdgeInsets.only(top: Dimen.mediumSpace),
+              child: Text(
+                title,
+                style: CustomTextStyle.titleTextStyle(bold: true),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

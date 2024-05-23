@@ -4,6 +4,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 
@@ -59,26 +60,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Capstone II',
-      navigatorKey: navigatorKey,
-      scaffoldMessengerKey: scaffoldMessengerKey,
-      localizationsDelegates: context.localizationDelegates,
-      locale: context.locale,
-      supportedLocales: context.supportedLocales,
-      builder: DevicePreview.appBuilder,
-      theme: ThemeData(
-        useMaterial3: false,
-        primaryColor: primaryColor,
-        primarySwatch: getPrimaryMaterialColor(primaryColor),
-        scaffoldBackgroundColor: Colors.white,
-        appBarTheme: appBarTheme,
-        snackBarTheme: snackBarTheme,
-        inputDecorationTheme: textFormFieldTheme,
-        fontFamily: 'KantumruyPro',
+    return ScreenUtilInit(
+      designSize: const Size(360, 800),
+      builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Capstone II',
+        navigatorKey: navigatorKey,
+        scaffoldMessengerKey: scaffoldMessengerKey,
+        localizationsDelegates: context.localizationDelegates,
+        locale: context.locale,
+        supportedLocales: context.supportedLocales,
+        builder: DevicePreview.appBuilder,
+        theme: ThemeData(
+          useMaterial3: false,
+          primaryColor: primaryColor,
+          primarySwatch: getPrimaryMaterialColor(primaryColor),
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: appBarTheme,
+          snackBarTheme: snackBarTheme,
+          inputDecorationTheme: textFormFieldTheme,
+          elevatedButtonTheme: elevatedButtonTheme,
+          fontFamily: 'KantumruyPro',
+        ),
+        home: const DashboardPage(),
       ),
-      home: const SignInPage(),
     );
   }
 }

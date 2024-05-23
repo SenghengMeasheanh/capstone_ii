@@ -66,6 +66,8 @@ dependencies:
   flutter_html: ^3.0.0-beta.2
   # Flutter In App Web View
   flutter_inappwebview: ^6.0.0
+  # Flutter Screen Util
+  flutter_screenutil: ^5.9.1
   # Flutter SVG
   flutter_svg: ^2.0.10+1
   #Fluentui System Icon
@@ -103,8 +105,6 @@ dependencies:
   qr_flutter: ^4.1.0
   # Retrofit
   retrofit: ^4.1.0
-  # Screenshot 
-  screenshot: ^2.3.0
   # Share Plus
   share_plus: ^7.2.2
   # Shared Preferences

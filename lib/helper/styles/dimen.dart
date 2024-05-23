@@ -2,21 +2,28 @@ class Dimen {
   // * White Space
 
   /// Small Space 8.0
-  static const smallSpace = 8.0;
+  static const smallSpace = 5.0;
 
   /// Medium Space 11.0
-  static const mediumSpace = 11.0;
+  static const mediumSpace = 10.0;
 
   /// Default Space 18.0
-  static const defaultSpace = 18.0;
+  static const defaultSpace = 15.0;
 
   /// Large Space 22.0
-  static const largeSpace = 22.0;
+  static const largeSpace = 20.0;
+
+  /// Extra Large Space 25.0
+  static const extraLargeSpace = 25.0;
 
   // * Text Size
 
   /// Title Text Size 22.0
-  static const largeTitleTextSize = 22.0;
+  static const largeTitleTextSize = 30.0;
+
+  /// Text Size 20.0
+  
+  static const midTitleTextSize = 20.0;
 
   /// Subtitle Text Size 18.0
   static const titleTextSize = 18.0;
@@ -25,7 +32,7 @@ class Dimen {
   static const bodyTextSize = 16.0;
 
   /// Caption Text Size 14.0
-  static const captionTextSize = 14.0;
+  static const captionTextSize = 12.0;
 
   /// Button Text Size 18.0
   static const buttonTextSize = 18.0;

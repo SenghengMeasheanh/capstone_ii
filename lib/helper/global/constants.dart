@@ -25,5 +25,14 @@ enum CustomerServiceType { none, text, telephone, email, website }
 // * Payment Method
 enum PaymentMethod { none, aba, card }
 
+// * Gender
+enum Gender {male, female}
+
+// * Menu 
+enum Menu {university, career, forum, events, guides, collegeQuiz, scholarships, financialAid, compareColleges} 
+
+// * University Filter Menu
+enum UniversityFilterMenu {major, type, location, degree}
+
 // * Others
 const pageSize = 10;

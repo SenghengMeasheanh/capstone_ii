@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:android_id/android_id.dart';
+import 'package:capstone_ii/helper/global/constants.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,7 +12,6 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
-import 'package:screenshot/screenshot.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 // * Clear And Restart
@@ -256,6 +256,61 @@ String formatDuration(String? durationString) {
     return '${duration.inSeconds} ${duration.inSeconds == 1 ? 'second' : 'seconds'}';
   }
 }
+
+String getGender({required Gender value}) {
+  final map = {Gender.male: 'male', Gender.female: 'female'};
+  return map[value] ?? '';
+}
+
+IconData getIcon({required Gender value}) {
+  final map = {
+    Gender.male: Icons.male,
+    Gender.female: Icons.female,
+  };
+  return map[value]!;
+}
+
+IconData getIconMenu({required Menu value}) {
+  final map = {
+    Menu.university: Icons.school,
+    Menu.career: Icons.work,
+    Menu.forum: Icons.forum,
+    Menu.events: Icons.event,
+    Menu.guides: Icons.book,
+    Menu.collegeQuiz: Icons.quiz,
+    Menu.scholarships: Icons.money,
+    Menu.financialAid: Icons.attach_money,
+    Menu.compareColleges: Icons.compare,
+  };
+  return map[value]!;
+}
+
+String getMenuTitle({required Menu value}) {
+  final map = {
+    Menu.university: 'University',
+    Menu.career: 'Career',
+    Menu.forum: 'Forum',
+    Menu.events: 'Events',
+    Menu.guides: 'Guides',
+    Menu.collegeQuiz: 'College Quiz',
+    Menu.scholarships: 'Scholarship',
+    Menu.financialAid: 'Financial Aid',
+    Menu.compareColleges: 'Compare Colleges',
+  };
+  return map[value]!;
+}
+
+String getUniversityFilterMenuTitle({required UniversityFilterMenu value}) {
+  final map = {
+    UniversityFilterMenu.major: 'Major',
+    UniversityFilterMenu.type: 'Type',
+    UniversityFilterMenu.location: 'Location',
+    UniversityFilterMenu.degree: 'Degree',
+  };
+  return map[value]!;
+}
+
+
 
 // Future<void> screenshotTransaction({
 //   required Widget longWidget,

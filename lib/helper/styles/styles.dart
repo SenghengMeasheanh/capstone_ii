@@ -31,6 +31,7 @@ MaterialColor getPrimaryMaterialColor(Color color) {
 
 final appBarTheme = AppBarTheme(
   toolbarTextStyle: CustomTextStyle.largeTitleTextStyle(bold: true, color: Colors.white),
+  elevation: 0,
 );
 
 final snackBarTheme = SnackBarThemeData(
@@ -39,6 +40,14 @@ final snackBarTheme = SnackBarThemeData(
 
 const modalBottomSheetShape = RoundedRectangleBorder(
   borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+);
+
+final elevatedButtonTheme = ElevatedButtonThemeData(
+  style: ElevatedButton.styleFrom(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+    ),
+  ),
 );
 
 final textFormFieldTheme = InputDecorationTheme(
