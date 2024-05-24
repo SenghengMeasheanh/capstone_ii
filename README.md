@@ -57,10 +57,39 @@ run this command after clone the project
 + Presentation Folder
 ```
 - global(optional): Contain all reusable Page or UX/UI
-- item: Contain all Widgets belong to ListView, GridView. Note: Please use this item in list type data only.
+- item: Contain all Widgets belong to ListView, GridView. Note: Please use this item with list type data only.
 - modal: Contain all Modal like Dialog, Bottom Sheet, etc...
 - page: Contain all Pages or UX/UI.
 - widget: Contain all reusable Widget Component
+```
+
+ ### How to use Navigating Function 
+
+ ```dart
+    // * For pushing route to another page 
+    context.push(destionation: anypage);
+
+    // * For pushing replace 
+    context.pushReplaceTo(destination: anypage);
+
+    // * For pushing removeUtil
+    context.go(destination: anypage);
+
+    // * For popping screen 
+    context.pop(); // * There is a parameter we can pass data to when popping the page 
+
+    // * For dismiss or pop dialog
+    dismiss();
+ ```
+
+### Command Generating API Function
+```
+  dart run build_runner build --delete-conflicting-outputs
+```
+
+### Command For Generating Translation Locale Keys
+```
+  dart run easy_localization:generate -S "assets/translations" -O "lib/helper/manager/language/translations" -o "locale_keys.g.dart" -f keys
 ```
 
 A few resources to get you started if this is your first Flutter project:
