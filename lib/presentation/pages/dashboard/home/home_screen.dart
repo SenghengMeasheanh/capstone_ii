@@ -2,6 +2,7 @@ import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -65,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           icon: Icon(
                             getIconMenu(value: e),
                             color: Colors.black,
-                            size: 31,
+                            size: 31.sp,
                           ),
                           title: getMenuTitle(value: e),
                         ),
@@ -78,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Popular Events',
+                      'Popular University',
                       style: CustomTextStyle.largeTitleTextStyle(bold: true),
                     ),
                     TextButton(
@@ -181,10 +182,11 @@ class _MenuIcon extends StatelessWidget {
               margin: const EdgeInsets.only(top: Dimen.mediumSpace),
               child: Text(
                 title,
-                style: CustomTextStyle.titleTextStyle(bold: true),
+                style: CustomTextStyle.titleTextStyle(fontSize: Dimen.titleTextSize, bold: true),
                 textAlign: TextAlign.center,
               ),
             ),
+  
           ],
         ),
       ),

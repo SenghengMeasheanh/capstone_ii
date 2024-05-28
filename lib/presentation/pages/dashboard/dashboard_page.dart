@@ -47,9 +47,7 @@ class _DashboardPageState extends State<DashboardPage> {
         activeColorPrimary: primaryColor,
         inactiveColorPrimary: Colors.black,
         icon: Icon(
-          _persisTabController.index == 1
-              ? Icons.event
-              : Icons.event_outlined,
+          _persisTabController.index == 1 ? Icons.event : Icons.event_outlined,
         ),
       ),
       PersistentBottomNavBarItem(
@@ -75,7 +73,7 @@ class _DashboardPageState extends State<DashboardPage> {
     return [
       const HomeScreen(),
       const EventsScreen(),
-      const PassesScreen(),
+      const CalenderScreen(),
       const AccountScreen(),
     ];
   }

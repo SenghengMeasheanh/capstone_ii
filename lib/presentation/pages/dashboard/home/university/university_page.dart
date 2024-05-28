@@ -74,7 +74,8 @@ class _UniversityPageState extends State<UniversityPage> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 2,
                 separatorBuilder: (context, index) => const SizedBox(height: Dimen.defaultSpace),
-                itemBuilder: (context, index) => const ItemUniversity(
+                itemBuilder: (context, index) => ItemUniversity(
+                  onTap: () => context.push(destination: const UniversityDetailPage()),
                   imageUrl: 'https://cambodiainvestmentreview.com/wp-content/uploads/2022/03/CADT-0-scaled.jpg',
                 ),
               ),

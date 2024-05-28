@@ -27,8 +27,9 @@ run this command after clone the project
 
 + **Rule 4**: In the export files, please arrange the exported path in alphabetical order. this also apply when declaring variable.
 
++ **Rule 5**: For file naming convienence, please naming follow how I  naming other file
 
-+ **Rule 5**: Follow the folder structure. :smile:
++ **Rule 6**: Follow the folder structure. :smile:
 
 ### Project Folder Structure
 

@@ -12,13 +12,15 @@ export 'pages/authentication/sign_up_page.dart';
 export 'pages/authentication/verification_page.dart';
 // ? Pages (Dashboard)
 export 'pages/dashboard/dashboard_page.dart';
-export 'pages/dashboard/events/events_screen.dart';
+export 'pages/dashboard/profile/profile_screen.dart';
 export 'pages/dashboard/home/home_screen.dart';
 export 'pages/dashboard/home/university/university_page.dart';
-export 'pages/dashboard/passes/passes_screen.dart';
+export 'pages/dashboard/home/university/university_detail/universesity_detail_page.dart';
+export 'pages/dashboard/calender/calender_screen.dart';
 export 'pages/dashboard/settings/account_screen.dart';
 // * Widgets
 export 'widgets/action_menu_widget.dart';
+export 'widgets/custom_button_with_icon.dart';
 export 'widgets/custom_cached_network_image_widget.dart';
 export 'widgets/empty_items_widget.dart';
 export 'widgets/progress_bar_widget.dart';
