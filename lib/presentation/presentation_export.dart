@@ -10,14 +10,50 @@ export 'pages/authentication/new_password_page.dart';
 export 'pages/authentication/sign_in_page.dart';
 export 'pages/authentication/sign_up_page.dart';
 export 'pages/authentication/verification_page.dart';
+
 // ? Pages (Dashboard)
 export 'pages/dashboard/dashboard_page.dart';
+
+// ? Pages (Dashboard/Profile)
 export 'pages/dashboard/profile/profile_screen.dart';
+
+// ? Pages (Dashboard/Home)
 export 'pages/dashboard/home/home_screen.dart';
+
+// ? Pages (Dashboard/Home/Career)
+export 'pages/dashboard/home/career/career_page.dart';
+
+// ? Pages (Dashboard/Home/College Quiz)
+export 'pages/dashboard/home/college_quiz/college_quiz.dart';
+
+// ? Pages (Dashboard/Home/Compare College)
+export 'pages/dashboard/home/compare_college/compare_college.dart';
+
+// ? Pages (Dashboard/Home/Events)
+export 'pages/dashboard/home/events/events_page.dart';
+
+// ? Pages (Dashboard/Home/Financial Aid)
+export 'pages/dashboard/home/financial_aid/financial_aid_page.dart';
+
+// ? Pages (Dashboard/Home/Forum)
+export 'pages/dashboard/home/forum/forum_page.dart';
+
+// ? Pages (Dashboard/Home/Guides)
+export 'pages/dashboard/home/guides/guides_page.dart';
+
+// ? Pages (Dashboard/Home/Scholarship)
+export 'pages/dashboard/home/scholarships/scholarships_page.dart';
+
+// ? Pages (Dashboard/Home/University)
 export 'pages/dashboard/home/university/university_page.dart';
 export 'pages/dashboard/home/university/university_detail/universesity_detail_page.dart';
+
+// ? Pages (Dashboard/Calender)
 export 'pages/dashboard/calender/calender_screen.dart';
+
+// ? Pages (Dashboard/Settings)
 export 'pages/dashboard/settings/account_screen.dart';
+
 // * Widgets
 export 'widgets/action_menu_widget.dart';
 export 'widgets/custom_button_with_icon.dart';

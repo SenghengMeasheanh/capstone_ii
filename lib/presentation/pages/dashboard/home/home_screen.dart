@@ -62,7 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: Menu.values
                       .map(
                         (e) => _MenuIcon(
-                          onTap: () => context.push(destination: const UniversityPage()),
+                          onTap: () => context.push(
+                            destination: getMenuRoute(value: e),
+                          ),
                           icon: Icon(
                             getIconMenu(value: e),
                             color: Colors.black,
@@ -186,7 +188,6 @@ class _MenuIcon extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-  
           ],
         ),
       ),

@@ -6,7 +6,7 @@ class SearchBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 35,
       width: double.infinity,
       child: TextFormField(

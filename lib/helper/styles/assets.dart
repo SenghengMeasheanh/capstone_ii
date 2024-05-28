@@ -9,7 +9,7 @@ class Assets {
 
   // * Icons
   static const String iconAcceptance = '$_iconPath/ic_acceptance.svg';
-  static const String iconBookmark  = '$_iconPath/ic_bookmark.svg';
+  static const String iconBookmark = '$_iconPath/ic_bookmark.svg';
   static const String iconBuilding = '$_iconPath/ic_building.svg';
   static const String iconCareer = '$_iconPath/ic_career.svg';
   static const String iconCompareCollege = '$_iconPath/ic_compare_college.svg';

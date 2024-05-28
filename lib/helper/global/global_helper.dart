@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:android_id/android_id.dart';
 import 'package:capstone_ii/helper/global/constants.dart';
+import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -262,6 +263,21 @@ String getGender({required Gender value}) {
   return map[value] ?? '';
 }
 
+Widget getMenuRoute({required  Menu value}) {
+  final map = {
+    Menu.university: const UniversityPage(),
+    Menu.career: const CareerPage(),
+    Menu.forum: const ForumPage(),
+    Menu.events: const EventsPage(),
+    Menu.guides: const GuidesPage(),
+    Menu.collegeQuiz: const CollegeQuizPage(),
+    Menu.scholarships: const ScholarshipsPage(),
+    Menu.financialAid: const FinancialAidPage(),
+    Menu.compareColleges: const CompareCollegePage(),
+  };
+  return map[value]!;
+}
+
 IconData getIcon({required Gender value}) {
   final map = {
     Gender.male: Icons.male,
@@ -309,8 +325,6 @@ String getUniversityFilterMenuTitle({required UniversityFilterMenu value}) {
   };
   return map[value]!;
 }
-
-
 
 // Future<void> screenshotTransaction({
 //   required Widget longWidget,

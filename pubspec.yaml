@@ -36,6 +36,13 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
 
+# Git packages
+  # Persistent Bottom Nav Bar
+  persistent_bottom_nav_bar:
+    git:
+      url: https://github.com/HamzaSamirAmmar/PersistentBottomNavBar.git 
+
+# => Pub.Dev Packages
 # Android ID
   android_id: ^0.3.6
   # Badges
@@ -45,11 +52,11 @@ dependencies:
   # Carousel Slider
   carousel_slider: ^4.2.1
   # Connectivity Plus
-  connectivity_plus: ^5.0.2
+  connectivity_plus: ^6.0.3
   # Device Info Plus
-  device_info_plus: ^9.1.2
+  device_info_plus: ^10.1.0
   # Device Preview
-  device_preview: ^1.1.0
+  device_preview: ^1.2.0
   # Dio
   dio: ^5.4.1
   # Drop Down TextField
@@ -92,13 +99,13 @@ dependencies:
   # One Signal
   onesignal_flutter: ^5.1.0
   # Package Info Plus
-  package_info_plus: ^5.0.1
+  package_info_plus: ^8.0.0
   # Path Provider
   path_provider: ^2.1.2
-  # Persistant Bottom Nav Bar
-  persistent_bottom_nav_bar: ^5.0.2
+  # # Persistant Bottom Nav Bar
+  # persistent_bottom_nav_bar: ^5.0.2
   # Photo View
-  photo_view: ^0.14.0
+  photo_view: ^0.15.0
   # Pin Code Field
   pin_code_fields: ^8.0.1
   # QR_Flutter
@@ -106,7 +113,7 @@ dependencies:
   # Retrofit
   retrofit: ^4.1.0
   # Share Plus
-  share_plus: ^7.2.2
+  share_plus: ^9.0.0
   # Shared Preferences
   shared_preferences: ^2.2.2
   # Smooth Page Indicator
@@ -140,7 +147,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.1
+  flutter_lints: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
