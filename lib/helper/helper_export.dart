@@ -1,4 +1,5 @@
 // * Flavor
+export 'flavor/flavor_helper.dart';
 // * Global
 export 'global/constants.dart';
 export 'global/global_helper.dart';

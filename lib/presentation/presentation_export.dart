@@ -4,6 +4,10 @@ export 'items/item_slide_show.dart';
 export 'items/item_university_filter.dart';
 export 'items/item_university.dart';
 // * Modals
+// ? Modals (Bottom Sheets)
+
+// ? Modals (Dialogs)
+export 'modals/dialogs/no_internet_dialog.dart';
 // * Pages
 // ? Pages (Authentication)
 export 'pages/authentication/forgot_password_page.dart';
