@@ -10,6 +10,15 @@ class UniversityPage extends StatefulWidget {
 }
 
 class _UniversityPageState extends State<UniversityPage> {
+  // * Controller
+  final _searchBarController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchBarController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +38,10 @@ class _UniversityPageState extends State<UniversityPage> {
               Text('University', style: CustomTextStyle.largeTitleTextStyle(bold: true)),
               const SizedBox(height: Dimen.mediumSpace),
               // * Search Bar
-              const SearchBarWidget(),
+              SearchBarWidget(
+                controller: _searchBarController,
+                onChange: (value) => {},
+              ),
               const SizedBox(height: Dimen.extraLargeSpace),
               // * Filter Menu
               GridView.count(
