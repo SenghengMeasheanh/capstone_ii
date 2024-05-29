@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
+import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 
 Future<void> main() async {
@@ -19,7 +21,7 @@ Future<void> main() async {
   // initOneSignalPlatformState();
 
   // * Initialize Flavor
-  // Flavor.instance.init(flavor: QAFlavor());
+  Flavor.instance.init(flavor: QAFlavor());
 
   // * Ensure App Preference Initialized
   await AppPreference.ensureInitialized();
@@ -49,14 +51,25 @@ Future<void> main() async {
       child: DevicePreview(
         // enabled: await getDeviceName() == debugDeviceName,
         enabled: true,
-        builder: (_) => const MyApp(),
+        builder: (_) => MultiBlocProvider(
+          providers: [BlocProvider(create: (_) => InternetCubit())],
+          child: const MyApp(),
+        ),
       ),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+   // * Modals
+  final _noInternetDialog = NoInternetDialog();
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +95,24 @@ class MyApp extends StatelessWidget {
           elevatedButtonTheme: elevatedButtonTheme,
           fontFamily: 'KantumruyPro',
         ),
-        home: const DashboardPage(),
+        home: BlocListener<InternetCubit, InternetState>(
+          listener: (context, state) {// * Internet Connect
+          if (state is InternetConnected) {
+            // * Dismiss No Internet Dialog
+            if (_noInternetDialog.isShowing) _noInternetDialog.dismiss();
+            // * Return
+            return;
+          }
+          // * Internet Disconnect
+          if (state is InternetDisconnect) {
+            // * Show No Internet Dialog
+            if (!_noInternetDialog.isShowing) _noInternetDialog.show();
+            // * Return
+            return;
+          }
+          },
+          child: const DashboardPage(),
+        ),
       ),
     );
   }
