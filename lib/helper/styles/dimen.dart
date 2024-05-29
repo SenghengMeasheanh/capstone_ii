@@ -1,16 +1,16 @@
 class Dimen {
   // * White Space
 
-  /// Small Space 8.0
+  /// Small Space 5.0
   static const smallSpace = 5.0;
 
-  /// Medium Space 11.0
+  /// Medium Space 10.0
   static const mediumSpace = 10.0;
 
-  /// Default Space 18.0
+  /// Default Space 15.0
   static const defaultSpace = 15.0;
 
-  /// Large Space 22.0
+  /// Large Space 20.0
   static const largeSpace = 20.0;
 
   /// Extra Large Space 25.0

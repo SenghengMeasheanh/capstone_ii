@@ -12,6 +12,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // * Controller
+  final _searchBarController = TextEditingController();
+
+  // * Dummy Data
   List<String> images = [
     'https://images.daznservices.com/di/library/DAZN_News/93/c7/devin-haney-vs-ryan-garcia-promo-art_8q1j8kix4h2f1jsggsqpu0u71.jpg?t=-988126179',
     'https://images.squarespace-cdn.com/content/v1/622100331a5f6258ce172735/c418da0d-1277-404c-8c91-1b14d078dac0/532452769368407943.jpeg',
@@ -28,6 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   var _currentIndex = 0;
+
+  @override
+  void dispose() {
+    _searchBarController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +60,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 // * Search Bar
-                const SearchBarWidget(),
+                SearchBarWidget(
+                  controller: _searchBarController,
+                  onChange: (value) => {},
+                ),
                 const SizedBox(height: Dimen.mediumSpace),
                 // * Menu
                 GridView.count(
@@ -184,7 +197,7 @@ class _MenuIcon extends StatelessWidget {
               margin: const EdgeInsets.only(top: Dimen.mediumSpace),
               child: Text(
                 title,
-                style: CustomTextStyle.titleTextStyle(fontSize: Dimen.titleTextSize, bold: true),
+                style: CustomTextStyle.captionTextStyle(bold: true),
                 textAlign: TextAlign.center,
               ),
             ),

@@ -2,7 +2,9 @@ import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:flutter/material.dart';
 
 class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({super.key});
+  final TextEditingController controller;
+  final Function(String value) onChange;
+  const SearchBarWidget({super.key, required this.controller, required this.onChange});
 
   @override
   Widget build(BuildContext context) {
@@ -10,8 +12,7 @@ class SearchBarWidget extends StatelessWidget {
       height: 35,
       width: double.infinity,
       child: TextFormField(
-        readOnly: true,
-        onTap: () => {},
+        onChanged: onChange,
         decoration: InputDecoration(
           isDense: true,
           hintText: 'Search',
