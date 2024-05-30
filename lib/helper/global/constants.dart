@@ -34,5 +34,13 @@ enum Menu {university, career, forum, events, guides, collegeQuiz, scholarships,
 // * University Filter Menu
 enum UniversityFilterMenu {major, type, location, degree}
 
+// * Event Filter Menu
+enum EventFilterMenu {
+  upcoming,
+  past,
+  favorite,
+  // Add more filters as needed
+}
+
 // * Others
 const pageSize = 10;
