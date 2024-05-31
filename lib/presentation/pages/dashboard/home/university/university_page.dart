@@ -154,6 +154,7 @@ class _UniversityPageState extends State<UniversityPage> {
                   const SizedBox(height: Dimen.extraLargeSpace),
                   // * University List
                   PagedListView<int, UniversityModels>.separated(
+                    itemExtent: 5,
                     shrinkWrap: true,
                     primary: false,
                     pagingController: _pagingController,
