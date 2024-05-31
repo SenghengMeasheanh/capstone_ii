@@ -84,6 +84,8 @@ dependencies:
   flutter_svg: ^2.0.10+1
   #Fluentui System Icon
   fluentui_system_icons: ^1.1.229
+  #Fuzzy
+  fuzzy: ^0.5.1
   #Gal
   gal: ^2.3.0
   # Google Maps

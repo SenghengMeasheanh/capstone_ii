@@ -31,5 +31,12 @@ abstract class ApiService {
     return _ApiService(dio, baseUrl: baseUrl ?? Flavor.instance.apiURL);
   }
 
+  // * Unversity Endpoint
+  @GET('/universities')
+  Future<ListBodyResponse<UniversityModels>> getUniversityList({
+    @Query('search') String? search,
+    @Query('page') int? page,
+    @Query('limit') int? limit,
+});
 
 }

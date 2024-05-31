@@ -1,31 +1,39 @@
+import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 
 class ItemUniversity extends StatelessWidget {
-  final String imageUrl;
+  final UniversityModels models;
   final Function() onTap;
-  const ItemUniversity({super.key, required this.imageUrl, required this.onTap});
+  const ItemUniversity({super.key, required this.models, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Card(
+        clipBehavior: Clip.antiAlias,
         child: Stack(
           children: [
             SizedBox(
-              height: 232,
-              child: CustomCachedNetworkImage(
-                imageUrl: imageUrl,
-                config: CustomCachedNetworkImageConfig(
-                  width: double.infinity,
-                  height: 100,
-                  boxFit: BoxFit.cover,
-                  borderRadius: BorderRadius.circular(Dimen.defaultRadius),
-                ),
-              ),
-            ),
+                height: 232,
+                child: models.image != null
+                    ? CustomCachedNetworkImage(
+                        imageUrl: models.image!,
+                        config: CustomCachedNetworkImageConfig(
+                          width: double.infinity,
+                          height: 100,
+                          boxFit: BoxFit.cover,
+                          borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+                        ),
+                      )
+                    : Image.asset(
+                        Assets.imageNoImage,
+                        width: double.infinity,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      )),
             Positioned(
               top: 20,
               right: 20,
@@ -37,16 +45,22 @@ class ItemUniversity extends StatelessWidget {
                   ),
                   border: Border.all(color: Colors.black),
                 ),
-                child: CustomCachedNetworkImage(
-                  imageUrl:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeWHerau4p1KatwBXrCHlRSVCID1NZWxb_Q_ABKPZNWg&s',
-                  config: CustomCachedNetworkImageConfig(
-                    width: 60,
-                    height: 60,
-                    boxFit: BoxFit.cover,
-                    borderRadius: BorderRadius.circular(Dimen.defaultRadius),
-                  ),
-                ),
+                child: models.logoImage != null
+                    ? CustomCachedNetworkImage(
+                        imageUrl: models.logoImage!,
+                        config: CustomCachedNetworkImageConfig(
+                          width: 60,
+                          height: 60,
+                          boxFit: BoxFit.cover,
+                          borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+                        ),
+                      )
+                    : Image.asset(
+                        Assets.imageNoImage,
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
             Positioned(
@@ -67,30 +81,30 @@ class ItemUniversity extends StatelessWidget {
                     // * University Name and Favorite Icon
                     ListTile(
                       title: Text(
-                        'CADT - Cambodia Academy of Digital Technology ',
+                        models.name,
                         style: CustomTextStyle.titleTextStyle(bold: true),
                       ),
                       trailing: const Icon(Icons.favorite_border),
                     ),
                     // * University Briefs
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: Dimen.defaultSpace),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: Dimen.defaultSpace),
                       child: Column(
                         children: [
                           // * University Year of Study and Type
                           ItemUniversityBrief(
-                            icon: Icon(Icons.school),
-                            value: '4 years Private',
+                            icon: const Icon(Icons.school),
+                            value: '${models.averageStudyYear} years ${models.type}',
                           ),
                           // * University Fees
                           ItemUniversityBrief(
-                            icon: Icon(Icons.attach_money),
-                            value: '\$2K Average Per Year After Aid',
+                            icon: const Icon(Icons.attach_money),
+                            value: '\$${models.averageTuition} Average Per Year After Aid',
                           ),
                           // * University Graduation Rate
                           ItemUniversityBrief(
-                            icon: Icon(Icons.school_outlined),
-                            value: 'Graduation Rate 90%',
+                            icon: const Icon(Icons.school_outlined),
+                            value: 'Graduation Rate ${models.graduationRate}%',
                           ),
                         ],
                       ),

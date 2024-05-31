@@ -2,6 +2,7 @@
 export 'flavor/flavor_helper.dart';
 // * Global
 export 'global/constants.dart';
+export 'global/debouncer.dart';
 export 'global/global_helper.dart';
 export 'global/pagination_helper.dart';
 export 'global/validator_helper.dart';

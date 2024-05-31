@@ -2,7 +2,11 @@
 export 'api/api_service.dart';
 export 'api/secure/api_service_secure.dart';
 // * Models
+export 'models/university/university_models.dart';
+// * Repositories
+export 'repositories/university_repo.dart';
 // * Request
+export 'request/pagination/pagination_request.dart';
 // * Response
 export 'response/global/global_response.dart';
 export 'response/list_body_response/list_body_response.dart';
