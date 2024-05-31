@@ -27,12 +27,27 @@ class ListBody<T> {
   @JsonKey(name: 'list')
   final List<T> data;
 
+  @JsonKey(name: 'paginate')
+  final Paginate paginate;
+
   ListBody(
-    this.data,
+    this.data, this.paginate,
   );
 
   factory ListBody.fromJson(Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
       _$ListBodyFromJson(json, fromJsonT);
 
   Map<String, dynamic> toJson(Object? Function(T value) toJsonT) => _$ListBodyToJson(this, toJsonT);
+}
+
+@JsonSerializable(genericArgumentFactories: true)
+class Paginate{
+   @JsonKey(name: 'total')
+   final int total;
+
+  Paginate({required this.total});
+
+  factory Paginate.fromJson(Map<String, dynamic> json) => _$PaginateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PaginateToJson(this);
 }

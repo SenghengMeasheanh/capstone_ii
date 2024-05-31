@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:capstone_ii/logic/bloc/university/university_bloc.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,7 +53,10 @@ Future<void> main() async {
         // enabled: await getDeviceName() == debugDeviceName,
         enabled: true,
         builder: (_) => MultiBlocProvider(
-          providers: [BlocProvider(create: (_) => InternetCubit())],
+          providers: [
+            BlocProvider(create: (_) => InternetCubit()),
+            BlocProvider(create: (_) => UniversityBloc()),
+          ],
           child: const MyApp(),
         ),
       ),
@@ -68,7 +72,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-   // * Modals
+  // * Modals
   final _noInternetDialog = NoInternetDialog();
 
   @override
@@ -96,20 +100,21 @@ class _MyAppState extends State<MyApp> {
           fontFamily: 'KantumruyPro',
         ),
         home: BlocListener<InternetCubit, InternetState>(
-          listener: (context, state) {// * Internet Connect
-          if (state is InternetConnected) {
-            // * Dismiss No Internet Dialog
-            if (_noInternetDialog.isShowing) _noInternetDialog.dismiss();
-            // * Return
-            return;
-          }
-          // * Internet Disconnect
-          if (state is InternetDisconnect) {
-            // * Show No Internet Dialog
-            if (!_noInternetDialog.isShowing) _noInternetDialog.show();
-            // * Return
-            return;
-          }
+          listener: (context, state) {
+            // * Internet Connect
+            if (state is InternetConnected) {
+              // * Dismiss No Internet Dialog
+              if (_noInternetDialog.isShowing) _noInternetDialog.dismiss();
+              // * Return
+              return;
+            }
+            // * Internet Disconnect
+            if (state is InternetDisconnect) {
+              // * Show No Internet Dialog
+              if (!_noInternetDialog.isShowing) _noInternetDialog.show();
+              // * Return
+              return;
+            }
           },
           child: const DashboardPage(),
         ),

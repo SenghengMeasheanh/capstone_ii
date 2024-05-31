@@ -8,6 +8,7 @@ export 'items/item_university.dart';
 
 // ? Modals (Dialogs)
 export 'modals/dialogs/no_internet_dialog.dart';
+export 'modals/dialogs/progress_dialog.dart';
 // * Pages
 // ? Pages (Authentication)
 export 'pages/authentication/forgot_password_page.dart';

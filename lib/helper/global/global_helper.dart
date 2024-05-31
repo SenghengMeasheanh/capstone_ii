@@ -139,6 +139,18 @@ import 'package:url_launcher/url_launcher_string.dart';
 //   return map[getCurrentContext.locale] ?? '';
 // }
 
+// * Get Error Content
+String getErrorContent({
+  required dynamic exception,
+  required dynamic stackTrace,
+}) {
+  return '------------- Exception ---------------'
+          '\n\n$exception\n\n'
+          '------------- Stack Trace -------------'
+          '\n\n$stackTrace\n\n'
+      .trim();
+}
+
 // * Get Devices Info
 Future<String> getDeviceId() async {
   // * unique ID on Android
