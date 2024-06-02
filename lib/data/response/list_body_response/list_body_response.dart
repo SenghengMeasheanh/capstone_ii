@@ -24,11 +24,11 @@ class ListBodyResponse<T> {
 
 @JsonSerializable(genericArgumentFactories: true)
 class ListBody<T> {
-  @JsonKey(name: 'list')
+  @JsonKey(name: 'data')
   final List<T> data;
 
   @JsonKey(name: 'paginate')
-  final Paginate paginate;
+  final Paginate? paginate;
 
   ListBody(
     this.data, this.paginate,
@@ -40,7 +40,7 @@ class ListBody<T> {
   Map<String, dynamic> toJson(Object? Function(T value) toJsonT) => _$ListBodyToJson(this, toJsonT);
 }
 
-@JsonSerializable(genericArgumentFactories: true)
+@JsonSerializable()
 class Paginate{
    @JsonKey(name: 'total')
    final int total;

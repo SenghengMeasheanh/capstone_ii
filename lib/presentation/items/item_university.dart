@@ -35,9 +35,8 @@ class ItemUniversity extends StatelessWidget {
                         fit: BoxFit.cover,
                       )),
             Positioned(
-              top: 20,
               right: 20,
-              bottom: 160,
+              bottom: 150,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(
@@ -94,7 +93,7 @@ class ItemUniversity extends StatelessWidget {
                           // * University Year of Study and Type
                           ItemUniversityBrief(
                             icon: const Icon(Icons.school),
-                            value: '${models.averageStudyYear} years ${models.type}',
+                            value: '${models.averageStudyYear} years ${models.typeEn}',
                           ),
                           // * University Fees
                           ItemUniversityBrief(
