@@ -32,8 +32,10 @@ ListBody<T> _$ListBodyFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) =>
     ListBody<T>(
-      (json['list'] as List<dynamic>).map(fromJsonT).toList(),
-      Paginate.fromJson(json['paginate'] as Map<String, dynamic>),
+      (json['data'] as List<dynamic>).map(fromJsonT).toList(),
+      json['paginate'] == null
+          ? null
+          : Paginate.fromJson(json['paginate'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ListBodyToJson<T>(
@@ -41,7 +43,7 @@ Map<String, dynamic> _$ListBodyToJson<T>(
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
-      'list': instance.data.map(toJsonT).toList(),
+      'data': instance.data.map(toJsonT).toList(),
       'paginate': instance.paginate,
     };
 

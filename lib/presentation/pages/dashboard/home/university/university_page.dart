@@ -3,6 +3,7 @@ import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuzzy/fuzzy.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class _UniversityPageState extends State<UniversityPage> {
     _pagingController.addPageRequestListener((pageKey) {
       // * Init Pagination Request
       _paginationRequest.page = pageKey;
-      _paginationRequest.limit = 10;
+      _paginationRequest.limit = 11;
       // * Request University List
       context.read<UniversityBloc>().add(RequestUniversityListEvent(paginationRequest: _paginationRequest));
     });
@@ -62,8 +63,7 @@ class _UniversityPageState extends State<UniversityPage> {
           );
 
           // * Get Result Counter
-          _resultCounter = state.response.body.paginate.total;
-
+          _resultCounter = state.response.body.paginate!.total;
           // * Notify
           setState(() {});
 
@@ -120,13 +120,16 @@ class _UniversityPageState extends State<UniversityPage> {
                     physics: const NeverScrollableScrollPhysics(),
                     children: UniversityFilterMenu.values
                         .map(
-                          (e) => ItemUniversityFilter(title: getUniversityFilterMenuTitle(value: e)),
+                          (e) => ItemUniversityFilter(
+                            title: getUniversityFilterMenuTitle(value: e),
+                            onTap: () => UniversityFilterDialog().show(context: context, universityFilterMenu: e),
+                          ),
                         )
                         .toList(),
                   ),
                   // * Description Title
                   Container(
-                    margin: const EdgeInsets.only(top: Dimen.extraLargeSpace),
+                    margin: EdgeInsets.only(top: Dimen.extraLargeSpace.h),
                     child: Text(
                       'Find the right colleges for you',
                       style: CustomTextStyle.titleTextStyle(bold: true),
@@ -146,15 +149,14 @@ class _UniversityPageState extends State<UniversityPage> {
                       // * Result
                       Text('$_resultCounter Results', style: CustomTextStyle.titleTextStyle(bold: true)),
                       const Spacer(),
-                      // * Filter
-                      Text('Filter', style: CustomTextStyle.bodyTextStyle()),
+                      // * Sort by
+                      Text('Sort by', style: CustomTextStyle.bodyTextStyle()),
                       const Icon(Icons.arrow_drop_down),
                     ],
                   ),
                   const SizedBox(height: Dimen.extraLargeSpace),
                   // * University List
                   PagedListView<int, UniversityModels>.separated(
-                    itemExtent: 5,
                     shrinkWrap: true,
                     primary: false,
                     pagingController: _pagingController,
