@@ -18,6 +18,7 @@ class UniversityRepo {
       major: major,
       degree: degree,
       location: location,
+      type: type,
     );
   }
 

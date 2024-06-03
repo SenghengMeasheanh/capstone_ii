@@ -31,6 +31,10 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
       search: event.paginationRequest.search,
       limit: event.paginationRequest.limit,
       page: event.paginationRequest.page,
+      degree: event.paginationRequest.degree,
+      location: event.paginationRequest.location,
+      major: event.paginationRequest.major,
+      type: event.paginationRequest.type,
     );
     // * Check Result
     await result.then(

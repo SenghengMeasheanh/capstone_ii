@@ -28,6 +28,7 @@ class _UniversityPageState extends State<UniversityPage> {
 
   // * Variables
   var _resultCounter = 0;
+  UniversityFilterMenu? _selectedFilterMenu;
 
   @override
   void initState() {
@@ -111,18 +112,35 @@ class _UniversityPageState extends State<UniversityPage> {
                   ),
 
                   // * Filter Menu
-                  GridView.count(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: Dimen.mediumSpace,
-                    mainAxisSpacing: Dimen.mediumSpace,
-                    childAspectRatio: 2.5,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
+                  // GridView.count(
+                  //   crossAxisCount: 3,
+                  //   crossAxisSpacing: Dimen.mediumSpace,
+                  //   mainAxisSpacing: Dimen.mediumSpace,
+                  //   childAspectRatio: 2.5,
+                  //   shrinkWrap: true,
+                  //   physics: const NeverScrollableScrollPhysics(),
+                  //   children: UniversityFilterMenu.values
+                  //       .map(
+                  //         (e) => ItemUniversityFilter(
+                  //           onDeleteTap: () => {},
+                  //           isSelected: false,
+                  //           title: getUniversityFilterMenuTitle(value: e),
+                  //           onTap: () => _onSelectFilterMenuTap(e),
+                  //         ),
+                  //       )
+                  //       .toList(),
+                  // ),
+
+                  Wrap(
+                    runSpacing: Dimen.mediumSpace,
+                    spacing: Dimen.mediumSpace,
                     children: UniversityFilterMenu.values
                         .map(
                           (e) => ItemUniversityFilter(
+                            onDeleteTap: _onDeleteFilter,
+                            isSelected: _selectedFilterMenu == e,
                             title: getUniversityFilterMenuTitle(value: e),
-                            onTap: () => UniversityFilterDialog().show(context: context, universityFilterMenu: e),
+                            onTap: () => _onSelectFilterMenuTap(e),
                           ),
                         )
                         .toList(),
@@ -186,6 +204,61 @@ class _UniversityPageState extends State<UniversityPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _onSelectFilterMenuTap(UniversityFilterMenu universityFilterMenu) async {
+    // * Await Select Filter Menu
+    final result =
+        await UniversityFilterDialog().show(context: context, universityFilterMenu: universityFilterMenu);
+
+    // * Check Result
+    if (result != null) {
+      setState(() {
+        _selectedFilterMenu = universityFilterMenu;
+      });
+
+      if (result is DegreeModels) {
+        // * Init Degree
+        _paginationRequest.degree = result.id;
+
+        _pagingController.refresh();
+      } else if (result is LocationModels) {
+        // * Init Location
+        _paginationRequest.location = result.id;
+
+        _pagingController.refresh();
+      } else if (result is MajorModels) {
+        // * Init Major
+        _paginationRequest.major = result.id;
+
+        _pagingController.refresh();
+      } else if (result is TypeModels) {
+        // * Init Types
+        _paginationRequest.type = result.id;
+
+        _pagingController.refresh();
+      } else {
+        // * Init Filter
+        _paginationRequest.degree = null;
+        _paginationRequest.location = null;
+        _paginationRequest.major = null;
+        _paginationRequest.type = null;
+      }
+    }
+  }
+
+  void _onDeleteFilter() {
+    // * Init Filter
+    _paginationRequest.degree = null;
+    _paginationRequest.location = null;
+    _paginationRequest.major = null;
+    _paginationRequest.type = null;
+    // * Set Filter Select
+    setState(() {
+      _selectedFilterMenu = null;
+    });
+    // * Refresh
+    _pagingController.refresh();
   }
 
   void _onSearchUniversity(String value) {

@@ -26,13 +26,13 @@ enum CustomerServiceType { none, text, telephone, email, website }
 enum PaymentMethod { none, aba, card }
 
 // * Gender
-enum Gender {male, female}
+enum Gender { male, female }
 
-// * Menu 
-enum Menu {university, career, forum, events, guides, collegeQuiz, scholarships, financialAid, compareColleges} 
+// * Menu
+enum Menu { university, career, forum, events, guides, collegeQuiz, scholarships, financialAid, compareColleges }
 
 // * University Filter Menu
-enum UniversityFilterMenu {major, type, location, degree}
+enum UniversityFilterMenu { major, type, degree, location }
 
 // * Others
 const pageSize = 10;

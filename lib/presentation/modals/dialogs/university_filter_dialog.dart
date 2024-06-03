@@ -217,7 +217,7 @@ class _UniversityFilterDialogState extends State<_UniversityFilterDialog> with M
           itemBuilder: (context, models, index) {
             return ItemFilter(
               title: models.nameEn ?? '',
-              onTap: () => dismiss(context: context, result: models.id),
+              onTap: () => dismiss(context: context, result: models),
             );
           },
           newPageProgressIndicatorBuilder: (_) => const SizedBox.shrink(),

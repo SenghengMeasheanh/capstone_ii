@@ -13,6 +13,18 @@ class PaginationRequest {
   @JsonKey(name: 'search', includeIfNull: false)
   String? search;
 
+  @JsonKey(name: 'degree', includeIfNull: false)
+  int? degree;
+
+  @JsonKey(name: 'location', includeIfNull: false)
+  int? location;
+
+  @JsonKey(name: 'type', includeIfNull: false)
+  int? type;
+
+  @JsonKey(name: 'major', includeIfNull: false)
+  int? major;
+
 
   PaginationRequest();
 

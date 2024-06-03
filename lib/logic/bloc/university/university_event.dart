@@ -7,17 +7,8 @@ abstract class UniversityEvent {}
 
 class RequestUniversityListEvent extends UniversityEvent {
   final PaginationRequest paginationRequest;
-  final int? major;
-  final int? degree;
-  final int? location;
-  final int? type;
-
   RequestUniversityListEvent({
       required this.paginationRequest,
-      this.major,
-      this.degree,
-      this.location,
-      this.type,
   });
 }
 
