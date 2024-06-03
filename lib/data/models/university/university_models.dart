@@ -19,8 +19,13 @@ class UniversityModels {
   @JsonKey(name: 'average_study_year')
   final String averageStudyYear;
 
-  @JsonKey(name: 'type')
-  final String type;
+  @JsonKey(name: 'type_en')
+  final String? typeEn;
+
+
+  @JsonKey(name: 'type_kh')
+  final String? typeKh;
+
 
   @JsonKey(name: 'logo_image')
   final String? logoImage;
@@ -34,7 +39,8 @@ class UniversityModels {
     required this.graduationRate,
     required this.averageTuition,
     required this.averageStudyYear,
-    required this.type,
+    required this.typeEn,
+    required this.typeKh,
     this.logoImage,
     this.image,
   });

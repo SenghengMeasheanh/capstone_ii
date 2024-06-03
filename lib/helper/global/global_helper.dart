@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:android_id/android_id.dart';
+import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/global/constants.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -275,7 +276,7 @@ String getGender({required Gender value}) {
   return map[value] ?? '';
 }
 
-Widget getMenuRoute({required  Menu value}) {
+Widget getMenuRoute({required Menu value}) {
   final map = {
     Menu.university: const UniversityPage(),
     Menu.career: const CareerPage(),
@@ -298,17 +299,17 @@ IconData getIcon({required Gender value}) {
   return map[value]!;
 }
 
-IconData getIconMenu({required Menu value}) {
+String getIconMenu({required Menu value}) {
   final map = {
-    Menu.university: Icons.school,
-    Menu.career: Icons.work,
-    Menu.forum: Icons.forum,
-    Menu.events: Icons.event,
-    Menu.guides: Icons.book,
-    Menu.collegeQuiz: Icons.quiz,
-    Menu.scholarships: Icons.money,
-    Menu.financialAid: Icons.attach_money,
-    Menu.compareColleges: Icons.compare,
+    Menu.university: Assets.iconBuilding,
+    Menu.career: Assets.iconCareer,
+    Menu.forum: Assets.iconForum,
+    Menu.events: Assets.iconEvent,
+    Menu.guides: Assets.iconGuides,
+    Menu.collegeQuiz: Assets.iconQuiz,
+    Menu.scholarships: Assets.iconScholarship,
+    Menu.financialAid: Assets.iconMoney,
+    Menu.compareColleges: Assets.iconCompareCollege,
   };
   return map[value]!;
 }

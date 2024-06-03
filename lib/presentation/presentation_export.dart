@@ -1,5 +1,6 @@
 // * Items
 export 'items/item_career.dart';
+export 'items/item_filter.dart';
 export 'items/item_slide_show.dart';
 export 'items/item_university_filter.dart';
 export 'items/item_university.dart';
@@ -9,6 +10,8 @@ export 'items/item_university.dart';
 // ? Modals (Dialogs)
 export 'modals/dialogs/no_internet_dialog.dart';
 export 'modals/dialogs/progress_dialog.dart';
+export 'modals/dialogs/university_filter_dialog.dart';
+
 // * Pages
 // ? Pages (Authentication)
 export 'pages/authentication/forgot_password_page.dart';
@@ -52,7 +55,7 @@ export 'pages/dashboard/home/scholarships/scholarships_page.dart';
 
 // ? Pages (Dashboard/Home/University)
 export 'pages/dashboard/home/university/university_page.dart';
-export 'pages/dashboard/home/university/university_detail/universesity_detail_page.dart';
+export 'pages/dashboard/home/university/university_detail/university_detail_page.dart';
 
 // ? Pages (Dashboard/Calender)
 export 'pages/dashboard/calender/calender_screen.dart';

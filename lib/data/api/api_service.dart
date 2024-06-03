@@ -37,6 +37,24 @@ abstract class ApiService {
     @Query('search') String? search,
     @Query('page') int? page,
     @Query('limit') int? limit,
+    @Query('major') int? major,
+    @Query('degree') int? degree,
+    @Query('location') int? location,
+    @Query('type') int? type,
 });
+
+  @GET('/getFilter/degrees')
+  Future<ListBodyResponse<DegreeModels>> getDegreeList();
+
+  @GET('/getFilter/locations')
+  Future<ListBodyResponse<LocationModels>> getLocationList();
+
+  @GET('/getFilter/majors')
+  Future<ListBodyResponse<MajorModels>> getMajorList();
+
+  @GET('/getFilter/types')
+  Future<ListBodyResponse<TypeModels>> getTypeList();
+
+
 
 }
