@@ -53,7 +53,7 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
           // * Await 5 Seconds
           await Future.delayed(const Duration(seconds: 5));
           // * Call Event Again
-          add(RequestUniversityListEvent(paginationRequest: event.paginationRequest, major: event.major, degree: event.degree, location: event.location, type: event.type));
+          add(RequestUniversityListEvent(paginationRequest: event.paginationRequest));
           // * Return
           return;
         }
