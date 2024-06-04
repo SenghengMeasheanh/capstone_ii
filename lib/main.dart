@@ -51,7 +51,7 @@ Future<void> main() async {
       fallbackLocale: LanguageManager.defaultLanguage,
       child: DevicePreview(
         // enabled: await getDeviceName() == debugDeviceName,
-        enabled: true,
+        enabled: false,
         builder: (_) => MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => InternetCubit()),

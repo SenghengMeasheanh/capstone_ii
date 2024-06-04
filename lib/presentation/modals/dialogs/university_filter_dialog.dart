@@ -210,19 +210,28 @@ class _UniversityFilterDialogState extends State<_UniversityFilterDialog> with M
           return;
         }
       },
-      child: PagedListView<int, dynamic>(
-        shrinkWrap: true,
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<dynamic>(
-          itemBuilder: (context, models, index) {
-            return ItemFilter(
-              title: models.nameEn ?? '',
-              onTap: () => dismiss(context: context, result: models),
-            );
-          },
-          newPageProgressIndicatorBuilder: (_) => const SizedBox.shrink(),
-          noItemsFoundIndicatorBuilder: (_) => const Center(
-            child: EmptyItems(),
+      child: RefreshIndicator(
+        onRefresh: () async {
+          _pagingController.refresh();
+          context.read<UniversityBloc>().add(_event);
+        },
+        child: PagedListView<int, dynamic>(
+          shrinkWrap: true,
+          pagingController: _pagingController,
+          builderDelegate: PagedChildBuilderDelegate<dynamic>(
+            itemBuilder: (context, models, index) {
+              return ItemFilter(
+                title: models.nameEn ?? '',
+                onTap: () => dismiss(context: context, result: models),
+              );
+            },
+            newPageProgressIndicatorBuilder: (_) => const SizedBox.shrink(),
+            noItemsFoundIndicatorBuilder: (_) => const Center(
+              child: EmptyItems(),
+            ),
+            firstPageProgressIndicatorBuilder: (_) => const Center(
+              child: CircularProgressIndicator(),
+            ),
           ),
         ),
       ),

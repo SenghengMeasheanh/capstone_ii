@@ -19,3 +19,12 @@ class RequestLocationListEvent extends UniversityEvent {}
 class RequestMajorListEvent extends UniversityEvent {}
 
 class RequestTypesListEvent extends UniversityEvent {}
+
+// * University Overview | Event
+
+class RequestUniversityOverviewEvent extends UniversityEvent {
+  final int id;
+  RequestUniversityOverviewEvent({
+      required this.id,
+  });
+}

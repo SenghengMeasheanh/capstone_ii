@@ -1,7 +1,6 @@
 import 'package:capstone_ii/data/data_export.dart';
 
 class UniversityRepo {
-
   Future<ListBodyResponse<UniversityModels>> getUniversityList({
     String? search,
     int? limit,
@@ -22,6 +21,12 @@ class UniversityRepo {
     );
   }
 
+  Future<MapBodyResponse<UniversityOverviewModels>> getUniversityOverview({
+    required int id,
+  }) async {
+    return await ApiService().getUniversityOverview(id: id);
+  }
+
   Future<ListBodyResponse<DegreeModels>> getDegreeList() async {
     return await ApiService().getDegreeList();
   }
@@ -37,6 +42,4 @@ class UniversityRepo {
   Future<ListBodyResponse<TypeModels>> getTypeList() async {
     return await ApiService().getTypeList();
   }
-
-  
 }

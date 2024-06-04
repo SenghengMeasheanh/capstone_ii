@@ -20,6 +20,8 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
     on<RequestLocationListEvent>(_requestLocationList);
     on<RequestMajorListEvent>(_requestMajorList);
     on<RequestTypesListEvent>(_requestTypesList);
+    // * University Overview | Bloc
+    on<RequestUniversityOverviewEvent>(_requestUniversityOverview);
   }
 
   Future<void> _requestUniversityList(
@@ -68,26 +70,28 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
     // * Get Result
     final result = _universityRepo.getDegreeList();
     // * Check Result
-    await result.then((response) {
-      if (response.header.statusCode == 200) {
-        emit(RequestDegreeListSuccessState(response: response));
-      } else {
-        emit(RequestDegreeListErrorState());
-      }
-    }, onError: (exception, stackTrace) async {
-      // * Debug Print Error
-      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
-      // * If Server Not Response
-      if (exception is DioException) {
-        // * Await 5 Seconds
-        await Future.delayed(const Duration(seconds: 5));
-        // * Call Event Again
-        add(RequestDegreeListEvent());
-        // * Return
-        return;
-      }
-    },
-  );
+    await result.then(
+      (response) {
+        if (response.header.statusCode == 200) {
+          emit(RequestDegreeListSuccessState(response: response));
+        } else {
+          emit(RequestDegreeListErrorState());
+        }
+      },
+      onError: (exception, stackTrace) async {
+        // * Debug Print Error
+        debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+        // * If Server Not Response
+        if (exception is DioException) {
+          // * Await 5 Seconds
+          await Future.delayed(const Duration(seconds: 5));
+          // * Call Event Again
+          add(RequestDegreeListEvent());
+          // * Return
+          return;
+        }
+      },
+    );
   }
 
   Future<void> _requestLocationList(
@@ -97,26 +101,28 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
     // * Get Result
     final result = _universityRepo.getLocationList();
     // * Check Result
-    await result.then((response) {
-      if (response.header.statusCode == 200) {
-        emit(RequestLocationListSuccessState(response: response));
-      } else {
-        emit(RequestLocationListErrorState());
-      }
-    }, onError: (exception, stackTrace) async {
-      // * Debug Print Error
-      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
-      // * If Server Not Response
-      if (exception is DioException) {
-        // * Await 5 Seconds
-        await Future.delayed(const Duration(seconds: 5));
-        // * Call Event Again
-        add(RequestLocationListEvent());
-        // * Return
-        return;
-      }
-    },
-  );
+    await result.then(
+      (response) {
+        if (response.header.statusCode == 200) {
+          emit(RequestLocationListSuccessState(response: response));
+        } else {
+          emit(RequestLocationListErrorState());
+        }
+      },
+      onError: (exception, stackTrace) async {
+        // * Debug Print Error
+        debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+        // * If Server Not Response
+        if (exception is DioException) {
+          // * Await 5 Seconds
+          await Future.delayed(const Duration(seconds: 5));
+          // * Call Event Again
+          add(RequestLocationListEvent());
+          // * Return
+          return;
+        }
+      },
+    );
   }
 
   Future<void> _requestMajorList(
@@ -126,26 +132,28 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
     // * Get Result
     final result = _universityRepo.getMajorList();
     // * Check Result
-    await result.then((response) {
-      if (response.header.statusCode == 200) {
-        emit(RequestMajorListSuccessState(response: response));
-      } else {
-        emit(RequestMajorListErrorState());
-      }
-    }, onError: (exception, stackTrace) async {
-      // * Debug Print Error
-      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
-      // * If Server Not Response
-      if (exception is DioException) {
-        // * Await 5 Seconds
-        await Future.delayed(const Duration(seconds: 5));
-        // * Call Event Again
-        add(RequestMajorListEvent());
-        // * Return
-        return;
-      }
-    },
-  );
+    await result.then(
+      (response) {
+        if (response.header.statusCode == 200) {
+          emit(RequestMajorListSuccessState(response: response));
+        } else {
+          emit(RequestMajorListErrorState());
+        }
+      },
+      onError: (exception, stackTrace) async {
+        // * Debug Print Error
+        debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+        // * If Server Not Response
+        if (exception is DioException) {
+          // * Await 5 Seconds
+          await Future.delayed(const Duration(seconds: 5));
+          // * Call Event Again
+          add(RequestMajorListEvent());
+          // * Return
+          return;
+        }
+      },
+    );
   }
 
   Future<void> _requestTypesList(
@@ -155,25 +163,53 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
     // * Get Result
     final result = _universityRepo.getTypeList();
     // * Check Result
+    await result.then(
+      (response) {
+        if (response.header.statusCode == 200) {
+          emit(RequestTypeListSuccessState(response: response));
+        } else {
+          emit(RequestTypeListErrorState());
+        }
+      },
+      onError: (exception, stackTrace) async {
+        // * Debug Print Error
+        debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+        // * If Server Not Response
+        if (exception is DioException) {
+          // * Await 5 Seconds
+          await Future.delayed(const Duration(seconds: 5));
+          // * Call Event Again
+          add(RequestTypesListEvent());
+          // * Return
+          return;
+        }
+      },
+    );
+  }
+
+  Future<void> _requestUniversityOverview(
+    RequestUniversityOverviewEvent event,
+    Emitter<UniversityState> emit,
+  ) async {
+    // * Get Result
+    final result = _universityRepo.getUniversityOverview(id: event.id);
+    // * Check Result
     await result.then((response) {
       if (response.header.statusCode == 200) {
-        emit(RequestTypeListSuccessState(response: response));
+        emit(RequestUniversityOverviewSuccessState(response: response));
       } else {
-        emit(RequestTypeListErrorState());
+        emit(RequestUniversityOverviewErrorState());
       }
     }, onError: (exception, stackTrace) async {
       // * Debug Print Error
       debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
       // * If Server Not Response
       if (exception is DioException) {
-        // * Await 5 Seconds
-        await Future.delayed(const Duration(seconds: 5));
-        // * Call Event Again
-        add(RequestTypesListEvent());
+        // * Emit Error State
+        emit(RequestUniversityOverviewErrorState());
         // * Return
         return;
       }
-    },
-  );
+    });
   }
 }

@@ -33,7 +33,8 @@ class ItemUniversity extends StatelessWidget {
                         width: double.infinity,
                         height: 100,
                         fit: BoxFit.cover,
-                      )),
+                      ),
+                  ),
             Positioned(
               right: 20,
               bottom: 150,

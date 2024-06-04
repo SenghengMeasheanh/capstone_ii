@@ -1,20 +1,42 @@
+import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
+import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UniversityDetailPage extends StatefulWidget {
-  const UniversityDetailPage({super.key});
+  final int universityId;
+  final String? coverImageUrl;
+  final String? logoImageUrl;
+  final UniversityModels universityModels;
+  const UniversityDetailPage(
+      {super.key,
+      required this.universityId,
+      this.coverImageUrl,
+      this.logoImageUrl,
+      required this.universityModels});
 
   @override
   State<UniversityDetailPage> createState() => _UniversityDetailPageState();
 }
 
 class _UniversityDetailPageState extends State<UniversityDetailPage> with TickerProviderStateMixin {
+  // * Tab Controller
   late TabController _tabController;
+
+  // * Modal
+  final _progressDialog = ProgressDialog();
+
+  // * University Overiew Models
+  UniversityOverviewModels? _universityOverviewModel;
 
   @override
   void initState() {
     _tabController = TabController(length: 5, vsync: this);
+    // * Request University Overview
+    context.read<UniversityBloc>().add(RequestUniversityOverviewEvent(id: widget.universityId));
     super.initState();
   }
 
@@ -36,7 +58,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
         headerSliverBuilder: (_, innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              expandedHeight: 380,
+              expandedHeight: 380.h,
               backgroundColor: Colors.white,
               elevation: 0,
               pinned: true,
@@ -54,16 +76,22 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                           // * Cover Image and Logo
                           Stack(
                             children: [
-                              CustomCachedNetworkImage(
-                                imageUrl:
-                                    'https://cambodiainvestmentreview.com/wp-content/uploads/2022/03/CADT-0-scaled.jpg',
-                                config: CustomCachedNetworkImageConfig(
-                                  width: double.infinity,
-                                  height: 150,
-                                  boxFit: BoxFit.cover,
-                                  borderRadius: BorderRadius.circular(Dimen.defaultRadius),
-                                ),
-                              ),
+                              widget.coverImageUrl != null
+                                  ? CustomCachedNetworkImage(
+                                      imageUrl: widget.coverImageUrl!,
+                                      config: CustomCachedNetworkImageConfig(
+                                        width: double.infinity,
+                                        height: 150,
+                                        boxFit: BoxFit.cover,
+                                        borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+                                      ),
+                                    )
+                                  : Image.asset(
+                                      Assets.imageNoImage,
+                                      width: double.infinity,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
                               Positioned(
                                 top: 80,
                                 left: 10,
@@ -75,35 +103,48 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                                     ),
                                     border: Border.all(color: Colors.black),
                                   ),
-                                  child: CustomCachedNetworkImage(
-                                    imageUrl:
-                                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeWHerau4p1KatwBXrCHlRSVCID1NZWxb_Q_ABKPZNWg&s',
-                                    config: CustomCachedNetworkImageConfig(
-                                      width: 60,
-                                      height: 60,
-                                      boxFit: BoxFit.cover,
-                                      borderRadius: BorderRadius.circular(Dimen.defaultRadius),
-                                    ),
-                                  ),
+                                  child: widget.logoImageUrl != null
+                                      ? CustomCachedNetworkImage(
+                                          imageUrl: widget.logoImageUrl!,
+                                          config: CustomCachedNetworkImageConfig(
+                                            width: 60,
+                                            height: 60,
+                                            boxFit: BoxFit.cover,
+                                            borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+                                          ),
+                                        )
+                                      : Image.asset(
+                                          Assets.imageNoImage,
+                                          width: 60,
+                                          height: 60,
+                                          fit: BoxFit.cover,
+                                        ),
                                 ),
                               ),
                             ],
                           ),
                           // * University Name
                           const SizedBox(height: Dimen.largeSpace),
-                          Text(
-                            'CADT - Cambodia Academy of Digital Technology',
-                            style: CustomTextStyle.titleTextStyle(bold: true),
-                          ),
-                          const SizedBox(height: Dimen.mediumSpace),
-                          // * University Location
-                          Text(
-                            'Phnom Penh, Cambodia',
-                            style: CustomTextStyle.bodyTextStyle(),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.universityModels.name,
+                                style: CustomTextStyle.titleTextStyle(bold: true),
+                              ),
+                              const SizedBox(height: Dimen.mediumSpace),
+                              // * University Location
+                              Text(
+                                _universityOverviewModel != null
+                                    ? _universityOverviewModel!.contact!.address
+                                    : 'Loading...',
+                                style: CustomTextStyle.bodyTextStyle(),
+                              ),
+                            ], 
                           ),
                           // * Favorite Button
                           Container(
-                            margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                            margin: const EdgeInsets.only(top: Dimen.extraLargeSpace),
                             width: double.infinity,
                             height: 56,
                             child: CustomButtonWithIcon(
@@ -115,7 +156,6 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         ],
                       ),
                     ),
-                    const SizedBox(height: Dimen.largeSpace),
                   ],
                 ),
               ),
@@ -179,47 +219,130 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
   }
 
   Widget get _builtOverviewTab {
-    return SingleChildScrollView(
-      physics: const NeverScrollableScrollPhysics(),
-      child: Padding(
-        padding: const EdgeInsets.all(Dimen.contentPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // * Overview
-            Text(
-              'Overview',
-              style: CustomTextStyle.titleTextStyle(bold: true),
-            ),
-            const SizedBox(height: Dimen.mediumSpace),
-            // * Brief Details
-            const _BriefDetails(
-              icon: Icons.info,
-              title: 'Type',
-              subtitle: 'Private',
-            ),
-            const _BriefDetails(
-              icon: Icons.apartment_outlined,
-              title: 'Campus Life',
-              subtitle: 'Large',
-            ),
-            const _BriefDetails(
-              icon: Icons.attach_money_outlined,
-              title: 'Average Per Year After Aid',
-              subtitle: '10,000',
-            ),
-            const _BriefDetails(
-              icon: Icons.location_on_outlined,
-              title: 'Location',
-              subtitle: 'Phnom Penh, Cambodia',
-            ),
-            const _BriefDetails(
-              icon: Icons.school_outlined,
-              title: 'Graduation Rate',
-              subtitle: '53%',
-            ),
-          ],
-        ),
+    return BlocListener<UniversityBloc, UniversityState>(
+      listener: (context, state) {
+        // * Request University Overview
+        if (state is RequestUniversityOverviewSuccessState) {
+          // * Set University Overview Model
+          _universityOverviewModel = state.response.body.data;
+          // * Notify
+          setState(() {});
+          // * Return
+          return;
+        }
+        // ! Request University Overview
+        if (state is RequestUniversityOverviewErrorState) {
+          // * Return
+          return;
+        }
+      },
+      child: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: _universityOverviewModel != null
+            ? Padding(
+                padding: const EdgeInsets.all(Dimen.contentPadding),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // * Overview
+                    Text(
+                      'Overview',
+                      style: CustomTextStyle.titleTextStyle(bold: true),
+                    ),
+                    const SizedBox(height: Dimen.mediumSpace),
+                    // * Brief Details
+                    Column(
+                      children: [
+                        _BriefDetails(
+                          icon: Icons.info,
+                          title: 'Type',
+                          subtitle: _universityOverviewModel!.type.nameEn,
+                        ),
+                        _BriefDetails(
+                          icon: Icons.attach_money_outlined,
+                          title: 'Average Per Year After Aid',
+                          subtitle: _universityOverviewModel!.averageTuition!,
+                        ),
+                        _BriefDetails(
+                          icon: Icons.location_on_outlined,
+                          title: 'Location',
+                          subtitle: _universityOverviewModel!.contact!.address,
+                        ),
+                        _BriefDetails(
+                          icon: Icons.school_outlined,
+                          title: 'Graduation Rate',
+                          subtitle: '${_universityOverviewModel!.graduationRate}%',
+                        ),
+                      ],
+                    ),
+                    const Divider(
+                      color: Colors.black,
+                    ),
+                    // * Description
+                    CustomHtmlWidget(
+                      data: _universityOverviewModel!.description,
+                    ),
+                    const SizedBox(height: Dimen.largeSpace),
+                    const Divider(
+                      color: Colors.black,
+                    ),
+                    // * Study Options
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.mediumSpace),
+                      child: Text(
+                        'Study Options',
+                        style: CustomTextStyle.largeTitleTextStyle(bold: true),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.smallSpace),
+                      child: Text(
+                        'The college offers the following degrees: ',
+                        style: CustomTextStyle.bodyTextStyle(),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.smallSpace, bottom: Dimen.mediumSpace),
+                      child: Text(
+                        _universityOverviewModel!.studyOption!.map((e) => e.nameEn).join(', '),
+                        style: CustomTextStyle.bodyTextStyle(bold: true),
+                      ),
+                    ),
+                    const Divider(
+                      color: Colors.black,
+                    ),
+                    // * Contact
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.mediumSpace),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Contact Information',
+                            style: CustomTextStyle.titleTextStyle(bold: true),
+                          ),
+                          const SizedBox(height: Dimen.largeSpace),
+                          ContactItem(
+                            icon: Icons.location_on_outlined,
+                            title: _universityOverviewModel!.contact!.address,
+                          ),
+                          ContactItem(
+                            icon: Icons.phone_outlined,
+                            title: _universityOverviewModel!.contact!.primaryPhoneNumber,
+                          ),
+                          ContactItem(
+                            icon: Icons.email_outlined,
+                            title: _universityOverviewModel!.contact!.email,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : const Center(
+                child: CircularProgressIndicator(),
+              ),
       ),
     );
   }
@@ -300,6 +423,30 @@ class _BriefDetails extends StatelessWidget {
       subtitle: Text(
         subtitle,
         style: CustomTextStyle.bodyTextStyle(),
+      ),
+    );
+  }
+}
+
+class ContactItem extends StatelessWidget {
+  final IconData icon;
+  final String title;
+
+  const ContactItem({
+    super.key,
+    required this.icon,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      dense: true,
+      leading: Icon(icon, color: Colors.black),
+      title: Text(
+        title,
+        style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
       ),
     );
   }
