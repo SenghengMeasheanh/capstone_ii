@@ -3,6 +3,7 @@ import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -78,10 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           onTap: () => context.push(
                             destination: getMenuRoute(value: e),
                           ),
-                          icon: Icon(
+                          icon: SvgPicture.asset(
                             getIconMenu(value: e),
-                            color: Colors.black,
-                            size: 31.sp,
+                            width: 30.w,
+                            height: 30.h,
                           ),
                           title: getMenuTitle(value: e),
                         ),
