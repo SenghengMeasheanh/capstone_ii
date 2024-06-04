@@ -40,7 +40,7 @@ export 'pages/dashboard/home/compare_college/compare_college.dart';
 
 // ? Pages (Dashboard/Home/Events)
 export 'pages/dashboard/home/events/events_page.dart';
-export 'pages/dashboard/home/university/university_detail/universesity_detail_page.dart';
+export 'pages/dashboard/home/university/university_detail/university_detail_page.dart';
 
 // ? Pages (Dashboard/Home/Financial Aid)
 export 'pages/dashboard/home/financial_aid/financial_aid_page.dart';
