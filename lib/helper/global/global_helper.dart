@@ -281,7 +281,7 @@ Widget getMenuRoute({required Menu value}) {
     Menu.university: const UniversityPage(),
     Menu.career: const CareerPage(),
     Menu.forum: const ForumPage(),
-    Menu.events: const EventsPage(),
+    Menu.events: const EventPage(),
     Menu.guides: const GuidesPage(),
     Menu.collegeQuiz: const CollegeQuizPage(),
     Menu.scholarships: const ScholarshipsPage(),
@@ -337,6 +337,19 @@ String getUniversityFilterMenuTitle({required UniversityFilterMenu value}) {
     UniversityFilterMenu.degree: 'Degree',
   };
   return map[value]!;
+}
+
+String getEventFilterMenuTitle(EventFilterMenu value) {
+  switch (value) {
+    case EventFilterMenu.upcoming:
+      return 'Upcoming';
+    case EventFilterMenu.past:
+      return 'Past';
+    case EventFilterMenu.favorite:
+      return 'Favorite';
+    default:
+      return '';
+  }
 }
 
 // Future<void> screenshotTransaction({

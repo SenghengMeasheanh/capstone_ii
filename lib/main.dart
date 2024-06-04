@@ -19,7 +19,7 @@ Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
 
   // * Initialize One Signal
-  // initOneSignalPlatformState();
+  // initOneSignalPlatformState();  
 
   // * Initialize Flavor
   Flavor.instance.init(flavor: QAFlavor());
