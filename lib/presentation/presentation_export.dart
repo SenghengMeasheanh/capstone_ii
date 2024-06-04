@@ -67,6 +67,7 @@ export 'pages/dashboard/settings/account_screen.dart';
 export 'widgets/action_menu_widget.dart';
 export 'widgets/custom_button_with_icon.dart';
 export 'widgets/custom_cached_network_image_widget.dart';
+export 'widgets/custom_html_widget.dart';
 export 'widgets/empty_items_widget.dart';
 export 'widgets/progress_bar_widget.dart';
 export 'widgets/scaffold_messenger_widget.dart';

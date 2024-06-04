@@ -181,8 +181,8 @@ class _UniversityPageState extends State<UniversityPage> {
                     separatorBuilder: (context, index) => const SizedBox(height: Dimen.defaultSpace),
                     builderDelegate: PagedChildBuilderDelegate(
                       animateTransitions: true,
-                      itemBuilder: (context, models, item) => ItemUniversity(
-                        onTap: () => context.push(destination: const UniversityDetailPage()),
+                      itemBuilder: (context, models, item) => ItemUniversity( 
+                        onTap: () => context.push(destination: UniversityDetailPage(universityId: models.id, coverImageUrl: models.image, logoImageUrl: models.logoImage,universityModels: models),),
                         models: models,
                       ),
                       firstPageProgressIndicatorBuilder: (_) {

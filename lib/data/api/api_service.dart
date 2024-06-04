@@ -43,6 +43,11 @@ abstract class ApiService {
     @Query('type') int? type,
 });
 
+  @GET('/universities/overview/{id}')
+  Future<MapBodyResponse<UniversityOverviewModels>> getUniversityOverview({
+    @Path('id') required int id,
+  });
+
   @GET('/getFilter/degrees')
   Future<ListBodyResponse<DegreeModels>> getDegreeList();
 
@@ -54,7 +59,6 @@ abstract class ApiService {
 
   @GET('/getFilter/types')
   Future<ListBodyResponse<TypeModels>> getTypeList();
-
 
 
 }
