@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 final dashboardStreamController = StreamController.broadcast();
@@ -37,34 +37,32 @@ class _DashboardPageState extends State<DashboardPage> {
   List<PersistentBottomNavBarItem> get _navBarsItems {
     return [
       PersistentBottomNavBarItem(
-        title: '',
+        title: 'Home',
         activeColorPrimary: primaryColor,
         inactiveColorPrimary: Colors.black,
         icon: Icon(_persisTabController.index == 0 ? Icons.home : Icons.home_outlined),
       ),
       PersistentBottomNavBarItem(
-        title: '',
+        title: 'Bookmark',
         activeColorPrimary: primaryColor,
         inactiveColorPrimary: Colors.black,
-        icon: Icon(
-          _persisTabController.index == 1 ? Icons.event : Icons.event_outlined,
+        icon: const Icon(
+          Icons.bookmark_border,
         ),
       ),
       PersistentBottomNavBarItem(
-        title: '',
+        title: 'Calendar',
         activeColorPrimary: primaryColor,
         inactiveColorPrimary: Colors.black,
         icon: Icon(
-          _persisTabController.index == 2
-              ? FluentIcons.ticket_horizontal_20_filled
-              : FluentIcons.ticket_horizontal_20_regular,
+          _persisTabController.index == 2 ? Icons.event : Icons.event_outlined,
         ),
       ),
       PersistentBottomNavBarItem(
-        title: '',
+        title: 'Setting',
         activeColorPrimary: primaryColor,
         inactiveColorPrimary: Colors.black,
-        icon: Icon(_persisTabController.index == 3 ? Icons.person : Icons.person_outlined),
+        icon: const Icon(Icons.menu),
       ),
     ];
   }
@@ -74,7 +72,7 @@ class _DashboardPageState extends State<DashboardPage> {
       const HomeScreen(),
       const EventsScreen(),
       const CalenderScreen(),
-      const AccountScreen(),
+      const SettingScreen(),
     ];
   }
 
@@ -87,19 +85,23 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return PersistentTabView(
       context,
+      navBarHeight: 70,
       controller: _persisTabController,
       items: _navBarsItems,
       screens: _buildScreens,
       onItemSelected: _onSelectedBottomNavBars,
-      decoration: const NavBarDecoration(colorBehindNavBar: Colors.white),
+      handleAndroidBackButtonPress: true,
+      confineInSafeArea: true,
+      decoration: const NavBarDecoration(colorBehindNavBar: Colors.red),
       itemAnimationProperties: const ItemAnimationProperties(
         duration: Duration(milliseconds: 200),
         curve: Curves.ease,
       ),
+      padding: const NavBarPadding.only(top: 15, left: 1, right: 1),
       screenTransitionAnimation: const ScreenTransitionAnimation(
         animateTabTransition: true,
       ),
-      navBarStyle: NavBarStyle.style13,
+      navBarStyle: NavBarStyle.style6,
     );
   }
 }

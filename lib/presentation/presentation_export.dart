@@ -6,6 +6,7 @@ export 'items/item_university_filter.dart';
 export 'items/item_university.dart';
 // * Modals
 // ? Modals (Bottom Sheets)
+export 'modals/bottom_sheets/language_picker_bottom_sheet.dart';
 
 // ? Modals (Dialogs)
 export 'modals/dialogs/no_internet_dialog.dart';
@@ -62,7 +63,7 @@ export 'pages/dashboard/home/university/university_detail/university_detail_page
 export 'pages/dashboard/calender/calender_screen.dart';
 
 // ? Pages (Dashboard/Settings)
-export 'pages/dashboard/settings/account_screen.dart';
+export 'pages/dashboard/settings/setting_screen.dart';
 
 // * Widgets
 export 'widgets/action_menu_widget.dart';
