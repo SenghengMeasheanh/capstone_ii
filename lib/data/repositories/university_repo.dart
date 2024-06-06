@@ -27,6 +27,12 @@ class UniversityRepo {
     return await ApiService().getUniversityOverview(id: id);
   }
 
+  Future<ListBodyResponse<UniversityAdmissionModels>> getUniversityAdmission({
+    required int id,
+  }) async {
+    return await ApiService().getUniversityAdmission(id: id);
+  }
+
   Future<ListBodyResponse<DegreeModels>> getDegreeList() async {
     return await ApiService().getDegreeList();
   }

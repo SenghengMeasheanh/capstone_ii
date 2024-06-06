@@ -42,6 +42,13 @@ class RequestUniversityOverviewSuccessState extends UniversityState {
   RequestUniversityOverviewSuccessState({required this.response});
 }
 
+// * University Admission | State
+class RequestUniversityAdmissionSuccessState extends UniversityState {
+  final ListBodyResponse<UniversityAdmissionModels> response;
+
+  RequestUniversityAdmissionSuccessState({required this.response});
+}
+
 // ! List | State
 class RequestUniversityListErrorState extends UniversityState {}
 
@@ -54,5 +61,7 @@ class RequestMajorListErrorState extends UniversityState {}
 class RequestTypeListErrorState extends UniversityState {}
 
 // ! University Overview | State
-
 class RequestUniversityOverviewErrorState extends UniversityState {}
+
+// ! University Admission | State
+class RequestUniversityAdmissionErrorState extends UniversityState {}
