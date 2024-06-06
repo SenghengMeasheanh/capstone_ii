@@ -9,6 +9,7 @@ class Assets {
 
   // * Icons
   static const String iconAcceptance = '$_iconPath/ic_acceptance.svg';
+  static const String iconApplication = '$_iconPath/ic_application.svg';
   static const String iconBookmarkOulined = '$_iconPath/ic_bookmark_outlined.svg';
   static const String iconBookmark = '$_iconPath/ic_bookmark.svg';
   static const String iconBuilding = '$_iconPath/ic_building.svg';
@@ -17,6 +18,7 @@ class Assets {
   static const String iconClose = '$_iconPath/ic_close.svg';
   static const String iconCompareCollege = '$_iconPath/ic_compare_college.svg';
   static const String iconEvent = '$_iconPath/ic_event.svg';
+  static const String iconEnrollType = '$_iconPath/ic_enroll_type.svg';
   static const String iconFlagEnglish = '$_iconPath/ic_flag_english.svg';
   static const String iconFlagKhmer = '$_iconPath/ic_flag_khmer.svg';
   static const String iconForum = '$_iconPath/ic_forum.svg';

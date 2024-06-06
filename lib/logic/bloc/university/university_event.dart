@@ -28,3 +28,11 @@ class RequestUniversityOverviewEvent extends UniversityEvent {
       required this.id,
   });
 }
+
+// * University Admission | Event
+class RequestUniversityAdmissionEvent extends UniversityEvent {
+  final int id;
+  RequestUniversityAdmissionEvent({
+      required this.id,
+  });
+}

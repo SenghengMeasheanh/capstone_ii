@@ -48,6 +48,11 @@ abstract class ApiService {
     @Path('id') required int id,
   });
 
+  @GET('/universities/admission/{id}')
+  Future<ListBodyResponse<UniversityAdmissionModels>> getUniversityAdmission({
+    @Path('id') required int id,
+  });
+
   @GET('/getFilter/degrees')
   Future<ListBodyResponse<DegreeModels>> getDegreeList();
 
