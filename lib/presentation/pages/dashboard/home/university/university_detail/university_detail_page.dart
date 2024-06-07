@@ -223,10 +223,10 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         text: 'Admissions',
                       ),
                       Tab(
-                        text: 'Costs',
+                        text: 'Scholarships',
                       ),
                       Tab(
-                        text: 'Scholarships',
+                        text: 'Tuition',
                       ),
                     ],
                   ),
@@ -241,8 +241,8 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
             _builtOverviewTab,
             _builtProgramsTab,
             _builtAdmissionsTab,
-            _builtCostsTab,
             _builtScholarshipsTab,
+            _builtTuitionTab,
           ],
         ),
       ),
@@ -575,6 +575,22 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         ],
                       ),
                     ),
+                    const SizedBox(height: Dimen.largeSpace),
+                    // * Download Admission
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 80.w),
+                      height: 51,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _universityAdmissionModel!.admissionUrl == null
+                            ? () => context.showInfoSnackBar(msg: 'No Admission URL found!')
+                            : () {},
+                        child: Text(
+                          'Download Admission',
+                          style: CustomTextStyle.buttonTextStyle(),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -583,12 +599,12 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
     );
   }
 
-  Widget get _builtCostsTab {
+  Widget get _builtTuitionTab {
     return Column(
       children: [
-        // * Costs
+        // * Tuition
         Text(
-          'Costs',
+          'Tuition',
           style: CustomTextStyle.titleTextStyle(bold: true),
         ),
         const SizedBox(height: Dimen.largeSpace),

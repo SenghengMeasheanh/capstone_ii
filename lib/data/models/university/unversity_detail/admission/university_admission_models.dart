@@ -30,7 +30,7 @@ class UniversityAdmissionModels {
   final String descriptionKh;
 
   @JsonKey(name: 'admission_url')
-  final String admissionUrl;
+  final String? admissionUrl;
 
   @JsonKey(name: 'is_active')
   final int isActive;
