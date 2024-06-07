@@ -18,7 +18,7 @@ UniversityAdmissionModels _$UniversityAdmissionModelsFromJson(
       enrollTypeKh: json['enroll_type_kh'] as String,
       descriptionEn: json['description_en'] as String,
       descriptionKh: json['description_kh'] as String,
-      admissionUrl: json['admission_url'] as String,
+      admissionUrl: json['admission_url'] as String?,
       isActive: (json['is_active'] as num).toInt(),
       tuition: json['tuition'] as String,
       contactInfo:
