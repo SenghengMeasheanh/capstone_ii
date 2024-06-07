@@ -37,11 +37,6 @@ dependencies:
   cupertino_icons: ^1.0.6
 
 # => Git packages
-  # Persistent Bottom Nav Bar
-  persistent_bottom_nav_bar:
-    git:
-      url: https://github.com/HamzaSamirAmmar/PersistentBottomNavBar.git 
-
   # Rounded Loading Button
   rounded_loading_button:
     git:
@@ -104,7 +99,7 @@ dependencies:
   # Path Provider
   path_provider: ^2.1.2
   # # Persistant Bottom Nav Bar
-  # persistent_bottom_nav_bar: ^5.0.2
+  persistent_bottom_nav_bar_v2: ^5.2.3
   # Photo View
   photo_view: ^0.15.0
   # Retrofit

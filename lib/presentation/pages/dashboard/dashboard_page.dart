@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 final dashboardStreamController = StreamController.broadcast();
 
@@ -34,74 +34,79 @@ class _DashboardPageState extends State<DashboardPage> {
     _persisTabController.dispose();
   }
 
-  List<PersistentBottomNavBarItem> get _navBarsItems {
+  List<PersistentTabConfig> get _navBarsTab {
     return [
-      PersistentBottomNavBarItem(
-        title: 'Home',
-        activeColorPrimary: primaryColor,
-        inactiveColorPrimary: Colors.black,
-        icon: Icon(_persisTabController.index == 0 ? Icons.home : Icons.home_outlined),
-      ),
-      PersistentBottomNavBarItem(
-        title: 'Bookmark',
-        activeColorPrimary: primaryColor,
-        inactiveColorPrimary: Colors.black,
-        icon: const Icon(
-          Icons.bookmark_border,
+      PersistentTabConfig(
+        screen: const HomeScreen(),
+        item: ItemConfig(
+          iconSize: 18,
+          activeForegroundColor: primaryColor,
+          title: 'Home',
+          inactiveIcon: SvgPicture.asset(
+            Assets.iconHome,
+          ),
+          icon: SvgPicture.asset(
+            Assets.iconHome,
+            colorFilter: const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+          ),
         ),
       ),
-      PersistentBottomNavBarItem(
-        title: 'Calendar',
-        activeColorPrimary: primaryColor,
-        inactiveColorPrimary: Colors.black,
-        icon: Icon(
-          _persisTabController.index == 2 ? Icons.event : Icons.event_outlined,
+      PersistentTabConfig(
+        screen: const EventsScreen(),
+        item: ItemConfig(
+          iconSize: 18,
+          title: 'Bookmark',
+          activeForegroundColor: primaryColor,
+          inactiveIcon: SvgPicture.asset(
+            Assets.iconBookmarkOulined,
+          ),
+          icon: SvgPicture.asset(
+            Assets.iconBookmarkOulined,
+            colorFilter: const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+          ),
         ),
       ),
-      PersistentBottomNavBarItem(
-        title: 'Setting',
-        activeColorPrimary: primaryColor,
-        inactiveColorPrimary: Colors.black,
-        icon: const Icon(Icons.menu),
+      PersistentTabConfig(
+        screen: const CalenderScreen(),
+        item: ItemConfig(
+          iconSize: 18,
+          activeForegroundColor: primaryColor,
+          title: 'Calendar',
+          inactiveIcon: SvgPicture.asset(
+            Assets.iconCalendar,
+          ),
+          icon: SvgPicture.asset(
+            Assets.iconCalendar,
+            colorFilter: const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+          ),
+        ),
+      ),
+      PersistentTabConfig(
+        screen: const SettingScreen(),
+        item: ItemConfig(
+          iconSize: 18,
+          title: 'Account',
+          activeForegroundColor: primaryColor,
+          inactiveIcon: SvgPicture.asset(
+            Assets.iconAccount,
+          ),
+          icon: SvgPicture.asset(
+            Assets.iconAccount,
+            colorFilter: const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+          ),
+        ),
       ),
     ];
-  }
-
-  List<Widget> get _buildScreens {
-    return [
-      const HomeScreen(),
-      const EventsScreen(),
-      const CalenderScreen(),
-      const SettingScreen(),
-    ];
-  }
-
-  void _onSelectedBottomNavBars(int index) {
-    // * Select Tab Index
-    if (mounted) setState(() => _persisTabController.index = index);
   }
 
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
-      context,
       navBarHeight: 70,
-      controller: _persisTabController,
-      items: _navBarsItems,
-      screens: _buildScreens,
-      onItemSelected: _onSelectedBottomNavBars,
-      handleAndroidBackButtonPress: true,
-      confineInSafeArea: true,
-      decoration: const NavBarDecoration(colorBehindNavBar: Colors.red),
-      itemAnimationProperties: const ItemAnimationProperties(
-        duration: Duration(milliseconds: 200),
-        curve: Curves.ease,
+      tabs: _navBarsTab,
+      navBarBuilder: (navBarConfig) => Style7BottomNavBar(
+        navBarConfig: navBarConfig,
       ),
-      padding: const NavBarPadding.only(top: 15, left: 1, right: 1),
-      screenTransitionAnimation: const ScreenTransitionAnimation(
-        animateTabTransition: true,
-      ),
-      navBarStyle: NavBarStyle.style6,
     );
   }
 }
