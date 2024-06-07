@@ -489,7 +489,9 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                           ),
                           _AdmissionBriefDetails(
                             title: 'Regular Application Due',
-                            subtitle: _universityAdmissionModel!.applicationDeadline,
+                            subtitle: _universityAdmissionModel!.isActive == 1
+                                ? _universityAdmissionModel!.applicationDeadline
+                                : 'Closed',
                             icon: Assets.iconCalendar,
                           ),
                           _AdmissionBriefDetails(
