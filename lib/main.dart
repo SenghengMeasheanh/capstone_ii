@@ -19,7 +19,7 @@ Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
 
   // * Initialize One Signal
-  // initOneSignalPlatformState();  
+  // initOneSignalPlatformState();
 
   // * Initialize Flavor
   Flavor.instance.init(flavor: QAFlavor());
@@ -51,7 +51,7 @@ Future<void> main() async {
       fallbackLocale: LanguageManager.defaultLanguage,
       child: DevicePreview(
         // enabled: await getDeviceName() == debugDeviceName,
-        enabled: false,
+        enabled: true,
         builder: (_) => MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => InternetCubit()),
