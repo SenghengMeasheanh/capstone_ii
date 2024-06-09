@@ -11,13 +11,13 @@ class ScholarshipsDetailPage extends StatelessWidget {
   final String closeDate;
 
   const ScholarshipsDetailPage({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.name,
     required this.description,
     required this.openDate,
     required this.closeDate,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class ScholarshipsDetailPage extends StatelessWidget {
               const SizedBox(height: Dimen.mediumSpace),
 
               //*Scholarship Benefits
-              Text("Scholarship Benefits:",
+              Text('Scholarship Benefits:',
                   style: CustomTextStyle.titleTextStyle(bold: true)),
 
               Text('- 100% school paid',
@@ -78,7 +78,7 @@ class ScholarshipsDetailPage extends StatelessWidget {
 
               const SizedBox(height: Dimen.mediumSpace),
               //* Requirement Document
-              Text("Requirement Document:",
+              Text('Requirement Document:',
                   style: CustomTextStyle.titleTextStyle(bold: true)),
               Text('- High school transcripts.',
                   style: CustomTextStyle.bodyTextStyle()),
@@ -95,7 +95,7 @@ class ScholarshipsDetailPage extends StatelessWidget {
 
               const SizedBox(height: Dimen.mediumSpace),
               //* How to Apply
-              Text("How to Apply:",
+              Text('How to Apply:',
                   style: CustomTextStyle.titleTextStyle(bold: true)),
               Text('1. Complete the online application form at University',
                   style: CustomTextStyle.bodyTextStyle()),
@@ -111,20 +111,20 @@ class ScholarshipsDetailPage extends StatelessWidget {
               const SizedBox(height: Dimen.mediumSpace),
               //* Conatact information
               Row(children: [
-                Icon(Icons.email, color: primaryColor),
+                const Icon(Icons.email, color: primaryColor),
                 const SizedBox(width: Dimen.smallSpace),
                 Text('Email: 9JlT7@example.com',
                     style: CustomTextStyle.bodyTextStyle()),
               ]),
               Row(children: [
-                Icon(Icons.phone, color: primaryColor),
+                const Icon(Icons.phone, color: primaryColor),
                 const SizedBox(width: Dimen.smallSpace),
                 Text('Phone: +855 123 456 789',
                     style: CustomTextStyle.bodyTextStyle()),
               ]),
               Row(
                 children: [
-                  Icon(Icons.location_on, color: primaryColor),
+                  const Icon(Icons.location_on, color: primaryColor),
                   const SizedBox(width: Dimen.smallSpace),
                   Text('Location: Phnom Penh, Cambodia',
                       style: CustomTextStyle.bodyTextStyle()),
@@ -140,7 +140,7 @@ class ScholarshipsDetailPage extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                        const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
                     backgroundColor: primaryColor, // Background color
                   ),
                   child: Text(

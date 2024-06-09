@@ -11,6 +11,7 @@ class Assets {
   static const String iconAcceptance = '$_iconPath/ic_acceptance.svg';
   static const String iconAccount = '$_iconPath/ic_account.svg';
   static const String iconApplication = '$_iconPath/ic_application.svg';
+  static const String iconApplyNow = '$_iconPath/ic_apply_now.svg';
   static const String iconBookmarkOulined = '$_iconPath/ic_bookmark_outlined.svg';
   static const String iconBookmark = '$_iconPath/ic_bookmark.svg';
   static const String iconBuilding = '$_iconPath/ic_building.svg';

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
@@ -102,7 +101,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
-      navBarHeight: 70,
+      navBarHeight: kBottomNavigationBarHeight,
       tabs: _navBarsTab,
       navBarBuilder: (navBarConfig) => Style7BottomNavBar(
         navBarConfig: navBarConfig,

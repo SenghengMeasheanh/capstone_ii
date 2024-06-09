@@ -11,21 +11,21 @@ class ItemScholarship extends StatelessWidget {
   final VoidCallback onTap;
 
   const ItemScholarship({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.name,
     required this.description,
     required this.openDate,
     required this.closeDate,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10.0)),
         ),
         child: Column(
@@ -37,7 +37,7 @@ class ItemScholarship extends StatelessWidget {
                 height: 200,
                 width: double.infinity,
                 boxFit: BoxFit.cover,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(10.0)),
               ),
             ),
             Padding(
@@ -69,7 +69,7 @@ class ItemScholarship extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.calendar_today,
+                              const Icon(Icons.calendar_today,
                                   size: 20, color: Colors.grey),
                               const SizedBox(width: Dimen.smallSpace),
                               Text('Open: $openDate',
@@ -79,7 +79,7 @@ class ItemScholarship extends StatelessWidget {
                           const SizedBox(height: Dimen.smallSpace),
                           Row(
                             children: [
-                              Icon(Icons.calendar_today,
+                              const Icon(Icons.calendar_today,
                                   size: 20, color: Colors.grey),
                               const SizedBox(width: Dimen.smallSpace),
                               Text('Close: $closeDate',

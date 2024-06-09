@@ -1,4 +1,3 @@
-import 'package:capstone_ii/presentation/widgets/custom_button_with_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 
@@ -11,14 +10,14 @@ class EventDetailPage extends StatelessWidget {
   final String description;
 
   const EventDetailPage({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.title,
     required this.date,
     required this.time,
     required this.location,
     required this.description,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +52,11 @@ class EventDetailPage extends StatelessWidget {
                       style: CustomTextStyle
                           .captionTextStyle()), // Icon(Icons.access_time, size: 20, color: Colors.grey),
                   const SizedBox(width: Dimen.smallSpace),
-                  const Text("|"),
+                  const Text('|'),
                   const SizedBox(width: Dimen.smallSpace),
                   Text(time, style: CustomTextStyle.captionTextStyle()),
                   const SizedBox(width: Dimen.smallSpace),
-                  const Text("|"),
+                  const Text('|'),
                   const SizedBox(width: Dimen.smallSpace),
                   Text(location, style: CustomTextStyle.captionTextStyle()),
                 ],
@@ -80,7 +79,7 @@ class EventDetailPage extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                        const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
                     backgroundColor: primaryColor, // Background color
                   ),
                   child: Text(

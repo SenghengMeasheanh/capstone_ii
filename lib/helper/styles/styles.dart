@@ -82,6 +82,7 @@ class CustomTextStyle {
     bool bold = false,
     double fontSize = Dimen.largeTitleTextSize,
     FontWeight? fontWeight,
+    
   }) {
     return TextStyle(
       color: color,
@@ -121,15 +122,19 @@ class CustomTextStyle {
   }
 
   static TextStyle captionTextStyle({
+    Color? backgroundColor,
     Color? color,
+    TextDecoration? decoration,
     bool bold = false,
     double fontSize = Dimen.captionTextSize,
     FontWeight? fontWeight,
   }) {
     return TextStyle(
+      backgroundColor: backgroundColor,
       color: color,
       fontSize: fontSize,
       fontWeight: bold ? FontWeight.bold : fontWeight,
+      decoration: decoration,
     );
   }
 

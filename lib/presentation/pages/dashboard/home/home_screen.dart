@@ -68,11 +68,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: Dimen.mediumSpace),
                 // * Menu
                 GridView.count(
+                  clipBehavior: Clip.antiAlias,
                   crossAxisCount: 3,
                   crossAxisSpacing: Dimen.mediumSpace,
                   mainAxisSpacing: Dimen.mediumSpace,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.zero,
                   children: Menu.values
                       .map(
                         (e) => _MenuIcon(
@@ -81,28 +83,30 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           icon: SvgPicture.asset(
                             getIconMenu(value: e),
-                            width: 30.w,
-                            height: 30.h,
+                            width: 30,
+                            height: 30,
                           ),
                           title: getMenuTitle(value: e),
                         ),
                       )
                       .toList(),
                 ),
-                const SizedBox(height: Dimen.largeSpace),
                 // * Title
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Popular University',
-                      style: CustomTextStyle.largeTitleTextStyle(bold: true),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text('View All'),
-                    )
-                  ],
+                Container(
+                  margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Popular University',
+                        style: CustomTextStyle.titleTextStyle(bold: true),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text('View All'),
+                      )
+                    ],
+                  ),
                 ),
                 const SizedBox(height: Dimen.mediumSpace),
                 // * Long Slides
@@ -182,12 +186,10 @@ class _MenuIcon extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(Dimen.mediumSpace),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Dimen.defaultRadius),
           color: secondaryColor,
         ),
-        width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -196,6 +198,7 @@ class _MenuIcon extends StatelessWidget {
             // * Title
             Container(
               margin: const EdgeInsets.only(top: Dimen.mediumSpace),
+              alignment: Alignment.center,
               child: Text(
                 title,
                 style: CustomTextStyle.captionTextStyle(bold: true),

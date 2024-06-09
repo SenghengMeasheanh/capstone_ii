@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:capstone_ii/logic/bloc/university/university_bloc.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,7 +96,7 @@ class _MyAppState extends State<MyApp> {
           snackBarTheme: snackBarTheme,
           inputDecorationTheme: textFormFieldTheme,
           elevatedButtonTheme: elevatedButtonTheme,
-          fontFamily: 'KantumruyPro',
+          fontFamily: context.getDefaultLanguage ? 'Roboto' : 'KantumruyPro',
         ),
         home: BlocListener<InternetCubit, InternetState>(
           listener: (context, state) {

@@ -1,6 +1,5 @@
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
-import 'package:capstone_ii/presentation/widgets/custom_cached_network_image_widget.dart';
 import 'package:flutter/material.dart';
 
 class SettingScreen extends StatefulWidget {
