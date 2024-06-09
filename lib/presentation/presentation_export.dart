@@ -34,10 +34,10 @@ export 'pages/dashboard/home/home_screen.dart';
 export 'pages/dashboard/home/career/career_page.dart';
 
 // ? Pages (Dashboard/Home/College Quiz)
-export 'pages/dashboard/home/college_quiz/college_quiz.dart';
+export 'pages/dashboard/home/college_quiz/college_quiz_page.dart';
 
 // ? Pages (Dashboard/Home/Compare College)
-export 'pages/dashboard/home/compare_college/compare_college.dart';
+export 'pages/dashboard/home/compare_college/compare_college_page.dart';
 
 // ? Pages (Dashboard/Home/Events)
 export 'pages/dashboard/home/events/events_page.dart';

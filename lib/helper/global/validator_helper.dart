@@ -1,5 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:capstone_ii/helper/helper_export.dart';
 
 // class Validator {
 //   static String? validateEmptyField(String? value) {

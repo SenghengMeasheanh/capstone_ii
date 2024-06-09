@@ -3,13 +3,12 @@ import 'package:capstone_ii/presentation/pages/dashboard/home/events/events_deta
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
-import 'package:capstone_ii/helper/utils/navigator_utils.dart';
 
 class EventPage extends StatefulWidget {
   const EventPage({super.key});
 
   @override
-  _EventPageState createState() => _EventPageState();
+  State<EventPage> createState() => _EventPageState();
 }
 
 class _EventPageState extends State<EventPage> {
@@ -36,7 +35,7 @@ class _EventPageState extends State<EventPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Title
+              // * Title
               Container(
                 margin: const EdgeInsets.only(bottom: Dimen.mediumSpace),
                 child: Text(
@@ -44,12 +43,12 @@ class _EventPageState extends State<EventPage> {
                   style: CustomTextStyle.largeTitleTextStyle(bold: true),
                 ),
               ),
-              // Searchbar
+              //  * Searchbar
               SearchBarWidget(
                 controller: _searchBarController,
                 onChange: (value) => {},
               ),
-              // Filter Menu
+              // * Filter Menu
               Container(
                 margin: const EdgeInsets.only(top: Dimen.mediumSpace),
                 child: Wrap(
@@ -92,7 +91,7 @@ class _EventPageState extends State<EventPage> {
                   ],
                 ),
               ),
-              // Event List
+              // * Event List
               Container(
                 margin: const EdgeInsets.only(top: 5.0),
                 child: ListView.separated(

@@ -1,5 +1,5 @@
 import 'package:capstone_ii/helper/helper_export.dart';
-import 'package:capstone_ii/helper/styles/styles.dart';
+import 'package:capstone_ii/presentation/pages/dashboard/home/career/career_detail_page.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/material.dart';
 
@@ -112,7 +112,9 @@ class _CareerPageState extends State<CareerPage> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: 2,
                   itemBuilder: (context, index) {
-                    return ItemCareer();
+                    return ItemCareer(
+                      onTap: () => context.push(destination: const CareerDetailPage()),
+                    );
                   },
                 ),
               ),

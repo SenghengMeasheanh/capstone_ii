@@ -2,21 +2,20 @@ import 'package:capstone_ii/presentation/pages/dashboard/home/scholarships/schol
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/widgets/search_bar_widget.dart';
-import 'package:capstone_ii/helper/utils/navigator_utils.dart';
 import 'package:capstone_ii/presentation/items/item_scholarship.dart';
 
 class ScholarshipsPage extends StatefulWidget {
   const ScholarshipsPage({super.key});
 
   @override
-  _ScholarshipsPageState createState() => _ScholarshipsPageState();
+  State<ScholarshipsPage> createState() => _ScholarshipsPageState();
 }
 
 class _ScholarshipsPageState extends State<ScholarshipsPage> {
   //* controller for search bar
   final _searchBarController = TextEditingController();
-  String _searchText = "";
-  String _selectedFilter = "All Scholarships";
+  String _searchText = '';
+  String _selectedFilter = 'All Scholarships';
 
   @override
   void dispose() {
@@ -62,7 +61,7 @@ class _ScholarshipsPageState extends State<ScholarshipsPage> {
                   spacing: 10,
                   children: [
                     ChoiceChip(
-                      label: Text('All Scholarships'),
+                      label: const Text('All Scholarships'),
                       selected: _selectedFilter == 'All Scholarships',
                       onSelected: (bool selected) {
                         setState(() {
@@ -72,7 +71,7 @@ class _ScholarshipsPageState extends State<ScholarshipsPage> {
                       selectedColor: primaryColor,
                     ),
                     ChoiceChip(
-                      label: Text('100% Scholarship'),
+                      label: const Text('100% Scholarship'),
                       selected: _selectedFilter == '100% Scholarship',
                       onSelected: (bool selected) {
                         setState(() {
@@ -82,7 +81,7 @@ class _ScholarshipsPageState extends State<ScholarshipsPage> {
                       selectedColor: primaryColor,
                     ),
                     ChoiceChip(
-                      label: Text('50% Scholarship'),
+                      label: const Text('50% Scholarship'),
                       selected: _selectedFilter == '50% Scholarship',
                       onSelected: (bool selected) {
                         setState(() {
@@ -92,7 +91,7 @@ class _ScholarshipsPageState extends State<ScholarshipsPage> {
                       selectedColor: primaryColor,
                     ),
                     ChoiceChip(
-                      label: Text('Study Abroad Scholarship'),
+                      label: const Text('Study Abroad Scholarship'),
                       selected: _selectedFilter == 'Study Abroad Scholarship',
                       onSelected: (bool selected) {
                         setState(() {

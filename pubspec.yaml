@@ -180,6 +180,11 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   # Flutter Native Splash Config
+  fonts:
+    - family: KantumruyPro
+      fonts:
+        - asset: assets/fonts/KantumruyPro.ttf
+
 flutter_native_splash:
   # Light
   color: "#FFFFFF"
