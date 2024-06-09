@@ -1,5 +1,5 @@
 import 'package:capstone_ii/presentation/items/item_events.dart';
-import 'package:capstone_ii/presentation/pages/dashboard/home/events/events_detail/event_detail.dart';
+import 'package:capstone_ii/presentation/pages/dashboard/home/events/events_detail/event_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';

@@ -49,9 +49,9 @@ class EventDetailPage extends StatelessWidget {
                 children: [
                   //Icon(Icons.calendar_today, size: 20, color: Colors.grey),
                   const SizedBox(width: Dimen.smallSpace),
-                  Text(date, style: CustomTextStyle.captionTextStyle()),
-                  //const SizedBox(width: Dimen.mediumSpace),
-                  // Icon(Icons.access_time, size: 20, color: Colors.grey),
+                  Text(date,
+                      style: CustomTextStyle
+                          .captionTextStyle()), // Icon(Icons.access_time, size: 20, color: Colors.grey),
                   const SizedBox(width: Dimen.smallSpace),
                   const Text("|"),
                   const SizedBox(width: Dimen.smallSpace),
@@ -72,11 +72,24 @@ class EventDetailPage extends StatelessWidget {
               // * Apply Button
 
               const SizedBox(height: Dimen.largeSpace),
+              //Button apply now
               Center(
-                child: CustomButtonWithIcon(
-                    onTap: () {},
-                    text: 'Register now',
-                    icon: Icons.app_registration),
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Handle button press
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                    backgroundColor: primaryColor, // Background color
+                  ),
+                  child: Text(
+                    'Resgister now',
+                    style: CustomTextStyle.buttonTextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
