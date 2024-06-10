@@ -1,6 +1,6 @@
-import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
+import 'package:capstone_ii/presentation/widgets/custom_cached_network_image_widget.dart';
 
 class ItemScholarship extends StatelessWidget {
   final String imageUrl;
@@ -11,21 +11,21 @@ class ItemScholarship extends StatelessWidget {
   final VoidCallback onTap;
 
   const ItemScholarship({
-    super.key,
+    Key? key,
     required this.imageUrl,
     required this.name,
     required this.description,
     required this.openDate,
     required this.closeDate,
     required this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(10.0)),
         ),
         child: Column(
@@ -37,7 +37,7 @@ class ItemScholarship extends StatelessWidget {
                 height: 200,
                 width: double.infinity,
                 boxFit: BoxFit.cover,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(10.0)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
               ),
             ),
             Padding(
@@ -69,29 +69,33 @@ class ItemScholarship extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.calendar_today,
-                                  size: 20, color: Colors.grey),
+                              Icon(Icons.calendar_today,
+                                  size: 15, color: Colors.grey),
                               const SizedBox(width: Dimen.smallSpace),
                               Text('Open: $openDate',
-                                  style: CustomTextStyle.bodyTextStyle()),
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                  )),
                             ],
                           ),
                           const SizedBox(height: Dimen.smallSpace),
                           Row(
                             children: [
-                              const Icon(Icons.calendar_today,
-                                  size: 20, color: Colors.grey),
+                              Icon(Icons.calendar_today,
+                                  size: 15, color: Colors.grey),
                               const SizedBox(width: Dimen.smallSpace),
-                              Text('Close: $closeDate',
-                                  style: CustomTextStyle.bodyTextStyle()),
+                              Text(
+                                'Close: $closeDate',
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                ),
+                              ),
                             ],
                           ),
                         ],
                       ),
                       GestureDetector(
-                        onTap: () {
-                          // Handle apply button press
-                        },
+                        onTap: onTap, // Navigate to the detailed page
                         child: Container(
                           decoration: BoxDecoration(
                             color: primaryColor,
@@ -106,7 +110,7 @@ class ItemScholarship extends StatelessWidget {
                             ],
                           ),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 24.0, vertical: 14.0),
+                              horizontal: 12.0, vertical: 10.0),
                           child: Text(
                             'See more...',
                             style: CustomTextStyle.bodyTextStyle(
