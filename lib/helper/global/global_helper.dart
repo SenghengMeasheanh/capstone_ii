@@ -2,16 +2,11 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:android_id/android_id.dart';
-import 'package:capstone_ii/helper/global/constants.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:gal/gal.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -139,6 +134,18 @@ import 'package:url_launcher/url_launcher_string.dart';
 //   return map[getCurrentContext.locale] ?? '';
 // }
 
+// * Get Error Content
+String getErrorContent({
+  required dynamic exception,
+  required dynamic stackTrace,
+}) {
+  return '------------- Exception ---------------'
+          '\n\n$exception\n\n'
+          '------------- Stack Trace -------------'
+          '\n\n$stackTrace\n\n'
+      .trim();
+}
+
 // * Get Devices Info
 Future<String> getDeviceId() async {
   // * unique ID on Android
@@ -263,7 +270,7 @@ String getGender({required Gender value}) {
   return map[value] ?? '';
 }
 
-Widget getMenuRoute({required  Menu value}) {
+Widget getMenuRoute({required Menu value}) {
   final map = {
     Menu.university: const UniversityPage(),
     Menu.career: const CareerPage(),
@@ -286,17 +293,17 @@ IconData getIcon({required Gender value}) {
   return map[value]!;
 }
 
-IconData getIconMenu({required Menu value}) {
+String getIconMenu({required Menu value}) {
   final map = {
-    Menu.university: Icons.school,
-    Menu.career: Icons.work,
-    Menu.forum: Icons.forum,
-    Menu.events: Icons.event,
-    Menu.guides: Icons.book,
-    Menu.collegeQuiz: Icons.quiz,
-    Menu.scholarships: Icons.money,
-    Menu.financialAid: Icons.attach_money,
-    Menu.compareColleges: Icons.compare,
+    Menu.university: Assets.iconBuilding,
+    Menu.career: Assets.iconCareer,
+    Menu.forum: Assets.iconForum,
+    Menu.events: Assets.iconEvent,
+    Menu.guides: Assets.iconGuides,
+    Menu.collegeQuiz: Assets.iconQuiz,
+    Menu.scholarships: Assets.iconScholarship,
+    Menu.financialAid: Assets.iconMoney,
+    Menu.compareColleges: Assets.iconCompareCollege,
   };
   return map[value]!;
 }

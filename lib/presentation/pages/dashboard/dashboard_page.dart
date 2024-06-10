@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 final dashboardStreamController = StreamController.broadcast();
 
@@ -34,72 +33,79 @@ class _DashboardPageState extends State<DashboardPage> {
     _persisTabController.dispose();
   }
 
-  List<PersistentBottomNavBarItem> get _navBarsItems {
+  List<PersistentTabConfig> get _navBarsTab {
     return [
-      PersistentBottomNavBarItem(
-        title: '',
-        activeColorPrimary: primaryColor,
-        inactiveColorPrimary: Colors.black,
-        icon: Icon(_persisTabController.index == 0 ? Icons.home : Icons.home_outlined),
-      ),
-      PersistentBottomNavBarItem(
-        title: '',
-        activeColorPrimary: primaryColor,
-        inactiveColorPrimary: Colors.black,
-        icon: Icon(
-          _persisTabController.index == 1 ? Icons.event : Icons.event_outlined,
+      PersistentTabConfig(
+        screen: const HomeScreen(),
+        item: ItemConfig(
+          iconSize: 18,
+          activeForegroundColor: primaryColor,
+          title: 'Home',
+          inactiveIcon: SvgPicture.asset(
+            Assets.iconHome,
+          ),
+          icon: SvgPicture.asset(
+            Assets.iconHome,
+            colorFilter: const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+          ),
         ),
       ),
-      PersistentBottomNavBarItem(
-        title: '',
-        activeColorPrimary: primaryColor,
-        inactiveColorPrimary: Colors.black,
-        icon: Icon(
-          _persisTabController.index == 2
-              ? FluentIcons.ticket_horizontal_20_filled
-              : FluentIcons.ticket_horizontal_20_regular,
+      PersistentTabConfig(
+        screen: const EventsScreen(),
+        item: ItemConfig(
+          iconSize: 18,
+          title: 'Bookmark',
+          activeForegroundColor: primaryColor,
+          inactiveIcon: SvgPicture.asset(
+            Assets.iconBookmarkOulined,
+          ),
+          icon: SvgPicture.asset(
+            Assets.iconBookmarkOulined,
+            colorFilter: const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+          ),
         ),
       ),
-      PersistentBottomNavBarItem(
-        title: '',
-        activeColorPrimary: primaryColor,
-        inactiveColorPrimary: Colors.black,
-        icon: Icon(_persisTabController.index == 3 ? Icons.person : Icons.person_outlined),
+      PersistentTabConfig(
+        screen: const CalenderScreen(),
+        item: ItemConfig(
+          iconSize: 18,
+          activeForegroundColor: primaryColor,
+          title: 'Calendar',
+          inactiveIcon: SvgPicture.asset(
+            Assets.iconCalendar,
+          ),
+          icon: SvgPicture.asset(
+            Assets.iconCalendar,
+            colorFilter: const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+          ),
+        ),
+      ),
+      PersistentTabConfig(
+        screen: const SettingScreen(),
+        item: ItemConfig(
+          iconSize: 18,
+          title: 'Account',
+          activeForegroundColor: primaryColor,
+          inactiveIcon: SvgPicture.asset(
+            Assets.iconAccount,
+          ),
+          icon: SvgPicture.asset(
+            Assets.iconAccount,
+            colorFilter: const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+          ),
+        ),
       ),
     ];
-  }
-
-  List<Widget> get _buildScreens {
-    return [
-      const HomeScreen(),
-      const EventsScreen(),
-      const CalenderScreen(),
-      const AccountScreen(),
-    ];
-  }
-
-  void _onSelectedBottomNavBars(int index) {
-    // * Select Tab Index
-    if (mounted) setState(() => _persisTabController.index = index);
   }
 
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
-      context,
-      controller: _persisTabController,
-      items: _navBarsItems,
-      screens: _buildScreens,
-      onItemSelected: _onSelectedBottomNavBars,
-      decoration: const NavBarDecoration(colorBehindNavBar: Colors.white),
-      itemAnimationProperties: const ItemAnimationProperties(
-        duration: Duration(milliseconds: 200),
-        curve: Curves.ease,
+      navBarHeight: kBottomNavigationBarHeight,
+      tabs: _navBarsTab,
+      navBarBuilder: (navBarConfig) => Style7BottomNavBar(
+        navBarConfig: navBarConfig,
       ),
-      screenTransitionAnimation: const ScreenTransitionAnimation(
-        animateTabTransition: true,
-      ),
-      navBarStyle: NavBarStyle.style13,
     );
   }
 }
