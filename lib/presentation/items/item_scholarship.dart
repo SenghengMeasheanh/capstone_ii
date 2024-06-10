@@ -1,7 +1,6 @@
-import 'package:capstone_ii/presentation/presentation_export.dart';
-import 'package:capstone_ii/presentation/widgets/custom_cached_network_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
+import 'package:capstone_ii/presentation/widgets/custom_cached_network_image_widget.dart';
 
 class ItemScholarship extends StatelessWidget {
   final String imageUrl;
@@ -71,28 +70,32 @@ class ItemScholarship extends StatelessWidget {
                           Row(
                             children: [
                               Icon(Icons.calendar_today,
-                                  size: 20, color: Colors.grey),
+                                  size: 15, color: Colors.grey),
                               const SizedBox(width: Dimen.smallSpace),
                               Text('Open: $openDate',
-                                  style: CustomTextStyle.bodyTextStyle()),
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                  )),
                             ],
                           ),
                           const SizedBox(height: Dimen.smallSpace),
                           Row(
                             children: [
                               Icon(Icons.calendar_today,
-                                  size: 20, color: Colors.grey),
+                                  size: 15, color: Colors.grey),
                               const SizedBox(width: Dimen.smallSpace),
-                              Text('Close: $closeDate',
-                                  style: CustomTextStyle.bodyTextStyle()),
+                              Text(
+                                'Close: $closeDate',
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                ),
+                              ),
                             ],
                           ),
                         ],
                       ),
                       GestureDetector(
-                        onTap: () {
-                          // Handle apply button press
-                        },
+                        onTap: onTap, // Navigate to the detailed page
                         child: Container(
                           decoration: BoxDecoration(
                             color: primaryColor,
@@ -107,7 +110,7 @@ class ItemScholarship extends StatelessWidget {
                             ],
                           ),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 24.0, vertical: 14.0),
+                              horizontal: 12.0, vertical: 10.0),
                           child: Text(
                             'See more...',
                             style: CustomTextStyle.bodyTextStyle(
