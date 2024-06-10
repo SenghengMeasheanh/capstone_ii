@@ -1,6 +1,6 @@
+import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
-import 'package:capstone_ii/presentation/widgets/custom_cached_network_image_widget.dart';
 
 class ItemScholarship extends StatelessWidget {
   final String imageUrl;
@@ -11,14 +11,14 @@ class ItemScholarship extends StatelessWidget {
   final VoidCallback onTap;
 
   const ItemScholarship({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.name,
     required this.description,
     required this.openDate,
     required this.closeDate,
     required this.onTap,
-  }) : super(key: key);
+  })
 
   @override
   Widget build(BuildContext context) {
