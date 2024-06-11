@@ -90,7 +90,7 @@ class _LanguagePickerBottomSheet extends StatelessWidget with ModalUtilsMixin {
     // * Set Locale
     context.setLocale(locale);
     // * Notify In [Dashboard Page]
-    dashboardStreamController.add('locale');
+    languageStreamController.add('locale');
     // * Dismiss Dialog
     dismiss();
   }

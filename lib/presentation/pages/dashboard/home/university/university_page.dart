@@ -2,6 +2,7 @@ import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -97,7 +98,7 @@ class _UniversityPageState extends State<UniversityPage> {
                   Container(
                     margin: const EdgeInsets.only(bottom: Dimen.mediumSpace),
                     child: Text(
-                      'University',
+                      tr(LocaleKeys.university),
                       style: CustomTextStyle.largeTitleTextStyle(bold: true),
                     ),
                   ),
@@ -148,7 +149,7 @@ class _UniversityPageState extends State<UniversityPage> {
                   Container(
                     margin: EdgeInsets.only(top: Dimen.extraLargeSpace.h),
                     child: Text(
-                      'Find the right colleges for you',
+                      tr(LocaleKeys.find_the_right_university_for_you),
                       style: CustomTextStyle.titleTextStyle(bold: true),
                     ),
                   ),
@@ -156,7 +157,8 @@ class _UniversityPageState extends State<UniversityPage> {
                   Container(
                     margin: const EdgeInsets.only(top: Dimen.mediumSpace, bottom: Dimen.extraLargeSpace),
                     child: Text(
-                      'Use the filters above to narrow your search to schools that are a good fit for you.',
+                      tr(LocaleKeys
+                          .use_the_filters_above_to_narrow_your_search_to_schools_that_are_a_good_fit_for_you),
                       style: CustomTextStyle.bodyTextStyle(),
                     ),
                   ),
@@ -180,8 +182,14 @@ class _UniversityPageState extends State<UniversityPage> {
                     separatorBuilder: (context, index) => const SizedBox(height: Dimen.defaultSpace),
                     builderDelegate: PagedChildBuilderDelegate(
                       animateTransitions: true,
-                      itemBuilder: (context, models, item) => ItemUniversity( 
-                        onTap: () => context.push(destination: UniversityDetailPage(universityId: models.id, coverImageUrl: models.image, logoImageUrl: models.logoImage,universityModels: models),),
+                      itemBuilder: (context, models, item) => ItemUniversity(
+                        onTap: () => context.push(
+                          destination: UniversityDetailPage(
+                              universityId: models.id,
+                              coverImageUrl: models.image,
+                              logoImageUrl: models.logoImage,
+                              universityModels: models),
+                        ),
                         models: models,
                       ),
                       firstPageProgressIndicatorBuilder: (_) {

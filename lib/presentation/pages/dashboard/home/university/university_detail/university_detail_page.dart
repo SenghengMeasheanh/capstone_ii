@@ -89,7 +89,9 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
         headerSliverBuilder: (_, innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              expandedHeight: 380.h,
+              expandedHeight: MediaQuery.of(context).size.height < 883
+                  ? MediaQuery.of(context).size.height * 0.52
+                  : MediaQuery.of(context).size.height * 0.45,
               backgroundColor: Colors.white,
               elevation: 0,
               pinned: true,

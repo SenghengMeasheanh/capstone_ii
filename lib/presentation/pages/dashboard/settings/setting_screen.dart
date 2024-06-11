@@ -1,5 +1,6 @@
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -74,8 +75,8 @@ class _SettingScreenState extends State<SettingScreen> {
                     // * Change Language
                     _buildListTileWithDivider(
                       leading: const Icon(Icons.language, color: primaryColor),
-                      title: Text('Change Language', style: CustomTextStyle.bodyTextStyle()),
-                      onTap: () => LanguagePickerBottomSheet().show(),
+                      title: Text(tr(LocaleKeys.change_language), style: CustomTextStyle.bodyTextStyle()),
+                      onTap: () => LanguagePickerBottomSheet().show().then((_) => {setState(() {})}),
                     ),
                     // * Rate Us
                     _buildListTileWithDivider(
@@ -92,14 +93,14 @@ class _SettingScreenState extends State<SettingScreen> {
                     // * Privacy Policy
                     _buildListTileWithDivider(
                       leading: const Icon(Icons.privacy_tip, color: primaryColor),
-                      title: Text('Privacy Policy', style: CustomTextStyle.bodyTextStyle()),
+                      title: Text(tr(LocaleKeys.privacy_policy), style: CustomTextStyle.bodyTextStyle()),
                       onTap: () {},
                       trailing: const Icon(Icons.arrow_forward_ios, color: primaryColor),
                     ),
                     // * Terms and Conditions
                     _buildListTileWithDivider(
                       leading: const Icon(Icons.description, color: primaryColor),
-                      title: Text('Terms and Conditions', style: CustomTextStyle.bodyTextStyle()),
+                      title: Text(tr(LocaleKeys.terms_and_conditions), style: CustomTextStyle.bodyTextStyle()),
                       onTap: () {},
                       trailing: const Icon(Icons.arrow_forward_ios, color: primaryColor),
                     ),

@@ -1,4 +1,5 @@
 import 'package:capstone_ii/helper/helper_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -20,7 +21,7 @@ class ItemUniversityFilter extends StatelessWidget {
     return FilterChip(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 11),
       onDeleted: isSelected ? onDeleteTap : null,
-      label: Text(title, style: CustomTextStyle.bodyTextStyle()),
+      label: Text(tr(title), style: CustomTextStyle.bodyTextStyle()),
       selected: isSelected,
       onSelected: (value) {
         onTap();

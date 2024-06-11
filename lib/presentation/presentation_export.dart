@@ -73,3 +73,6 @@ export 'widgets/empty_items_widget.dart';
 export 'widgets/progress_bar_widget.dart';
 export 'widgets/scaffold_messenger_widget.dart';
 export 'widgets/search_bar_widget.dart';
+
+// * Main
+export '../main.dart';

@@ -1,11 +1,9 @@
-import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-
-final dashboardStreamController = StreamController.broadcast();
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({
@@ -24,7 +22,7 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     super.initState();
     // * Listen Stream Controller
-    dashboardStreamController.stream.listen((_) => setState(() {}));
+    languageStreamController.stream.listen((_) => setState(() {}));
   }
 
   @override
@@ -40,7 +38,7 @@ class _DashboardPageState extends State<DashboardPage> {
         item: ItemConfig(
           iconSize: 18,
           activeForegroundColor: primaryColor,
-          title: 'Home',
+          title: tr(LocaleKeys.home),
           inactiveIcon: SvgPicture.asset(
             Assets.iconHome,
           ),
@@ -54,7 +52,7 @@ class _DashboardPageState extends State<DashboardPage> {
         screen: const EventsScreen(),
         item: ItemConfig(
           iconSize: 18,
-          title: 'Bookmark',
+          title: tr(LocaleKeys.bookmark),
           activeForegroundColor: primaryColor,
           inactiveIcon: SvgPicture.asset(
             Assets.iconBookmarkOulined,
@@ -70,7 +68,7 @@ class _DashboardPageState extends State<DashboardPage> {
         item: ItemConfig(
           iconSize: 18,
           activeForegroundColor: primaryColor,
-          title: 'Calendar',
+          title: tr(LocaleKeys.calendar),
           inactiveIcon: SvgPicture.asset(
             Assets.iconCalendar,
           ),
@@ -84,7 +82,7 @@ class _DashboardPageState extends State<DashboardPage> {
         screen: const SettingScreen(),
         item: ItemConfig(
           iconSize: 18,
-          title: 'Account',
+          title: tr(LocaleKeys.account),
           activeForegroundColor: primaryColor,
           inactiveIcon: SvgPicture.asset(
             Assets.iconAccount,
@@ -101,7 +99,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
-      navBarHeight: kBottomNavigationBarHeight,
+      navBarHeight: 70,
       tabs: _navBarsTab,
       navBarBuilder: (navBarConfig) => Style7BottomNavBar(
         navBarConfig: navBarConfig,

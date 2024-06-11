@@ -8,6 +8,7 @@ export 'global/pagination_helper.dart';
 export 'global/validator_helper.dart';
 // * Manager
 export 'manager/language/language_manager.dart';
+export 'manager/language/translations/locale_keys.g.dart';
 // * Preferences
 export 'preferences/app_preference.dart';
 // * Styles
