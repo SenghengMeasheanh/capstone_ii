@@ -1,8 +1,8 @@
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,16 +23,13 @@ class _HomeScreenState extends State<HomeScreen> {
     'https://www.wwe.com/f/styles/wwe_large/public/all/2024/04/20240314_WM40_Match_USTitle_FC_tonight--fe130dabb803acea2d41f160726019b5.jpg'
   ];
 
-  List<String> smallImages = [
-    'https://imageio.forbes.com/specials-images/imageserve/65be17cb80f5c798a03e7762/Florian-Wirtz-could-be-signed-by-Real-Madrid-from-Bayer-Leverkusen-in-2025-/960x0.jpg?format=jpg&width=960',
-    'https://imageio.forbes.com/specials-images/imageserve/65be17cb80f5c798a03e7762/Florian-Wirtz-could-be-signed-by-Real-Madrid-from-Bayer-Leverkusen-in-2025-/960x0.jpg?format=jpg&width=960',
-    'https://imageio.forbes.com/specials-images/imageserve/65be17cb80f5c798a03e7762/Florian-Wirtz-could-be-signed-by-Real-Madrid-from-Bayer-Leverkusen-in-2025-/960x0.jpg?format=jpg&width=960',
-    'https://imageio.forbes.com/specials-images/imageserve/65be17cb80f5c798a03e7762/Florian-Wirtz-could-be-signed-by-Real-Madrid-from-Bayer-Leverkusen-in-2025-/960x0.jpg?format=jpg&width=960',
-    'https://imageio.forbes.com/specials-images/imageserve/65be17cb80f5c798a03e7762/Florian-Wirtz-could-be-signed-by-Real-Madrid-from-Bayer-Leverkusen-in-2025-/960x0.jpg?format=jpg&width=960',
-    'https://imageio.forbes.com/specials-images/imageserve/65be17cb80f5c798a03e7762/Florian-Wirtz-could-be-signed-by-Real-Madrid-from-Bayer-Leverkusen-in-2025-/960x0.jpg?format=jpg&width=960',
-  ];
-
   var _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    languageStreamController.stream.listen((_) => setState(() {}));
+  }
 
   @override
   void dispose() {
@@ -200,7 +197,7 @@ class _MenuIcon extends StatelessWidget {
               margin: const EdgeInsets.only(top: Dimen.mediumSpace),
               alignment: Alignment.center,
               child: Text(
-                title,
+                tr(title),
                 style: CustomTextStyle.captionTextStyle(bold: true),
                 textAlign: TextAlign.center,
               ),

@@ -310,25 +310,25 @@ String getIconMenu({required Menu value}) {
 
 String getMenuTitle({required Menu value}) {
   final map = {
-    Menu.university: 'University',
-    Menu.career: 'Career',
-    Menu.forum: 'Forum',
-    Menu.events: 'Events',
-    Menu.guides: 'Guides',
-    Menu.collegeQuiz: 'College Quiz',
-    Menu.scholarships: 'Scholarship',
-    Menu.financialAid: 'Financial Aid',
-    Menu.compareColleges: 'Compare Colleges',
+    Menu.university: LocaleKeys.university,
+    Menu.career: LocaleKeys.career,
+    Menu.forum: LocaleKeys.forum,
+    Menu.events: LocaleKeys.events,
+    Menu.guides: LocaleKeys.guides,
+    Menu.collegeQuiz: LocaleKeys.college_quiz,
+    Menu.scholarships: LocaleKeys.scholarships,
+    Menu.financialAid: LocaleKeys.financial_aid,
+    Menu.compareColleges: LocaleKeys.compare_colleges,
   };
   return map[value]!;
 }
 
 String getUniversityFilterMenuTitle({required UniversityFilterMenu value}) {
   final map = {
-    UniversityFilterMenu.major: 'Major',
-    UniversityFilterMenu.type: 'Type',
-    UniversityFilterMenu.location: 'Location',
-    UniversityFilterMenu.degree: 'Degree',
+    UniversityFilterMenu.major: LocaleKeys.major,
+    UniversityFilterMenu.type: LocaleKeys.types,
+    UniversityFilterMenu.location: LocaleKeys.location,
+    UniversityFilterMenu.degree: LocaleKeys.degree,
   };
   return map[value]!;
 }

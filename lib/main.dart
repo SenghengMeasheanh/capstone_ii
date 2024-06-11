@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:device_preview/device_preview.dart';
@@ -10,6 +11,7 @@ import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 
+final languageStreamController = StreamController.broadcast();
 Future<void> main() async {
   // * Ensure Widget Initialized
   WidgetsFlutterBinding.ensureInitialized();
