@@ -70,11 +70,11 @@ class ItemScholarship extends StatelessWidget {
                           Row(
                             children: [
                               Icon(Icons.calendar_today,
-                                  size: 15, color: Colors.grey),
+                                  size: 13, color: Colors.grey),
                               const SizedBox(width: Dimen.smallSpace),
                               Text('Open: $openDate',
                                   style: TextStyle(
-                                    fontSize: 15.0,
+                                    fontSize: 13.0,
                                   )),
                             ],
                           ),
@@ -82,12 +82,12 @@ class ItemScholarship extends StatelessWidget {
                           Row(
                             children: [
                               Icon(Icons.calendar_today,
-                                  size: 15, color: Colors.grey),
+                                  size: 13, color: Colors.grey),
                               const SizedBox(width: Dimen.smallSpace),
                               Text(
                                 'Close: $closeDate',
                                 style: TextStyle(
-                                  fontSize: 15.0,
+                                  fontSize: 13.0,
                                 ),
                               ),
                             ],
@@ -110,7 +110,7 @@ class ItemScholarship extends StatelessWidget {
                             ],
                           ),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 12.0, vertical: 10.0),
+                              horizontal: 10.0, vertical: 10.0),
                           child: Text(
                             'See more...',
                             style: CustomTextStyle.bodyTextStyle(
