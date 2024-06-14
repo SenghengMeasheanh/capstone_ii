@@ -1,7 +1,9 @@
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CareerDetailPage extends StatefulWidget {
   const CareerDetailPage({super.key});
@@ -10,7 +12,8 @@ class CareerDetailPage extends StatefulWidget {
   State<CareerDetailPage> createState() => _CareerDetailPageState();
 }
 
-class _CareerDetailPageState extends State<CareerDetailPage> with TickerProviderStateMixin {
+class _CareerDetailPageState extends State<CareerDetailPage>
+    with TickerProviderStateMixin {
   // * Tab Controller
   late TabController _tabController;
 
@@ -93,7 +96,8 @@ class _CareerDetailPageState extends State<CareerDetailPage> with TickerProvider
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(kToolbarHeight),
                 child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding),
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: Dimen.contentPadding),
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
                     border: Border(
@@ -138,7 +142,7 @@ class _CareerDetailPageState extends State<CareerDetailPage> with TickerProvider
           controller: _tabController,
           children: [
             _buildJobDetail,
-            const Text('Company'),
+            _buildCompanyDetail,
           ],
         ),
       ),
@@ -149,7 +153,8 @@ class _CareerDetailPageState extends State<CareerDetailPage> with TickerProvider
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding, vertical: Dimen.defaultSpace),
+        padding: const EdgeInsets.symmetric(
+            horizontal: Dimen.contentPadding, vertical: Dimen.defaultSpace),
         child: Column(
           children: [
             // * Profile Insight
@@ -167,7 +172,8 @@ class _CareerDetailPageState extends State<CareerDetailPage> with TickerProvider
               alignment: Alignment.centerLeft,
               child: Text(
                 'Find out how your skills align with the job description',
-                style: CustomTextStyle.captionTextStyle(color: captionTextColor),
+                style:
+                    CustomTextStyle.captionTextStyle(color: captionTextColor),
               ),
             ),
             // * Divider
@@ -193,7 +199,8 @@ class _CareerDetailPageState extends State<CareerDetailPage> with TickerProvider
               alignment: Alignment.centerLeft,
               child: Text(
                 'Here\'s how the job details align with you profile',
-                style: CustomTextStyle.captionTextStyle(color: captionTextColor),
+                style:
+                    CustomTextStyle.captionTextStyle(color: captionTextColor),
               ),
             ),
             Container(
@@ -268,7 +275,8 @@ class _CareerDetailPageState extends State<CareerDetailPage> with TickerProvider
               alignment: Alignment.centerLeft,
               child: Text(
                 'Pulled from the full job description',
-                style: CustomTextStyle.captionTextStyle(color: captionTextColor),
+                style:
+                    CustomTextStyle.captionTextStyle(color: captionTextColor),
               ),
             ),
             // * Benefits List
@@ -277,7 +285,8 @@ class _CareerDetailPageState extends State<CareerDetailPage> with TickerProvider
               alignment: Alignment.centerLeft,
               child: Text(
                 '• Health insurance',
-                style: CustomTextStyle.titleTextStyle(color: captionTextColor, bold: true),
+                style: CustomTextStyle.titleTextStyle(
+                    color: captionTextColor, bold: true),
               ),
             ),
             // * Divider
@@ -303,9 +312,11 @@ class _CareerDetailPageState extends State<CareerDetailPage> with TickerProvider
               alignment: Alignment.centerLeft,
               child: Text(
                 'Snap Inc is a technology company. We believe the camera presents the greatest opportunity to improve the way people live and communicate.Snap contributes to human progress by empowering people to express themselves, live in the moment, learn about the world, and have fun together. The Company’s three core products are Snapchat , a visual messaging app that enhances your relationships with friends, family, and the world.',
-                style: CustomTextStyle.captionTextStyle(color: captionTextColor),
+                style:
+                    CustomTextStyle.captionTextStyle(color: captionTextColor),
                 maxLines: _isReadMore ? null : 2,
-                overflow: _isReadMore ? TextOverflow.visible : TextOverflow.ellipsis,
+                overflow:
+                    _isReadMore ? TextOverflow.visible : TextOverflow.ellipsis,
               ),
             ),
             // * See More Button
@@ -322,7 +333,8 @@ class _CareerDetailPageState extends State<CareerDetailPage> with TickerProvider
                     color: primaryColor,
                   ),
                 ),
-                child: Text(_isReadMore ? 'See less' : 'See full job description'),
+                child:
+                    Text(_isReadMore ? 'See less' : 'See full job description'),
               ),
             ),
             // * Apply Button
@@ -335,7 +347,8 @@ class _CareerDetailPageState extends State<CareerDetailPage> with TickerProvider
                 iconAlignment: IconAlignment.end,
                 icon: SvgPicture.asset(
                   Assets.iconApplyNow,
-                  colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  colorFilter:
+                      const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                 ),
                 label: Text(
                   'Apply Now',
@@ -345,7 +358,8 @@ class _CareerDetailPageState extends State<CareerDetailPage> with TickerProvider
             ),
             // * Save Job Button
             Container(
-              margin: const EdgeInsets.only(top: Dimen.mediumSpace, bottom: Dimen.largeSpace),
+              margin: const EdgeInsets.only(
+                  top: Dimen.mediumSpace, bottom: Dimen.largeSpace),
               width: double.infinity,
               height: 46,
               child: ElevatedButton.icon(
@@ -353,7 +367,8 @@ class _CareerDetailPageState extends State<CareerDetailPage> with TickerProvider
                 iconAlignment: IconAlignment.start,
                 icon: SvgPicture.asset(
                   Assets.iconBookmark,
-                  colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  colorFilter:
+                      const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                 ),
                 label: Text(
                   'Save Job',
@@ -397,8 +412,257 @@ class _JobDetailItem extends StatelessWidget {
       subtitle: Text(
         content,
         style: CustomTextStyle.captionTextStyle(
-            color: Colors.black, backgroundColor: captionTextColor.withOpacity(0.3)),
+            color: Colors.black,
+            backgroundColor: captionTextColor.withOpacity(0.3)),
       ),
     );
   }
+}
+
+//start _company_detail
+
+Widget get _buildCompanyDetail {
+  return SingleChildScrollView(
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.all(10),
+            child: Text(
+              'About the Company',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+          const SizedBox(height: Dimen.mediumSpace),
+
+          // CEO Section
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+            ),
+            child: Row(
+              children: [
+                CustomCachedNetworkImage(
+                  imageUrl:
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiTQVVjwajkFje8XOsbOWvcpfOgUMr53MJmk3RJ97-mvdLXAQVZYQiz6xbQFr6LzWWne4&usqp=CAU', // Replace with actual CEO image URL
+                  config: CustomCachedNetworkImageConfig(
+                    width: 80,
+                    height: 80,
+                    boxFit: BoxFit.cover,
+                    borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+                  ),
+                ),
+                const SizedBox(width: Dimen.mediumSpace),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'John Doe', // Replace with actual CEO name
+                      style: CustomTextStyle.titleTextStyle(bold: true),
+                    ),
+                    const SizedBox(height: Dimen.smallSpace),
+                    Text(
+                      'CEO',
+                      style: CustomTextStyle.bodyTextStyle(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: Dimen.largeSpace),
+          // Founded and Company Size
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                width: 160,
+                height: 70,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Founded',
+                      style: CustomTextStyle.titleTextStyle(
+                          bold: true, fontSize: 16),
+                    ),
+                    const SizedBox(height: Dimen.largeSpace),
+                    Text(
+                      '1996', // Replace with actual founding year
+                      style: CustomTextStyle.bodyTextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                width: 160,
+                height: 70,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Company Size',
+                      style: CustomTextStyle.titleTextStyle(
+                          bold: true, fontSize: 16),
+                    ),
+                    const SizedBox(height: Dimen.largeSpace),
+                    Text(
+                      '100 - 500 employees',
+                      style: CustomTextStyle.bodyTextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: Dimen.largeSpace),
+
+          Text(
+            'Snap Inc is a technology company. We believe the camera presents the greatest opportunity to improve the way people live and communicate. Snap contributes to human progress by empowering people to express themselves, live in the moment, learn about the world, and have fun together. The Company’s three core products are Snapchat, a visual messaging app that enhances your relationships with friends, family, and the world.', // Replace with actual company description
+            style: TextStyle(fontSize: 14, color: Colors.grey),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: Dimen.defaultSpace),
+            child: const Divider(
+              color: captionTextColor,
+            ),
+          ),
+          const SizedBox(height: Dimen.mediumSpace),
+          // Company Details
+          Text(
+            'Company Details',
+            style: CustomTextStyle.titleTextStyle(bold: true),
+          ),
+          const SizedBox(height: Dimen.mediumSpace),
+
+          Text(
+            'Head Quarters',
+            style: CustomTextStyle.titleTextStyle(bold: true, fontSize: 18),
+          ),
+          const SizedBox(height: Dimen.smallSpace),
+          Text(
+            'San Francisco, California, United States',
+            style: CustomTextStyle.bodyTextStyle(fontSize: 14),
+          ),
+          const SizedBox(height: Dimen.largeSpace),
+          Text(
+            'Revenue',
+            style: CustomTextStyle.titleTextStyle(bold: true, fontSize: 18),
+          ),
+          const SizedBox(height: Dimen.smallSpace),
+          Text(
+            'hidden by employees',
+            style: CustomTextStyle.bodyTextStyle(),
+          ),
+          const SizedBox(height: Dimen.largeSpace),
+          Text(
+            'Employee',
+            style: CustomTextStyle.titleTextStyle(bold: true, fontSize: 18),
+          ),
+          const SizedBox(height: Dimen.smallSpace),
+          Text(
+            '100 - 500  employees',
+            style: CustomTextStyle.bodyTextStyle(),
+          ),
+          const SizedBox(height: Dimen.largeSpace),
+          Text(
+            'Indestry',
+            style: CustomTextStyle.titleTextStyle(bold: true, fontSize: 18),
+          ),
+          const SizedBox(height: Dimen.smallSpace),
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'www.sokpiseyKH24.com',
+                  style:
+                      CustomTextStyle.bodyTextStyle(color: Colors.blueAccent),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      launch(
+                          'https://www.linkedin.com/feed/'); // Open LinkedIn profile in browser or perform any action
+                    },
+                ),
+                WidgetSpan(
+                  child: Icon(
+                    Icons.link,
+                    size: 18,
+                    color: Colors.blueAccent,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: Dimen.largeSpace),
+          Text(
+            'Links',
+            style: CustomTextStyle.titleTextStyle(bold: true, fontSize: 18),
+          ),
+          const SizedBox(height: Dimen.smallSpace),
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'LinkedIn',
+                  style:
+                      CustomTextStyle.bodyTextStyle(color: Colors.blueAccent),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      launch(
+                          'https://www.linkedin.com/feed/'); // Open LinkedIn profile in browser or perform any action
+                    },
+                ),
+                WidgetSpan(
+                  child: Icon(
+                    Icons.link,
+                    size: 18,
+                    color: Colors.blueAccent,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: Dimen.smallSpace),
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Website',
+                  style:
+                      CustomTextStyle.bodyTextStyle(color: Colors.blueAccent),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      launch(
+                          'https://www.linkedin.com/feed/'); // Open company website in browser or perform any action
+                    },
+                ),
+                WidgetSpan(
+                  child: Icon(
+                    Icons.link,
+                    size: 18,
+                    color: Colors.blueAccent,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: Dimen.largeSpace),
+        ],
+      ),
+    ),
+  );
 }
