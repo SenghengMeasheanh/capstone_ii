@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
-import 'package:capstone_ii/presentation/widgets/custom_cached_network_image_widget.dart';
-
+import 'package:capstone_ii/presentation/presentation_export.dart';
 
 class ItemScholarship extends StatelessWidget {
   final String imageUrl;
