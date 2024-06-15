@@ -53,6 +53,23 @@ abstract class ApiService {
     @Path('id') required int id,
   });
 
+  @GET('/universities/program/degreeLevel/{id}')
+  Future<ListBodyResponse<DegreeLevelsModels>> getUniversityDegreeLevelsList({
+    @Path('id') required int id,
+  });
+
+  @GET('/universities/program/major/{id}')
+  Future<ListBodyResponse<UniversityMajorModels>> getUniversityMajorList({
+    @Path('id') required int id,
+    @Query('degreeLevel') int? degreeLevel,
+  });
+
+  @GET('/universities/program/specialize/{id}')
+  Future<ListBodyResponse<UniversitySpecializeModels>> getUniversitySpecializeList({
+    @Path('id') required int id,
+    @Query('degreeLevel') int? degreeLevel,
+  });
+
   @GET('/getFilter/degrees')
   Future<ListBodyResponse<DegreeModels>> getDegreeList();
 

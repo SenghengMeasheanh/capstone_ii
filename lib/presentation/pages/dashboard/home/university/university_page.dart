@@ -110,27 +110,7 @@ class _UniversityPageState extends State<UniversityPage> {
                       onChange: (v) => _debouncer.run(() => _onSearchUniversity(v)),
                     ),
                   ),
-
                   // * Filter Menu
-                  // GridView.count(
-                  //   crossAxisCount: 3,
-                  //   crossAxisSpacing: Dimen.mediumSpace,
-                  //   mainAxisSpacing: Dimen.mediumSpace,
-                  //   childAspectRatio: 2.5,
-                  //   shrinkWrap: true,
-                  //   physics: const NeverScrollableScrollPhysics(),
-                  //   children: UniversityFilterMenu.values
-                  //       .map(
-                  //         (e) => ItemUniversityFilter(
-                  //           onDeleteTap: () => {},
-                  //           isSelected: false,
-                  //           title: getUniversityFilterMenuTitle(value: e),
-                  //           onTap: () => _onSelectFilterMenuTap(e),
-                  //         ),
-                  //       )
-                  //       .toList(),
-                  // ),
-
                   Wrap(
                     runSpacing: Dimen.mediumSpace,
                     spacing: Dimen.mediumSpace,

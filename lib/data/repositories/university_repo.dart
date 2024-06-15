@@ -33,6 +33,26 @@ class UniversityRepo {
     return await ApiService().getUniversityAdmission(id: id);
   }
 
+  Future<ListBodyResponse<DegreeLevelsModels>> getUniversityDegreeLevelsList({
+    required int id,
+  }) async {
+    return await ApiService().getUniversityDegreeLevelsList(id: id);
+  }
+
+  Future<ListBodyResponse<UniversityMajorModels>> getUniversityMajorList({
+    required int id,
+    int? degreeLevel,
+  }) async {
+    return await ApiService().getUniversityMajorList(id: id, degreeLevel: degreeLevel);
+  }
+
+  Future<ListBodyResponse<UniversitySpecializeModels>> getUniversitySpecializeList({
+    required int id,
+    int? degreeLevel,
+  }) async {
+    return await ApiService().getUniversitySpecializeList(id: id, degreeLevel: degreeLevel);
+  }
+
   Future<ListBodyResponse<DegreeModels>> getDegreeList() async {
     return await ApiService().getDegreeList();
   }

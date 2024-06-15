@@ -12,6 +12,25 @@ class RequestUniversityListSuccessState extends UniversityState {
   RequestUniversityListSuccessState({required this.response});
 }
 
+class RequestUniversityDegreeLevelsListSuccessState extends UniversityState {
+  final ListBodyResponse<DegreeLevelsModels> response;
+
+  RequestUniversityDegreeLevelsListSuccessState({required this.response});
+}
+
+class RequestUniversityMajorListSuccessState extends UniversityState {
+  final ListBodyResponse<UniversityMajorModels> response;
+
+  RequestUniversityMajorListSuccessState({required this.response});
+}
+
+class RequestUniversitySpecializeListSuccessState extends UniversityState {
+  final ListBodyResponse<UniversitySpecializeModels> response;
+
+  RequestUniversitySpecializeListSuccessState({required this.response});
+}
+
+
 class RequestDegreeListSuccessState extends UniversityState {
   final ListBodyResponse<DegreeModels> response;
 
@@ -51,6 +70,12 @@ class RequestUniversityAdmissionSuccessState extends UniversityState {
 
 // ! List | State
 class RequestUniversityListErrorState extends UniversityState {}
+
+class RequestUniversityDegreeLevelsListErrorState extends UniversityState {}
+
+class RequestUniversityMajorListErrorState extends UniversityState {}
+
+class RequestUniversitySpecializeListErrorState extends UniversityState {}
 
 class RequestDegreeListErrorState extends UniversityState {}
 
