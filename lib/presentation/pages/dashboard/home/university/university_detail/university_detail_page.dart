@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class UniversityDetailPage extends StatefulWidget {
   final int universityId;
@@ -28,12 +29,20 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
   // * Tab Controller
   late TabController _tabController;
 
+  // * Paging Controller
+  final _universityMajorController = PagingController<int, UniversityMajorModels>(firstPageKey: 1);
+  final _universitySpecializeController = PagingController<int, UniversitySpecializeModels>(firstPageKey: 1);
+
   // * Modal
   final _progressDialog = ProgressDialog();
 
   // * Models
   UniversityOverviewModels? _universityOverviewModel;
   UniversityAdmissionModels? _universityAdmissionModel;
+  var _degreeLevelsList = <DegreeLevelsModels>[];
+
+  // * Variables
+  var _selectedDegreeLevelId = 0;
 
   @override
   void initState() {
@@ -54,6 +63,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
           break;
         case 1:
           // * Request University Programs
+          context.read<UniversityBloc>().add(RequestUniversityDegreeLevelsListEvent(id: widget.universityId));
           break;
         case 2:
           // * Request University Admissions
@@ -177,7 +187,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                           ),
                           // * Favorite Button
                           Container(
-                            margin: const EdgeInsets.only(top: Dimen.extraLargeSpace),
+                            margin: const EdgeInsets.only(top: Dimen.largeSpace),
                             width: double.infinity,
                             height: 56,
                             child: CustomButtonWithIcon(
@@ -433,17 +443,158 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
   }
 
   Widget get _builtProgramsTab {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // * Programs
-        Text(
-          'Programs',
-          style: CustomTextStyle.titleTextStyle(bold: true),
+    return BlocListener<UniversityBloc, UniversityState>(
+      listener: (context, state) {
+        // * Request University Degree Levels List Success
+        if (state is RequestUniversityDegreeLevelsListSuccessState) {
+          // * Set Degree Levels List
+          _degreeLevelsList = state.response.body.data;
+          // * Set Selected Degree Level
+          _selectedDegreeLevelId = _degreeLevelsList.first.id;
+          // * Request University Major List and Specialize List
+          _onChangeDegreeLevel(_selectedDegreeLevelId);
+          // * Notify
+          setState(() {});
+          // * Return
+          return;
+        }
+        // * Request University Major List Success
+        if (state is RequestUniversityMajorListSuccessState) {
+          // * Set University Major List
+          _universityMajorController.itemList = state.response.body.data;
+          // * Notify
+          setState(() {});
+          // * Return
+          return;
+        }
+        // * Request University Specialize List Success
+        if (state is RequestUniversitySpecializeListSuccessState) {
+          // * Set University Specialize List
+          _universitySpecializeController.itemList = state.response.body.data;
+          // * Notify
+          setState(() {});
+          // * Return
+          return;
+        }
+        // ! Request University Degree Levels List Error
+        if (state is RequestUniversityDegreeLevelsListErrorState) {
+          // * Return
+          return;
+        }
+        // ! Request University Major List Error
+        if (state is RequestUniversityMajorListErrorState) {
+          // * Return
+          return;
+        }
+        // ! Request University Specialize List Error
+        if (state is RequestUniversitySpecializeListErrorState) {
+          // * Return
+          return;
+        }
+      },
+      child: RefreshIndicator(
+        onRefresh: () async {
+          // * Request University Degree Levels List
+          context.read<UniversityBloc>().add(RequestUniversityDegreeLevelsListEvent(id: widget.universityId));
+          _universityMajorController.refresh();
+          _universitySpecializeController.refresh();
+        },
+        child: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.all(Dimen.contentPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Wrap(
+                  spacing: Dimen.mediumSpace,
+                  children: _degreeLevelsList.map((e) {
+                    return _DegreeLevelsMenu(
+                      label: e.nameEn,
+                      isSelected: _selectedDegreeLevelId == e.id,
+                      onSelected: (value) {
+                        _onChangeDegreeLevel(e.id);
+                      },
+                    );
+                  }).toList(),
+                ),
+                // * Major
+                Container(
+                  margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                  child: Text(
+                    'Majors',
+                    style: CustomTextStyle.titleTextStyle(bold: true),
+                  ),
+                ),
+                // * Major List
+                Container(
+                  margin: const EdgeInsets.only(top: Dimen.defaultSpace),
+                  child: PagedListView<int, UniversityMajorModels>.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    pagingController: _universityMajorController,
+                    separatorBuilder: (context, index) => const SizedBox(height: Dimen.largeSpace),
+                    builderDelegate: PagedChildBuilderDelegate<UniversityMajorModels>(
+                      itemBuilder: (context, models, index) {
+                        return ItemUniversityProgram(
+                          imageUrl: models.majorImage,
+                          title: models.majorName.nameEn,
+                        );
+                      },
+                      firstPageProgressIndicatorBuilder: (context) =>
+                          const Center(child: CircularProgressIndicator()),
+                      noItemsFoundIndicatorBuilder: (context) => const Center(child: Text('No Major found!')),
+                      newPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
+                    ),
+                  ),
+                ),
+                // * Specialize
+                Container(
+                  child: Text(
+                    'Specialize',
+                    style: CustomTextStyle.titleTextStyle(bold: true),
+                  ),
+                ),
+                // * Specialize List
+                Container(
+                  margin: const EdgeInsets.only(top: Dimen.defaultSpace),
+                  child: PagedListView<int, UniversitySpecializeModels>.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    pagingController: _universitySpecializeController,
+                    separatorBuilder: (context, index) => const SizedBox(height: Dimen.largeSpace),
+                    builderDelegate: PagedChildBuilderDelegate<UniversitySpecializeModels>(
+                      itemBuilder: (context, models, index) {
+                        return ItemUniversityProgram(
+                          imageUrl: models.specializeImage,
+                          title: models.specializeName.nameEn,
+                        );
+                      },
+                      firstPageProgressIndicatorBuilder: (context) =>
+                          const Center(child: CircularProgressIndicator()),
+                      noItemsFoundIndicatorBuilder: (context) => const Center(child: Text('No Specialize found!')),
+                      newPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
-        const SizedBox(height: Dimen.largeSpace),
-      ],
+      ),
     );
+  }
+
+  void _onChangeDegreeLevel(int id) {
+    setState(() {
+      _selectedDegreeLevelId = id;
+    });
+    // * Request University Major List
+    context.read<UniversityBloc>().add(RequestUniversityMajorListEvent(id: widget.universityId, degreeLevel: id));
+    // * Request University Specialize List
+    context
+        .read<UniversityBloc>()
+        .add(RequestUniversitySpecializeListEvent(id: widget.universityId, degreeLevel: id));
   }
 
   Widget get _builtAdmissionsTab {
@@ -469,12 +620,12 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: Dimen.contentPadding),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // * Admissions
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding),
                       margin: const EdgeInsets.only(bottom: Dimen.mediumSpace),
+                      alignment: Alignment.centerLeft,
                       child: Text(
                         'Admissions Overview',
                         style: CustomTextStyle.titleTextStyle(bold: true),
@@ -582,9 +733,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     const SizedBox(height: Dimen.largeSpace),
                     // * Download Admission
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 80.w),
                       height: 51,
-                      width: double.infinity,
                       child: ElevatedButton(
                         onPressed: _universityAdmissionModel!.admissionUrl == null
                             ? () => context.showInfoSnackBar(msg: 'No Admission URL found!')
@@ -705,6 +854,36 @@ class _AdmissionBriefDetails extends StatelessWidget {
       subtitle: Text(
         subtitle,
         style: CustomTextStyle.bodyTextStyle(),
+      ),
+    );
+  }
+}
+
+class _DegreeLevelsMenu extends StatelessWidget {
+  final String label;
+  final bool isSelected;
+  final Function(bool) onSelected;
+
+  const _DegreeLevelsMenu({
+    required this.label,
+    required this.isSelected,
+    required this.onSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ChoiceChip(
+      padding: const EdgeInsets.symmetric(horizontal: Dimen.defaultSpace, vertical: Dimen.mediumSpace),
+      backgroundColor: Colors.white,
+      showCheckmark: false,
+      selectedColor: Colors.white,
+      disabledColor: Colors.white,
+      onSelected: onSelected,
+      label: Text(label, style: CustomTextStyle.bodyTextStyle(color: isSelected ? primaryColor : Colors.black)),
+      selected: isSelected,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+        side: BorderSide(color: isSelected ? primaryColor : Colors.black),
       ),
     );
   }

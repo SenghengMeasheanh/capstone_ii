@@ -13,35 +13,36 @@ class ItemUniversity extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimen.defaultRadius)),
         clipBehavior: Clip.antiAlias,
         child: Stack(
           children: [
             SizedBox(
-                height: 232,
-                child: models.image != null
-                    ? CustomCachedNetworkImage(
-                        imageUrl: models.image!,
-                        config: CustomCachedNetworkImageConfig(
-                          width: double.infinity,
-                          height: 100,
-                          boxFit: BoxFit.cover,
-                          borderRadius: BorderRadius.circular(Dimen.defaultRadius),
-                        ),
-                      )
-                    : Image.asset(
-                        Assets.imageNoImage,
+              height: 232,
+              child: models.image != null
+                  ? CustomCachedNetworkImage(
+                      imageUrl: models.image!,
+                      config: CustomCachedNetworkImageConfig(
                         width: double.infinity,
                         height: 100,
-                        fit: BoxFit.cover,
+                        boxFit: BoxFit.cover,
+                        borderRadius: BorderRadius.circular(Dimen.defaultRadius),
                       ),
-                  ),
+                    )
+                  : Image.asset(
+                      Assets.imageNoImage,
+                      width: double.infinity,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+            ),
             Positioned(
               right: 20,
               bottom: 150,
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(Dimen.defaultRadius),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(Dimen.defaultRadius),
                   ),
                   border: Border.all(color: Colors.black),
                 ),
@@ -52,7 +53,7 @@ class ItemUniversity extends StatelessWidget {
                           width: 60,
                           height: 60,
                           boxFit: BoxFit.cover,
-                          borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+                          borderRadius: const BorderRadius.vertical(top: Radius.circular(Dimen.defaultRadius)),
                         ),
                       )
                     : Image.asset(
@@ -72,7 +73,7 @@ class ItemUniversity extends StatelessWidget {
                 height: 140,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+                  borderRadius: const BorderRadius.vertical(bottom: Radius.circular(Dimen.defaultRadius)),
                   border: Border.all(color: Colors.black),
                 ),
                 child: Column(

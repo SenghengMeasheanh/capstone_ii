@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:capstone_ii/data/data_export.dart';
@@ -19,6 +20,9 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
     on<RequestLocationListEvent>(_requestLocationList);
     on<RequestMajorListEvent>(_requestMajorList);
     on<RequestTypesListEvent>(_requestTypesList);
+    on<RequestUniversityDegreeLevelsListEvent>(_requestUniversityDegreeLevelsList);
+    on<RequestUniversityMajorListEvent>(_requestUniversityMajorList);
+    on<RequestUniversitySpecializeListEvent>(_requestUniversitySpecializeList);
     // * University Overview | Bloc
     on<RequestUniversityOverviewEvent>(_requestUniversityOverview);
     // * University Admission | Bloc
@@ -241,5 +245,98 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
         }
       },
     );
+  }
+
+  Future<void> _requestUniversityDegreeLevelsList(
+    RequestUniversityDegreeLevelsListEvent event,
+    Emitter<UniversityState> emit,
+  ) async {
+    // * Get Result
+    final result = _universityRepo.getUniversityDegreeLevelsList(id: event.id);
+    // * Check Result
+    await result.then(
+      (response) {
+        if (response.header.statusCode == 200) {
+          emit(RequestUniversityDegreeLevelsListSuccessState(response: response));
+        } else {
+          emit(RequestUniversityDegreeLevelsListErrorState());
+        }
+      },
+      onError: (exception, stackTrace) async {
+        // * Debug Print Error
+        debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+        // * If Server Not Response
+        if (exception is DioException) {
+          // * Await 5 Seconds
+          await Future.delayed(const Duration(seconds: 5));
+          // * Call Event Again
+          add(RequestUniversityDegreeLevelsListEvent(id: event.id));
+          // * Return
+          return;
+        }
+      },
+    );
+  }
+
+  Future<void> _requestUniversityMajorList(
+    RequestUniversityMajorListEvent event,
+    Emitter<UniversityState> emit,
+  ) async {
+    // * Get Result
+    final result = _universityRepo.getUniversityMajorList(
+      id: event.id,
+      degreeLevel: event.degreeLevel,
+    );
+    // * Check Result
+    await result.then((response) {
+      if (response.header.statusCode == 200) {
+        emit(RequestUniversityMajorListSuccessState(response: response));
+      } else {
+        emit(RequestUniversityMajorListErrorState());
+      }
+    }, onError: (exception, stackTrace) async {
+      // * Debug Print Error
+        debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+        // * If Server Not Response
+        if (exception is DioException) {
+          // * Await 5 Seconds
+          await Future.delayed(const Duration(seconds: 5));
+          // * Call Event Again
+          add(RequestUniversityMajorListEvent(id: event.id, degreeLevel: event.degreeLevel));
+          // * Return
+          return;
+        }
+    });
+  }
+
+  Future<void> _requestUniversitySpecializeList(
+    RequestUniversitySpecializeListEvent event,
+    Emitter<UniversityState> emit,
+  ) async {
+    // * Get Result
+    final result = _universityRepo.getUniversitySpecializeList(
+      id: event.id,
+      degreeLevel: event.degreeLevel,
+    );
+    // * Check Result
+    await result.then((response) {
+      if (response.header.statusCode == 200) {
+        emit(RequestUniversitySpecializeListSuccessState(response: response));
+      } else {
+        emit(RequestUniversitySpecializeListErrorState());
+      }
+    }, onError: (exception, stackTrace) async {
+      // * Debug Print Error
+        debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+        // * If Server Not Response
+        if (exception is DioException) {
+          // * Await 5 Seconds
+          await Future.delayed(const Duration(seconds: 5));
+          // * Call Event Again
+          add(RequestUniversitySpecializeListEvent(id: event.id, degreeLevel: event.degreeLevel));
+          // * Return
+          return;
+        }
+    });
   }
 }

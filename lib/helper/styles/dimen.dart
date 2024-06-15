@@ -22,7 +22,7 @@ class Dimen {
   static const largeTitleTextSize = 30.0;
 
   /// Text Size 20.0
-  
+
   static const midTitleTextSize = 20.0;
 
   /// Subtitle Text Size 18.0
@@ -42,8 +42,8 @@ class Dimen {
   /// Default Elevation 0.5
   static const defaultElevation = 0.5;
 
-  /// Default Radius 8.0
-  static const defaultRadius = 8.0;
+  /// Default Radius 12.0
+  static const defaultRadius = 12.0;
 
   // Default Textfield Radius
   static const textFieldRadius = 12.0;

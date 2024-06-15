@@ -129,6 +129,107 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<ListBodyResponse<DegreeLevelsModels>> getUniversityDegreeLevelsList(
+      {required int id}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListBodyResponse<DegreeLevelsModels>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/universities/program/degreeLevel/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ListBodyResponse<DegreeLevelsModels>.fromJson(
+      _result.data!,
+      (json) => DegreeLevelsModels.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<ListBodyResponse<UniversityMajorModels>> getUniversityMajorList({
+    required int id,
+    int? degreeLevel,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'degreeLevel': degreeLevel};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListBodyResponse<UniversityMajorModels>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/universities/program/major/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ListBodyResponse<UniversityMajorModels>.fromJson(
+      _result.data!,
+      (json) => UniversityMajorModels.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<ListBodyResponse<UniversitySpecializeModels>>
+      getUniversitySpecializeList({
+    required int id,
+    int? degreeLevel,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'degreeLevel': degreeLevel};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListBodyResponse<UniversitySpecializeModels>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/universities/program/specialize/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ListBodyResponse<UniversitySpecializeModels>.fromJson(
+      _result.data!,
+      (json) =>
+          UniversitySpecializeModels.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<ListBodyResponse<DegreeModels>> getDegreeList() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
