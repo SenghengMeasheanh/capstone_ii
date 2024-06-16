@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:capstone_ii/data/data_export.dart';
@@ -29,6 +28,8 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
     on<RequestUniversityAdmissionEvent>(_requestUniversityAdmission);
     // * University Major Detail | Bloc
     on<RequestUniversityMajorDetailEvent>(_requestUniversityMajorDetail);
+    // * University Specialize Detail | Bloc
+    on<RequestUniversitySpecializeDetailEvent>(_requestUniversitySpecializeDetail);
   }
 
   Future<void> _requestUniversityList(
@@ -362,6 +363,32 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
       if (exception is DioException) {
         // * Call Event Again
         emit(RequestUniversityMajorDetailErrorState());
+        // * Return
+        return;
+      }
+    });
+  }
+
+  Future<void> _requestUniversitySpecializeDetail(
+    RequestUniversitySpecializeDetailEvent event,
+    Emitter<UniversityState> emit,
+  ) async {
+    // * Get Result
+    final result = _universityRepo.getUniversitySpecializeDetail(id: event.id);
+    // * Check Result
+    await result.then((response) {
+      if (response.header.statusCode == 200) {
+        emit(RequestUniversitySpecializeDetailSuccessState(response: response));
+      } else {
+        emit(RequestUniversitySpecializeDetailErrorState());
+      }
+    }, onError: (exception, stackTrace) async {
+      // * Debug Print Error
+      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+      // * If Server Not Response
+      if (exception is DioException) {
+        // * Emit Error State
+        emit(RequestUniversitySpecializeDetailErrorState());
         // * Return
         return;
       }

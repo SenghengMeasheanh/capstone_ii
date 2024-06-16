@@ -13,6 +13,7 @@ export 'models/university/unversity_detail/program/degree_levels/degree_levels_m
 export 'models/university/unversity_detail/program/university_major/university_major_models.dart';
 export 'models/university/unversity_detail/program/university_major/university_major_detail/university_major_detail_models.dart';
 export 'models/university/unversity_detail/program/university_specialize/university_specialize_models.dart';
+export 'models/university/unversity_detail/program/university_specialize/university_specialize_detail/university_specialize_detail_models.dart';
 
 // * Repositories
 export 'repositories/university_repo.dart';
