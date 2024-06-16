@@ -68,6 +68,13 @@ class RequestUniversityAdmissionSuccessState extends UniversityState {
   RequestUniversityAdmissionSuccessState({required this.response});
 }
 
+// * Major Detail | State
+class RequestUniversityMajorDetailSuccessState extends UniversityState {
+  final MapBodyResponse<UniversityMajorDetailModels> response;
+
+  RequestUniversityMajorDetailSuccessState({required this.response});
+}
+
 // ! List | State
 class RequestUniversityListErrorState extends UniversityState {}
 
@@ -90,3 +97,6 @@ class RequestUniversityOverviewErrorState extends UniversityState {}
 
 // ! University Admission | State
 class RequestUniversityAdmissionErrorState extends UniversityState {}
+
+// ! Major Detail | State
+class RequestUniversityMajorDetailErrorState extends UniversityState {}

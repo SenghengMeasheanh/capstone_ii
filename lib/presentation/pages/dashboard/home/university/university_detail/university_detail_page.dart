@@ -1,4 +1,5 @@
 import 'package:capstone_ii/data/data_export.dart';
+import 'package:capstone_ii/data/models/university/unversity_detail/program/university_major/university_major_detail/university_major_detail_models.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
@@ -40,9 +41,11 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
   UniversityOverviewModels? _universityOverviewModel;
   UniversityAdmissionModels? _universityAdmissionModel;
   var _degreeLevelsList = <DegreeLevelsModels>[];
+  UniversityMajorDetailModels? _universityMajorDetailModel;
 
   // * Variables
   var _selectedDegreeLevelId = 0;
+  var _showMajorDetail = false;
 
   @override
   void initState() {
@@ -215,6 +218,14 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     ),
                   ),
                   child: TabBar(
+                    onTap: (value) => {
+                      if (value == 1)
+                        {
+                          setState(() {
+                            _showMajorDetail = false;
+                          })
+                        }
+                    },
                     isScrollable: true,
                     labelColor: Colors.black,
                     unselectedLabelColor: Colors.grey,
@@ -250,18 +261,18 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
         body: TabBarView(
           controller: _tabController,
           children: [
-            _builtOverviewTab,
-            _builtProgramsTab,
-            _builtAdmissionsTab,
-            _builtScholarshipsTab,
-            _builtTuitionTab,
+            _buildOverviewTab,
+            _showMajorDetail ? _buildMajorDetail : _buildProgramsTab,
+            _buildAdmissionsTab,
+            _buildScholarshipsTab,
+            _buildTuitionTab,
           ],
         ),
       ),
     );
   }
 
-  Widget get _builtOverviewTab {
+  Widget get _buildOverviewTab {
     return BlocListener<UniversityBloc, UniversityState>(
       listener: (context, state) {
         // * Request University Overview
@@ -442,7 +453,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
     );
   }
 
-  Widget get _builtProgramsTab {
+  Widget get _buildProgramsTab {
     return BlocListener<UniversityBloc, UniversityState>(
       listener: (context, state) {
         // * Request University Degree Levels List Success
@@ -537,6 +548,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     builderDelegate: PagedChildBuilderDelegate<UniversityMajorModels>(
                       itemBuilder: (context, models, index) {
                         return ItemUniversityProgram(
+                          onTap: () => _onShowMajorDetail(models.id),
                           imageUrl: models.majorImage,
                           title: models.majorName.nameEn,
                         );
@@ -566,6 +578,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     builderDelegate: PagedChildBuilderDelegate<UniversitySpecializeModels>(
                       itemBuilder: (context, models, index) {
                         return ItemUniversityProgram(
+                          onTap: () {},
                           imageUrl: models.specializeImage,
                           title: models.specializeName.nameEn,
                         );
@@ -585,19 +598,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
     );
   }
 
-  void _onChangeDegreeLevel(int id) {
-    setState(() {
-      _selectedDegreeLevelId = id;
-    });
-    // * Request University Major List
-    context.read<UniversityBloc>().add(RequestUniversityMajorListEvent(id: widget.universityId, degreeLevel: id));
-    // * Request University Specialize List
-    context
-        .read<UniversityBloc>()
-        .add(RequestUniversitySpecializeListEvent(id: widget.universityId, degreeLevel: id));
-  }
-
-  Widget get _builtAdmissionsTab {
+  Widget get _buildAdmissionsTab {
     return BlocListener<UniversityBloc, UniversityState>(
       listener: (context, state) {
         // * Request University Admission
@@ -752,7 +753,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
     );
   }
 
-  Widget get _builtTuitionTab {
+  Widget get _buildTuitionTab {
     return Column(
       children: [
         // * Tuition
@@ -765,7 +766,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
     );
   }
 
-  Widget get _builtScholarshipsTab {
+  Widget get _buildScholarshipsTab {
     return Column(
       children: [
         // * Scholarships
@@ -776,6 +777,91 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
         const SizedBox(height: Dimen.largeSpace),
       ],
     );
+  }
+
+  Widget get _buildMajorDetail {
+    return BlocListener<UniversityBloc, UniversityState>(
+      listener: (context, state) {
+        if (state is RequestUniversityMajorDetailSuccessState) {
+          // * Set University Major Detail Model
+          _universityMajorDetailModel = state.response.body.data;
+          // * Notify
+          setState(() {});
+          // * Return
+          return;
+        }
+        // ! Request University Major Detail
+        if (state is RequestUniversityMajorDetailErrorState) {
+          // * Return
+          return;
+        }
+      },
+      child: _universityMajorDetailModel != null
+          ? SingleChildScrollView(
+              child: Column(
+                children: [
+                  // * Major Detail
+                  CustomHtmlWidget(
+                    data: _universityMajorDetailModel!.descriptionEn,
+                  ),
+                  // * Download Curriculum Button
+                  Container(
+                    margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: Dimen.extraLargeSpace,
+                        ),
+                      ),
+                      child: Text(
+                        'Download Curriculum',
+                        style: CustomTextStyle.buttonTextStyle(),
+                      ),
+                    ),
+                  ),
+                  // * More About Admission Button
+                  Container(
+                    margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: Dimen.extraLargeSpace,
+                        ),
+                      ),
+                      child: Text(
+                        'More About Admission',
+                        style: CustomTextStyle.buttonTextStyle(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : const ProgressBar(),
+    );
+  }
+
+  void _onChangeDegreeLevel(int id) {
+    setState(() {
+      _selectedDegreeLevelId = id;
+    });
+    // * Request University Major List
+    context.read<UniversityBloc>().add(RequestUniversityMajorListEvent(id: widget.universityId, degreeLevel: id));
+    // * Request University Specialize List
+    context
+        .read<UniversityBloc>()
+        .add(RequestUniversitySpecializeListEvent(id: widget.universityId, degreeLevel: id));
+  }
+
+  void _onShowMajorDetail(int id) {
+    setState(() {
+      _showMajorDetail = !_showMajorDetail;
+    });
+    context.read<UniversityBloc>().add(RequestUniversityMajorDetailEvent(id: id));
   }
 }
 

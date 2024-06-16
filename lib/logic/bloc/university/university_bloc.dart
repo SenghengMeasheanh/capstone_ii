@@ -27,6 +27,8 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
     on<RequestUniversityOverviewEvent>(_requestUniversityOverview);
     // * University Admission | Bloc
     on<RequestUniversityAdmissionEvent>(_requestUniversityAdmission);
+    // * University Major Detail | Bloc
+    on<RequestUniversityMajorDetailEvent>(_requestUniversityMajorDetail);
   }
 
   Future<void> _requestUniversityList(
@@ -296,16 +298,16 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
       }
     }, onError: (exception, stackTrace) async {
       // * Debug Print Error
-        debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
-        // * If Server Not Response
-        if (exception is DioException) {
-          // * Await 5 Seconds
-          await Future.delayed(const Duration(seconds: 5));
-          // * Call Event Again
-          add(RequestUniversityMajorListEvent(id: event.id, degreeLevel: event.degreeLevel));
-          // * Return
-          return;
-        }
+      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+      // * If Server Not Response
+      if (exception is DioException) {
+        // * Await 5 Seconds
+        await Future.delayed(const Duration(seconds: 5));
+        // * Call Event Again
+        add(RequestUniversityMajorListEvent(id: event.id, degreeLevel: event.degreeLevel));
+        // * Return
+        return;
+      }
     });
   }
 
@@ -327,16 +329,42 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
       }
     }, onError: (exception, stackTrace) async {
       // * Debug Print Error
-        debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
-        // * If Server Not Response
-        if (exception is DioException) {
-          // * Await 5 Seconds
-          await Future.delayed(const Duration(seconds: 5));
-          // * Call Event Again
-          add(RequestUniversitySpecializeListEvent(id: event.id, degreeLevel: event.degreeLevel));
-          // * Return
-          return;
-        }
+      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+      // * If Server Not Response
+      if (exception is DioException) {
+        // * Await 5 Seconds
+        await Future.delayed(const Duration(seconds: 5));
+        // * Emit Error State
+        add(RequestUniversitySpecializeListEvent(id: event.id, degreeLevel: event.degreeLevel));
+        // * Return
+        return;
+      }
+    });
+  }
+
+  Future<void> _requestUniversityMajorDetail(
+    RequestUniversityMajorDetailEvent event,
+    Emitter<UniversityState> emit,
+  ) async {
+    // * Get Result
+    final result = _universityRepo.getUniversityMajorDetail(id: event.id);
+    // * Check Result
+    await result.then((response) {
+      if (response.header.statusCode == 200) {
+        emit(RequestUniversityMajorDetailSuccessState(response: response));
+      } else {
+        emit(RequestUniversityMajorDetailErrorState());
+      }
+    }, onError: (exception, stackTrace) async {
+      // * Debug Print Error
+      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+      // * If Server Not Response
+      if (exception is DioException) {
+        // * Call Event Again
+        emit(RequestUniversityMajorDetailErrorState());
+        // * Return
+        return;
+      }
     });
   }
 }
