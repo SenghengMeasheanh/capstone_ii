@@ -24,6 +24,18 @@
 		<string>$(FLUTTER_BUILD_NUMBER)</string>
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
+		<!-- * Camera Permission -->
+	    <key>NSCameraUsageDescription</key>
+	    <string>We needs to access your camera for take profile photo</string>
+		<!-- * Gallery Permission -->
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>We needs to access your photo library for profile photo</string>
+    	<!-- * Localizations -->
+    	<key>CFBundleLocalizations</key>
+    	<array>
+    	<string>en</string>
+    	<string>km</string>
+    	</array>
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>
 		<key>UIMainStoryboardFile</key>

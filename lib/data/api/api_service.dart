@@ -41,7 +41,7 @@ abstract class ApiService {
     @Query('degree') int? degree,
     @Query('location') int? location,
     @Query('type') int? type,
-});
+  });
 
   @GET('/universities/overview/{id}')
   Future<MapBodyResponse<UniversityOverviewModels>> getUniversityOverview({
@@ -64,6 +64,11 @@ abstract class ApiService {
     @Query('degreeLevel') int? degreeLevel,
   });
 
+  @GET('/universities/program/major/detail/{id}')
+  Future<MapBodyResponse<UniversityMajorDetailModels>> getUniversityMajorDetail({
+    @Path('id') required int id,
+  });
+
   @GET('/universities/program/specialize/{id}')
   Future<ListBodyResponse<UniversitySpecializeModels>> getUniversitySpecializeList({
     @Path('id') required int id,
@@ -81,6 +86,4 @@ abstract class ApiService {
 
   @GET('/getFilter/types')
   Future<ListBodyResponse<TypeModels>> getTypeList();
-
-
 }

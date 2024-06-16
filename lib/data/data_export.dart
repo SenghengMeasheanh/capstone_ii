@@ -11,6 +11,7 @@ export 'models/university/unversity_detail/admission/university_admission_models
 export 'models/university/unversity_detail/overview/university_overview_models.dart';
 export 'models/university/unversity_detail/program/degree_levels/degree_levels_models.dart';
 export 'models/university/unversity_detail/program/university_major/university_major_models.dart';
+export 'models/university/unversity_detail/program/university_major/university_major_detail/university_major_detail_models.dart';
 export 'models/university/unversity_detail/program/university_specialize/university_specialize_models.dart';
 
 // * Repositories

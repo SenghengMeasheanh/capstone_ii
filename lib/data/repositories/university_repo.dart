@@ -46,6 +46,12 @@ class UniversityRepo {
     return await ApiService().getUniversityMajorList(id: id, degreeLevel: degreeLevel);
   }
 
+  Future<MapBodyResponse<UniversityMajorDetailModels>> getUniversityMajorDetail({
+    required int id,
+  }) async {
+    return await ApiService().getUniversityMajorDetail(id: id);
+  }
+
   Future<ListBodyResponse<UniversitySpecializeModels>> getUniversitySpecializeList({
     required int id,
     int? degreeLevel,
