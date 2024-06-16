@@ -75,6 +75,11 @@ abstract class ApiService {
     @Query('degreeLevel') int? degreeLevel,
   });
 
+  @GET('/universities/program/specialize/detail/{id}')
+  Future<MapBodyResponse<UniversitySpecializeDetailModels>> getUniversitySpecializeDetail({
+    @Path('id') required int id,
+  });
+
   @GET('/getFilter/degrees')
   Future<ListBodyResponse<DegreeModels>> getDegreeList();
 

@@ -1,11 +1,9 @@
 import 'package:capstone_ii/data/data_export.dart';
-import 'package:capstone_ii/data/models/university/unversity_detail/program/university_major/university_major_detail/university_major_detail_models.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -42,10 +40,12 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
   UniversityAdmissionModels? _universityAdmissionModel;
   var _degreeLevelsList = <DegreeLevelsModels>[];
   UniversityMajorDetailModels? _universityMajorDetailModel;
+  UniversitySpecializeDetailModels? _universitySpecializeDetailModel;
 
   // * Variables
   var _selectedDegreeLevelId = 0;
   var _showMajorDetail = false;
+  var _showSpecializeDetail = false;
 
   @override
   void initState() {
@@ -223,6 +223,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         {
                           setState(() {
                             _showMajorDetail = false;
+                            _showSpecializeDetail = false;
                           })
                         }
                     },
@@ -262,7 +263,11 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
           controller: _tabController,
           children: [
             _buildOverviewTab,
-            _showMajorDetail ? _buildMajorDetail : _buildProgramsTab,
+            _showMajorDetail
+                ? _buildMajorDetail
+                : _showSpecializeDetail
+                    ? _buildSpecializeDetail
+                    : _buildProgramsTab,
             _buildAdmissionsTab,
             _buildScholarshipsTab,
             _buildTuitionTab,
@@ -578,7 +583,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     builderDelegate: PagedChildBuilderDelegate<UniversitySpecializeModels>(
                       itemBuilder: (context, models, index) {
                         return ItemUniversityProgram(
-                          onTap: () {},
+                          onTap: () => _onShowSpecializeDetail(models.id),
                           imageUrl: models.specializeImage,
                           title: models.specializeName.nameEn,
                         );
@@ -845,6 +850,73 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
     );
   }
 
+  Widget get _buildSpecializeDetail {
+    return BlocListener<UniversityBloc, UniversityState>(
+      listener: (context, state) {
+        // * Request University Specialize Detail
+        if (state is RequestUniversitySpecializeDetailSuccessState) {
+          // * Set University Major Detail Model
+          _universitySpecializeDetailModel = state.response.body.data;
+          // * Notify
+          setState(() {});
+          // * Return
+          return;
+        }
+        // ! Request University Specialize Detail
+        if (state is RequestUniversitySpecializeDetailErrorState) {
+          // * Return
+          return;
+        }
+      },
+      child: _universitySpecializeDetailModel != null
+          ? SingleChildScrollView(
+              child: Column(
+                children: [
+                  // * Major Detail
+                  CustomHtmlWidget(
+                    data: _universitySpecializeDetailModel!.descriptionEn,
+                  ),
+                  // * Download Curriculum Button
+                  Container(
+                    margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: Dimen.extraLargeSpace,
+                        ),
+                      ),
+                      child: Text(
+                        'Download Curriculum',
+                        style: CustomTextStyle.buttonTextStyle(),
+                      ),
+                    ),
+                  ),
+                  // * More About Admission Button
+                  Container(
+                    margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: Dimen.extraLargeSpace,
+                        ),
+                      ),
+                      child: Text(
+                        'More About Admission',
+                        style: CustomTextStyle.buttonTextStyle(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : const ProgressBar(),
+    );
+  }
+
   void _onChangeDegreeLevel(int id) {
     setState(() {
       _selectedDegreeLevelId = id;
@@ -862,6 +934,13 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
       _showMajorDetail = !_showMajorDetail;
     });
     context.read<UniversityBloc>().add(RequestUniversityMajorDetailEvent(id: id));
+  }
+
+  void _onShowSpecializeDetail(int id) {
+    setState(() {
+      _showSpecializeDetail = !_showSpecializeDetail;
+    });
+    context.read<UniversityBloc>().add(RequestUniversitySpecializeDetailEvent(id: id));
   }
 }
 

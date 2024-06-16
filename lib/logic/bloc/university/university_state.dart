@@ -75,6 +75,13 @@ class RequestUniversityMajorDetailSuccessState extends UniversityState {
   RequestUniversityMajorDetailSuccessState({required this.response});
 }
 
+// * Specialize Detail | State
+class RequestUniversitySpecializeDetailSuccessState extends UniversityState {
+  final MapBodyResponse<UniversitySpecializeDetailModels> response;
+
+  RequestUniversitySpecializeDetailSuccessState({required this.response});
+}
+
 // ! List | State
 class RequestUniversityListErrorState extends UniversityState {}
 
@@ -100,3 +107,6 @@ class RequestUniversityAdmissionErrorState extends UniversityState {}
 
 // ! Major Detail | State
 class RequestUniversityMajorDetailErrorState extends UniversityState {}
+
+// ! Specialize Detail | State
+class RequestUniversitySpecializeDetailErrorState extends UniversityState {}
