@@ -2,6 +2,8 @@
 export 'items/item_career.dart';
 export 'items/item_filter.dart';
 export 'items/item_slide_show.dart';
+export 'items/item_scholarship.dart';
+export 'items/item_university_scholarship.dart';
 export 'items/item_university_filter.dart';
 export 'items/item_university.dart';
 export 'items/item_university_program.dart';
@@ -56,6 +58,7 @@ export 'pages/dashboard/home/guides/guides_page.dart';
 
 // ? Pages (Dashboard/Home/Scholarship)
 export 'pages/dashboard/home/scholarships/scholarships_page.dart';
+export 'pages/dashboard/home/scholarships/scholarships_detail/scholarship_detail_page.dart';
 
 // ? Pages (Dashboard/Home/University)
 export 'pages/dashboard/home/university/university_page.dart';

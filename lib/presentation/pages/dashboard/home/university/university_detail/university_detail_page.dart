@@ -32,6 +32,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
   final _universityMajorController = PagingController<int, UniversityMajorModels>(firstPageKey: 1);
   final _universitySpecializeController = PagingController<int, UniversitySpecializeModels>(firstPageKey: 1);
   final _universityTuitionController = PagingController<int, UniversityTuitionModels>(firstPageKey: 1);
+  final _universityScholarshipController = PagingController<int, UniversityScholarshipModels>(firstPageKey: 1);
 
   // * Modal
   final _progressDialog = ProgressDialog();
@@ -75,6 +76,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
           break;
         case 3:
           // * Request University Scholarships
+          context.read<UniversityBloc>().add(RequestUniversityScholarshipListEvent(id: widget.universityId));
           break;
         case 4:
           // * Request University Tuition
@@ -89,6 +91,10 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
   @override
   void dispose() {
     _tabController.dispose();
+    _universityMajorController.dispose();
+    _universitySpecializeController.dispose();
+    _universityTuitionController.dispose();
+    _universityScholarshipController.dispose();
     super.dispose();
   }
 
@@ -814,15 +820,51 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
   }
 
   Widget get _buildScholarshipsTab {
-    return Column(
-      children: [
-        // * Scholarships
-        Text(
-          'Scholarships',
-          style: CustomTextStyle.titleTextStyle(bold: true),
+    return BlocListener<UniversityBloc, UniversityState>(
+      listener: (context, state) {
+        // * Request University Scholarships List Success
+        if (state is RequestUniversityScholarshipListSuccessState) {
+          // * Set University Scholarships List
+          _universityScholarshipController.itemList = state.response.body.data;
+          // * Notify
+          setState(() {});
+          // * Return
+          return;
+        }
+        // ! Request University Scholarships List Error
+        if (state is RequestUniversityScholarshipListErrorState) {
+          // * Return
+          return;
+        }
+      },
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(Dimen.contentPadding),
+          child: Column(
+            children: [
+              const SizedBox(height: Dimen.largeSpace),
+              // * Scholarship List
+              PagedListView<int, UniversityScholarshipModels>.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                pagingController: _universityScholarshipController,
+                separatorBuilder: (context, index) => const SizedBox(height: Dimen.largeSpace),
+                builderDelegate: PagedChildBuilderDelegate<UniversityScholarshipModels>(
+                  itemBuilder: (context, models, index) {
+                    return ItemUniversityScholarship(
+                      models: models,
+                      onTap: () {},
+                    );
+                  },
+                  firstPageProgressIndicatorBuilder: (context) => const Center(child: CircularProgressIndicator()),
+                  noItemsFoundIndicatorBuilder: (context) => const Center(child: Text('No Scholarship found!')),
+                  newPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
+                ),
+              ),
+            ],
+          ),
         ),
-        const SizedBox(height: Dimen.largeSpace),
-      ],
+      ),
     );
   }
 

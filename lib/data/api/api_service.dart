@@ -79,9 +79,14 @@ abstract class ApiService {
   Future<MapBodyResponse<UniversitySpecializeDetailModels>> getUniversitySpecializeDetail({
     @Path('id') required int id,
   });
-  
+
   @GET('/universities/tuition/{id}')
   Future<ListBodyResponse<UniversityTuitionModels>> getUniversityTuition({
+    @Path('id') required int id,
+  });
+
+  @GET('/universities/scholarships/{id}')
+  Future<ListBodyResponse<UniversityScholarshipModels>> getUniversityScholarship({
     @Path('id') required int id,
   });
 

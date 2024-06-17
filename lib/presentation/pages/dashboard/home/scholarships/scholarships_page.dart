@@ -1,8 +1,6 @@
-import 'package:capstone_ii/presentation/pages/dashboard/home/scholarships/scholarships_detail/scholarship_detail_page.dart';
+import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
-import 'package:capstone_ii/presentation/widgets/search_bar_widget.dart';
-import 'package:capstone_ii/presentation/items/item_scholarship.dart';
 
 class ScholarshipsPage extends StatefulWidget {
   const ScholarshipsPage({super.key});
@@ -12,7 +10,7 @@ class ScholarshipsPage extends StatefulWidget {
 }
 
 class _ScholarshipsPageState extends State<ScholarshipsPage> {
-  //* controller for search bar
+  //* Controller for search bar
   final _searchBarController = TextEditingController();
   String _searchText = '';
   String _selectedFilter = 'All Scholarships';
