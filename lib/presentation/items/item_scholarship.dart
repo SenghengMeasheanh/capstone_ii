@@ -8,30 +8,28 @@ class ItemScholarship extends StatelessWidget {
   final String description;
   final String openDate;
   final String closeDate;
-  final VoidCallback onTap;
-
+  final Function() onTap;
 
   const ItemScholarship({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.name,
     required this.description,
     required this.openDate,
     required this.closeDate,
     required this.onTap,
-  }) : super(key: key);
-
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(10.0)),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(Dimen.defaultRadius)),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.start,
           children: [
             CustomCachedNetworkImage(
               imageUrl: imageUrl,
@@ -39,7 +37,7 @@ class ItemScholarship extends StatelessWidget {
                 height: 200,
                 width: double.infinity,
                 boxFit: BoxFit.cover,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(Dimen.defaultRadius)),
               ),
             ),
             Padding(
@@ -71,26 +69,20 @@ class ItemScholarship extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.calendar_today,
-                                  size: 13, color: Colors.grey),
                               const SizedBox(width: Dimen.smallSpace),
-                              Text('Open: $openDate',
-                                  style: TextStyle(
-                                    fontSize: 13.0,
-                                  )),
+                              Text(
+                                'Open: $openDate',
+                                style: CustomTextStyle.captionTextStyle(),
+                              ),
                             ],
                           ),
                           const SizedBox(height: Dimen.smallSpace),
                           Row(
                             children: [
-                              Icon(Icons.calendar_today,
-                                  size: 13, color: Colors.grey),
                               const SizedBox(width: Dimen.smallSpace),
                               Text(
                                 'Close: $closeDate',
-                                style: TextStyle(
-                                  fontSize: 13.0,
-                                ),
+                                style: CustomTextStyle.captionTextStyle(),
                               ),
                             ],
                           ),
@@ -101,7 +93,6 @@ class ItemScholarship extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                             color: primaryColor,
-                            borderRadius: BorderRadius.circular(2.0),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey.withOpacity(0.5),
@@ -112,11 +103,12 @@ class ItemScholarship extends StatelessWidget {
                             ],
                           ),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10.0, vertical: 10.0),
+                            horizontal: Dimen.mediumSpace,
+                            vertical: Dimen.mediumSpace,
+                          ),
                           child: Text(
                             'See more...',
-                            style: CustomTextStyle.bodyTextStyle(
-                                color: Colors.white),
+                            style: CustomTextStyle.bodyTextStyle(color: Colors.white),
                           ),
                         ),
                       ),

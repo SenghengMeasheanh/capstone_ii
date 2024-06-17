@@ -23,6 +23,7 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
     on<RequestUniversityMajorListEvent>(_requestUniversityMajorList);
     on<RequestUniversitySpecializeListEvent>(_requestUniversitySpecializeList);
     on<RequestUniversityTuitionListEvent>(_requestUniversityTuitionList);
+    on<RequestUniversityScholarshipListEvent>(_requestUniversityScholarshipList);
     // * University Overview | Bloc
     on<RequestUniversityOverviewEvent>(_requestUniversityOverview);
     // * University Admission | Bloc
@@ -412,12 +413,40 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
     }, onError: (exception, stackTrace) async {
       // * Debug Print Error
       debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
-       // * If Server Not Response
+      // * If Server Not Response
       if (exception is DioException) {
         // * Await 5 Seconds
         await Future.delayed(const Duration(seconds: 5));
         // * Emit Error State
         add(RequestUniversityTuitionListEvent(id: event.id));
+        // * Return
+        return;
+      }
+    });
+  }
+
+  Future<void> _requestUniversityScholarshipList(
+    RequestUniversityScholarshipListEvent event,
+    Emitter<UniversityState> emit,
+  ) async {
+    // * Get Result
+    final result = _universityRepo.getUniversityScholarship(id: event.id);
+    // * Check Result
+    await result.then((response) {
+      if (response.header.statusCode == 200) {
+        emit(RequestUniversityScholarshipListSuccessState(response: response));
+      } else {
+        emit(RequestUniversityScholarshipListErrorState());
+      }
+    }, onError: (exception, stackTrace) async {
+      // * Debug Print Error
+      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+      // * If Server Not Response
+      if (exception is DioException) {
+        // * Await 5 Seconds
+        await Future.delayed(const Duration(seconds: 5));
+        // * Emit Error State
+        add(RequestUniversityScholarshipListEvent(id: event.id));
         // * Return
         return;
       }
