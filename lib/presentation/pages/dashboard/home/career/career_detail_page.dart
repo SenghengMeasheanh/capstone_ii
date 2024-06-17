@@ -482,7 +482,7 @@ Widget get _buildCompanyDetail {
               Container(
                 padding: const EdgeInsets.all(8.0),
                 width: 160,
-                height: 70,
+                height: 75,
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(Dimen.defaultRadius),
@@ -506,7 +506,7 @@ Widget get _buildCompanyDetail {
               Container(
                 padding: const EdgeInsets.all(8.0),
                 width: 160,
-                height: 70,
+                height: 75,
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(Dimen.defaultRadius),
