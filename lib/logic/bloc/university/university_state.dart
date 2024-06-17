@@ -54,6 +54,12 @@ class RequestTypeListSuccessState extends UniversityState {
   RequestTypeListSuccessState({required this.response});
 }
 
+class RequestTuitionListSuccessState extends UniversityState {
+  final ListBodyResponse<UniversityTuitionModels> response;
+
+  RequestTuitionListSuccessState({required this.response});
+}
+
 // * University Overview | State
 class RequestUniversityOverviewSuccessState extends UniversityState {
   final MapBodyResponse<UniversityOverviewModels> response;
@@ -98,6 +104,8 @@ class RequestLocationListErrorState extends UniversityState {}
 class RequestMajorListErrorState extends UniversityState {}
 
 class RequestTypeListErrorState extends UniversityState {}
+
+class RequestTuitionListErrorState extends UniversityState {}
 
 // ! University Overview | State
 class RequestUniversityOverviewErrorState extends UniversityState {}

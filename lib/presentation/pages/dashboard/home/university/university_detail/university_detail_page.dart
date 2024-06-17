@@ -31,6 +31,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
   // * Paging Controller
   final _universityMajorController = PagingController<int, UniversityMajorModels>(firstPageKey: 1);
   final _universitySpecializeController = PagingController<int, UniversitySpecializeModels>(firstPageKey: 1);
+  final _universityTuitionController = PagingController<int, UniversityTuitionModels>(firstPageKey: 1);
 
   // * Modal
   final _progressDialog = ProgressDialog();
@@ -73,10 +74,11 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
           context.read<UniversityBloc>().add(RequestUniversityAdmissionEvent(id: widget.universityId));
           break;
         case 3:
-          // * Request University Costs
+          // * Request University Scholarships
           break;
         case 4:
-          // * Request University Scholarships
+          // * Request University Tuition
+          context.read<UniversityBloc>().add(RequestUniversityTuitionListEvent(id: widget.universityId));
           break;
         default:
           break;
@@ -759,15 +761,55 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
   }
 
   Widget get _buildTuitionTab {
-    return Column(
-      children: [
-        // * Tuition
-        Text(
-          'Tuition',
-          style: CustomTextStyle.titleTextStyle(bold: true),
+    return BlocListener<UniversityBloc, UniversityState>(
+      listener: (context, state) {
+        // * Request University Tuition List Success
+        if (state is RequestTuitionListSuccessState) {
+          // * Set University Tuition List
+          _universityTuitionController.itemList = state.response.body.data;
+          // * Notify
+          setState(() {});
+          // * Return
+          return;
+        }
+        // ! Request University Tuition List Error
+        if (state is RequestTuitionListErrorState) {
+          // * Return
+          return;
+        }
+      },
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(Dimen.contentPadding),
+          child: Column(
+            children: [
+              // * Tuition
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Major & Specialize',
+                  style: CustomTextStyle.titleTextStyle(bold: true),
+                ),
+              ),
+              const SizedBox(height: Dimen.extraLargeSpace),
+              // * Tuition List
+              PagedListView<int, UniversityTuitionModels>(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                pagingController: _universityTuitionController,
+                builderDelegate: PagedChildBuilderDelegate<UniversityTuitionModels>(
+                  itemBuilder: (context, models, index) {
+                    return ItemUniversityTuition(models: models);
+                  },
+                  firstPageProgressIndicatorBuilder: (context) => const Center(child: CircularProgressIndicator()),
+                  noItemsFoundIndicatorBuilder: (context) => const Center(child: Text('No Tuition found!')),
+                  newPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
+                ),
+              ),
+            ],
+          ),
         ),
-        const SizedBox(height: Dimen.largeSpace),
-      ],
+      ),
     );
   }
 

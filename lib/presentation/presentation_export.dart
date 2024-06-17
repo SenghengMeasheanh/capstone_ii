@@ -5,6 +5,8 @@ export 'items/item_slide_show.dart';
 export 'items/item_university_filter.dart';
 export 'items/item_university.dart';
 export 'items/item_university_program.dart';
+export 'items/item_university_tuition.dart';
+
 // * Modals
 // ? Modals (Bottom Sheets)
 export 'modals/bottom_sheets/language_picker_bottom_sheet.dart';
