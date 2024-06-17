@@ -17,6 +17,7 @@ class ItemUniversity extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: Stack(
           children: [
+            // * Cover Image
             SizedBox(
               height: 232,
               child: models.image != null
@@ -36,14 +37,13 @@ class ItemUniversity extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
             ),
+            // * Logo Image
             Positioned(
               right: 20,
               bottom: 150,
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(Dimen.defaultRadius),
-                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(Dimen.defaultRadius)),
                   border: Border.all(color: Colors.black),
                 ),
                 child: models.logoImage != null
@@ -53,7 +53,7 @@ class ItemUniversity extends StatelessWidget {
                           width: 60,
                           height: 60,
                           boxFit: BoxFit.cover,
-                          borderRadius: const BorderRadius.vertical(top: Radius.circular(Dimen.defaultRadius)),
+                          borderRadius: const BorderRadius.all(Radius.circular(Dimen.defaultRadius)),
                         ),
                       )
                     : Image.asset(

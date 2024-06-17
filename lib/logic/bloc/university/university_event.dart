@@ -35,6 +35,13 @@ class RequestUniversitySpecializeListEvent extends UniversityEvent {
   });
 }
 
+class RequestUniversityTuitionListEvent extends UniversityEvent {
+  final int id;
+  RequestUniversityTuitionListEvent({
+      required this.id,
+  });
+}
+
 // * Major Detail | Event
 class RequestUniversityMajorDetailEvent extends UniversityEvent {
   final int id;
