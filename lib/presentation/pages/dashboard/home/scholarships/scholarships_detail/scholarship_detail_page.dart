@@ -34,8 +34,10 @@ class ScholarshipsDetailPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // * Scholarship Title
-              Text(name,
-                  style: CustomTextStyle.largeTitleTextStyle(bold: true)),
+              Text(
+                name,
+                style: CustomTextStyle.largeTitleTextStyle(bold: true),
+              ),
               const SizedBox(height: Dimen.mediumSpace),
               CustomCachedNetworkImage(
                 imageUrl: imageUrl,
@@ -59,75 +61,55 @@ class ScholarshipsDetailPage extends StatelessWidget {
               const SizedBox(height: Dimen.mediumSpace),
 
               //*Scholarship Benefits
-              Text('Scholarship Benefits:',
-                  style: CustomTextStyle.titleTextStyle(bold: true)),
+              Text('Scholarship Benefits:', style: CustomTextStyle.titleTextStyle(bold: true)),
 
-              Text('- 100% school paid',
-                  style: CustomTextStyle.bodyTextStyle()),
-              Text('- \$100 per month allowance',
-                  style: CustomTextStyle.bodyTextStyle()),
-              Text('- Become the ICT lead in the future',
-                  style: CustomTextStyle.bodyTextStyle()),
-              Text('- Become the ICT lead in the future',
-                  style: CustomTextStyle.bodyTextStyle()),
-              Text('- Become the ICT lead in the future',
-                  style: CustomTextStyle.bodyTextStyle()),
-              Text(
-                  '- Can Study at popular school in CADT, AUPP, RUPP, and ICT.',
+              Text('- 100% school paid', style: CustomTextStyle.bodyTextStyle()),
+              Text('- \$100 per month allowance', style: CustomTextStyle.bodyTextStyle()),
+              Text('- Become the ICT lead in the future', style: CustomTextStyle.bodyTextStyle()),
+              Text('- Become the ICT lead in the future', style: CustomTextStyle.bodyTextStyle()),
+              Text('- Become the ICT lead in the future', style: CustomTextStyle.bodyTextStyle()),
+              Text('- Can Study at popular school in CADT, AUPP, RUPP, and ICT.',
                   style: CustomTextStyle.bodyTextStyle()),
 
               const SizedBox(height: Dimen.mediumSpace),
               //* Requirement Document
-              Text('Requirement Document:',
-                  style: CustomTextStyle.titleTextStyle(bold: true)),
-              Text('- High school transcripts.',
-                  style: CustomTextStyle.bodyTextStyle()),
-              Text('- Two letters of recommendation.',
-                  style: CustomTextStyle.bodyTextStyle()),
-              Text('- Personal statement.',
-                  style: CustomTextStyle.bodyTextStyle()),
+              Text('Requirement Document:', style: CustomTextStyle.titleTextStyle(bold: true)),
+              Text('- High school transcripts.', style: CustomTextStyle.bodyTextStyle()),
+              Text('- Two letters of recommendation.', style: CustomTextStyle.bodyTextStyle()),
+              Text('- Personal statement.', style: CustomTextStyle.bodyTextStyle()),
               Text('- Proof of BODIAN citizenship or permanent residency.',
                   style: CustomTextStyle.bodyTextStyle()),
-              Text('- Finish grade 12 with grade A,B & C',
-                  style: CustomTextStyle.bodyTextStyle()),
-              Text('- Can Cook like master chef(Domzzz).',
-                  style: CustomTextStyle.bodyTextStyle()),
+              Text('- Finish grade 12 with grade A,B & C', style: CustomTextStyle.bodyTextStyle()),
+              Text('- Can Cook like master chef(Domzzz).', style: CustomTextStyle.bodyTextStyle()),
 
               const SizedBox(height: Dimen.mediumSpace),
               //* How to Apply
-              Text('How to Apply:',
-                  style: CustomTextStyle.titleTextStyle(bold: true)),
+              Text('How to Apply:', style: CustomTextStyle.titleTextStyle(bold: true)),
               Text('1. Complete the online application form at University',
                   style: CustomTextStyle.bodyTextStyle()),
-              Text('2. Submit high school transcripts. ',
-                  style: CustomTextStyle.bodyTextStyle()),
-              Text('3. Provide two letters of recommendation. ',
-                  style: CustomTextStyle.bodyTextStyle()),
+              Text('2. Submit high school transcripts. ', style: CustomTextStyle.bodyTextStyle()),
+              Text('3. Provide two letters of recommendation. ', style: CustomTextStyle.bodyTextStyle()),
               Text('4. Write and submit a personal statement (500 words).',
                   style: CustomTextStyle.bodyTextStyle()),
-              Text('5. Attend an interview if shortlisted.',
-                  style: CustomTextStyle.bodyTextStyle()),
+              Text('5. Attend an interview if shortlisted.', style: CustomTextStyle.bodyTextStyle()),
 
               const SizedBox(height: Dimen.mediumSpace),
               //* Conatact information
               Row(children: [
                 const Icon(Icons.email, color: primaryColor),
                 const SizedBox(width: Dimen.smallSpace),
-                Text('Email: 9JlT7@example.com',
-                    style: CustomTextStyle.bodyTextStyle()),
+                Text('Email: 9JlT7@example.com', style: CustomTextStyle.bodyTextStyle()),
               ]),
               Row(children: [
                 const Icon(Icons.phone, color: primaryColor),
                 const SizedBox(width: Dimen.smallSpace),
-                Text('Phone: +855 123 456 789',
-                    style: CustomTextStyle.bodyTextStyle()),
+                Text('Phone: +855 123 456 789', style: CustomTextStyle.bodyTextStyle()),
               ]),
               Row(
                 children: [
                   const Icon(Icons.location_on, color: primaryColor),
                   const SizedBox(width: Dimen.smallSpace),
-                  Text('Location: Phnom Penh, Cambodia',
-                      style: CustomTextStyle.bodyTextStyle()),
+                  Text('Location: Phnom Penh, Cambodia', style: CustomTextStyle.bodyTextStyle()),
                 ],
               ),
 
@@ -139,8 +121,7 @@ class ScholarshipsDetailPage extends StatelessWidget {
                     // Handle button press
                   },
                   style: ElevatedButton.styleFrom(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
                     backgroundColor: primaryColor, // Background color
                   ),
                   child: Text(

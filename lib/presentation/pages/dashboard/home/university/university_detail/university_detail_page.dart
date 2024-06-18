@@ -2,6 +2,7 @@ import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -43,11 +44,13 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
   var _degreeLevelsList = <DegreeLevelsModels>[];
   UniversityMajorDetailModels? _universityMajorDetailModel;
   UniversitySpecializeDetailModels? _universitySpecializeDetailModel;
+  UniversityScholarshipDetailModels? _universityScholarshipDetailModel;
 
   // * Variables
   var _selectedDegreeLevelId = 0;
   var _showMajorDetail = false;
   var _showSpecializeDetail = false;
+  var _showScholarshipDetail = false;
 
   @override
   void initState() {
@@ -233,6 +236,12 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                             _showMajorDetail = false;
                             _showSpecializeDetail = false;
                           })
+                        },
+                      if (value == 3)
+                        {
+                          setState(() {
+                            _showScholarshipDetail = false;
+                          })
                         }
                     },
                     isScrollable: true,
@@ -277,7 +286,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     ? _buildSpecializeDetail
                     : _buildProgramsTab,
             _buildAdmissionsTab,
-            _buildScholarshipsTab,
+            _showScholarshipDetail ? _buildScholarshipDetail : _buildScholarshipsTab,
             _buildTuitionTab,
           ],
         ),
@@ -307,7 +316,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
           ? SingleChildScrollView(
               physics: const NeverScrollableScrollPhysics(),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: Dimen.contentPadding),
+                padding: const EdgeInsets.all(Dimen.contentPadding),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -321,65 +330,51 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     ),
                     const SizedBox(height: Dimen.mediumSpace),
                     // * Brief Details
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding),
-                      child: Column(
-                        children: [
-                          _OverviewBriefDetails(
-                            icon: Icons.info,
-                            title: 'Type',
-                            subtitle: _universityOverviewModel!.type.nameEn,
-                          ),
-                          _OverviewBriefDetails(
-                            icon: Icons.attach_money_outlined,
-                            title: 'Average Per Year After Aid',
-                            subtitle: _universityOverviewModel!.averageTuition!,
-                          ),
-                          _OverviewBriefDetails(
-                            icon: Icons.location_on_outlined,
-                            title: 'Location',
-                            subtitle: _universityOverviewModel!.contact!.address,
-                          ),
-                          _OverviewBriefDetails(
-                            icon: Icons.school_outlined,
-                            title: 'Graduation Rate',
-                            subtitle: '${_universityOverviewModel!.graduationRate}%',
-                          ),
-                          const Divider(
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
+                    Column(
+                      children: [
+                        _OverviewBriefDetails(
+                          icon: Icons.info,
+                          title: 'Type',
+                          subtitle: _universityOverviewModel!.type.nameEn,
+                        ),
+                        _OverviewBriefDetails(
+                          icon: Icons.attach_money_outlined,
+                          title: 'Average Per Year After Aid',
+                          subtitle: _universityOverviewModel!.averageTuition!,
+                        ),
+                        _OverviewBriefDetails(
+                          icon: Icons.location_on_outlined,
+                          title: 'Location',
+                          subtitle: _universityOverviewModel!.contact!.address,
+                        ),
+                        _OverviewBriefDetails(
+                          icon: Icons.school_outlined,
+                          title: 'Graduation Rate',
+                          subtitle: '${_universityOverviewModel!.graduationRate}%',
+                        ),
+                        const Divider(
+                          color: Colors.black,
+                        ),
+                      ],
                     ),
                     // * Description
                     CustomHtmlWidget(
                       data: _universityOverviewModel!.description,
                     ),
                     const SizedBox(height: Dimen.largeSpace),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding),
-                      child: const Divider(
-                        color: Colors.black,
-                      ),
+                    const Divider(
+                      color: Colors.black,
                     ),
                     // * Study Options
                     Container(
-                      margin: const EdgeInsets.only(
-                        top: Dimen.mediumSpace,
-                        left: Dimen.contentPadding,
-                        right: Dimen.contentPadding,
-                      ),
+                      margin: const EdgeInsets.only(top: Dimen.mediumSpace),
                       child: Text(
                         'Study Options',
                         style: CustomTextStyle.largeTitleTextStyle(bold: true),
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(
-                        top: Dimen.smallSpace,
-                        left: Dimen.contentPadding,
-                        right: Dimen.contentPadding,
-                      ),
+                      margin: const EdgeInsets.only(top: Dimen.smallSpace),
                       child: Text(
                         'The college offers the following degrees: ',
                         style: CustomTextStyle.bodyTextStyle(),
@@ -389,27 +384,18 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       margin: const EdgeInsets.only(
                         top: Dimen.smallSpace,
                         bottom: Dimen.mediumSpace,
-                        left: Dimen.contentPadding,
-                        right: Dimen.contentPadding,
                       ),
                       child: Text(
                         _universityOverviewModel!.studyOption!.map((e) => e.nameEn).join(', '),
                         style: CustomTextStyle.bodyTextStyle(bold: true),
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding),
-                      child: const Divider(
-                        color: Colors.black,
-                      ),
+                    const Divider(
+                      color: Colors.black,
                     ),
                     // * Contact
                     Container(
-                      margin: const EdgeInsets.only(
-                        top: Dimen.mediumSpace,
-                        left: Dimen.contentPadding,
-                        right: Dimen.contentPadding,
-                      ),
+                      margin: const EdgeInsets.only(top: Dimen.mediumSpace),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -427,30 +413,49 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                           ),
                           _ContactItem(
                             icon: Icons.phone_outlined,
-                            title: Text.rich(TextSpan(
-                              text: _universityOverviewModel!.contact!.primaryPhoneNumber,
-                              style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
-                              children: [
-                                TextSpan(
-                                  text: _universityOverviewModel!.contact!.secondPhoneNumber != null
-                                      ? ', ${_universityOverviewModel!.contact!.secondPhoneNumber}'
-                                      : '',
-                                  style: CustomTextStyle.bodyTextStyle(),
-                                ),
-                                TextSpan(
-                                  text: _universityOverviewModel!.contact!.thirdPhoneNumber != null
-                                      ? ', ${_universityOverviewModel!.contact!.thirdPhoneNumber}'
-                                      : '',
-                                  style: CustomTextStyle.bodyTextStyle(),
-                                ),
-                              ],
-                            )),
+                            title: Text.rich(
+                              TextSpan(
+                                text: _universityOverviewModel!.contact!.primaryPhoneNumber,
+                                style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => openURILauncher(
+                                        launchURL: 'tel:${_universityOverviewModel!.contact!.primaryPhoneNumber}',
+                                      ),
+                                children: [
+                                  TextSpan(
+                                    text: _universityOverviewModel!.contact!.secondPhoneNumber != null
+                                        ? ', ${_universityOverviewModel!.contact!.secondPhoneNumber}'
+                                        : '',
+                                    style: CustomTextStyle.bodyTextStyle(),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () => openURILauncher(
+                                            launchURL:
+                                                'tel:${_universityOverviewModel!.contact!.secondPhoneNumber}',
+                                          ),
+                                  ),
+                                  TextSpan(
+                                    text: _universityOverviewModel!.contact!.thirdPhoneNumber != null
+                                        ? ', ${_universityOverviewModel!.contact!.thirdPhoneNumber}'
+                                        : '',
+                                    style: CustomTextStyle.bodyTextStyle(),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () => openURILauncher(
+                                            launchURL:
+                                                'tel:${_universityOverviewModel!.contact!.thirdPhoneNumber}',
+                                          ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                           _ContactItem(
                             icon: Icons.email_outlined,
-                            title: Text(
-                              _universityOverviewModel!.contact!.email,
-                              style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
+                            title: InkWell(
+                              onTap: () => openURILauncher(launchURL: _universityOverviewModel!.contact!.email),
+                              child: Text(
+                                _universityOverviewModel!.contact!.email,
+                                style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
+                              ),
                             ),
                           ),
                         ],
@@ -574,11 +579,9 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                   ),
                 ),
                 // * Specialize
-                Container(
-                  child: Text(
-                    'Specialize',
-                    style: CustomTextStyle.titleTextStyle(bold: true),
-                  ),
+                Text(
+                  'Specialize',
+                  style: CustomTextStyle.titleTextStyle(bold: true),
                 ),
                 // * Specialize List
                 Container(
@@ -632,12 +635,11 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
       child: _universityAdmissionModel != null
           ? SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: Dimen.contentPadding),
+                padding: const EdgeInsets.all(Dimen.contentPadding),
                 child: Column(
                   children: [
                     // * Admissions
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding),
                       margin: const EdgeInsets.only(bottom: Dimen.mediumSpace),
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -645,39 +647,36 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         style: CustomTextStyle.titleTextStyle(bold: true),
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding),
-                      child: Column(
-                        children: [
-                          _AdmissionBriefDetails(
-                            title: 'Acceptance Number',
-                            subtitle: '${_universityAdmissionModel!.averageStudentAcceptance.toString()} people',
-                            icon: Assets.iconAcceptance,
-                          ),
-                          _AdmissionBriefDetails(
-                            title: 'Regular Application Due',
-                            subtitle: _universityAdmissionModel!.isActive == 1
-                                ? _universityAdmissionModel!.applicationDeadline
-                                : 'Closed',
-                            icon: Assets.iconCalendar,
-                          ),
-                          _AdmissionBriefDetails(
-                            title: 'Application Fee',
-                            subtitle: '${_universityAdmissionModel!.applicationFee ?? 'Free'}\$',
-                            icon: Assets.iconApplication,
-                          ),
-                          _AdmissionBriefDetails(
-                            title: 'Enrollment Type',
-                            subtitle: _universityAdmissionModel!.enrollTypeEn,
-                            icon: Assets.iconEnrollType,
-                          ),
-                          _AdmissionBriefDetails(
-                            title: 'Tuition',
-                            subtitle: '${_universityAdmissionModel!.tuition}\$',
-                            icon: Assets.iconMoney,
-                          ),
-                        ],
-                      ),
+                    Column(
+                      children: [
+                        _AdmissionBriefDetails(
+                          title: 'Acceptance Number',
+                          subtitle: '${_universityAdmissionModel!.averageStudentAcceptance.toString()} people',
+                          icon: Assets.iconAcceptance,
+                        ),
+                        _AdmissionBriefDetails(
+                          title: 'Regular Application Due',
+                          subtitle: _universityAdmissionModel!.isActive == 1
+                              ? _universityAdmissionModel!.applicationDeadline
+                              : 'Closed',
+                          icon: Assets.iconCalendar,
+                        ),
+                        _AdmissionBriefDetails(
+                          title: 'Application Fee',
+                          subtitle: '${_universityAdmissionModel!.applicationFee ?? 'Free'}\$',
+                          icon: Assets.iconApplication,
+                        ),
+                        _AdmissionBriefDetails(
+                          title: 'Enrollment Type',
+                          subtitle: _universityAdmissionModel!.enrollTypeEn,
+                          icon: Assets.iconEnrollType,
+                        ),
+                        _AdmissionBriefDetails(
+                          title: 'Tuition',
+                          subtitle: '${_universityAdmissionModel!.tuition}\$',
+                          icon: Assets.iconMoney,
+                        ),
+                      ],
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: Dimen.extraLargeSpace),
@@ -685,19 +684,12 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         data: _universityAdmissionModel!.descriptionEn,
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding),
-                      child: const Divider(
-                        color: Colors.black,
-                      ),
+                    const Divider(
+                      color: Colors.black,
                     ),
                     // * Contact
                     Container(
-                      margin: const EdgeInsets.only(
-                        top: Dimen.mediumSpace,
-                        left: Dimen.contentPadding,
-                        right: Dimen.contentPadding,
-                      ),
+                      margin: const EdgeInsets.only(top: Dimen.mediumSpace),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -706,6 +698,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                             style: CustomTextStyle.titleTextStyle(bold: true),
                           ),
                           const SizedBox(height: Dimen.largeSpace),
+                          // * Address
                           _ContactItem(
                             icon: Icons.location_on_outlined,
                             title: Text(
@@ -713,26 +706,41 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                               style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
                             ),
                           ),
+                          // * Phone Number
                           _ContactItem(
                             icon: Icons.phone_outlined,
-                            title: Text.rich(TextSpan(
-                              text: _universityAdmissionModel!.contactInfo.primaryPhoneNumber,
-                              style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
-                              children: [
-                                TextSpan(
-                                  text: _universityAdmissionModel!.contactInfo.secondPhoneNumber != null
-                                      ? '/${_universityAdmissionModel!.contactInfo.secondPhoneNumber}'
-                                      : '',
-                                  style: CustomTextStyle.bodyTextStyle(),
-                                ),
-                                TextSpan(
-                                  text: _universityAdmissionModel!.contactInfo.thirdPhoneNumber != null
-                                      ? '/${_universityAdmissionModel!.contactInfo.thirdPhoneNumber}'
-                                      : '',
-                                  style: CustomTextStyle.bodyTextStyle(),
-                                ),
-                              ],
-                            )),
+                            title: Text.rich(
+                              TextSpan(
+                                text: _universityAdmissionModel!.contactInfo.primaryPhoneNumber,
+                                style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => openURILauncher(
+                                      launchURL:
+                                          'tel:${_universityAdmissionModel!.contactInfo.primaryPhoneNumber}'),
+                                children: [
+                                  TextSpan(
+                                    text: _universityAdmissionModel!.contactInfo.secondPhoneNumber != null
+                                        ? '/${_universityAdmissionModel!.contactInfo.secondPhoneNumber}'
+                                        : '',
+                                    style: CustomTextStyle.bodyTextStyle(),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () => openURILauncher(
+                                          launchURL:
+                                              'tel:${_universityAdmissionModel!.contactInfo.secondPhoneNumber}'),
+                                  ),
+                                  TextSpan(
+                                    text: _universityAdmissionModel!.contactInfo.thirdPhoneNumber != null
+                                        ? '/${_universityAdmissionModel!.contactInfo.thirdPhoneNumber}'
+                                        : '',
+                                    style: CustomTextStyle.bodyTextStyle(),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () => openURILauncher(
+                                          launchURL:
+                                              'tel:${_universityAdmissionModel!.contactInfo.thirdPhoneNumber}'),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                           _ContactItem(
                             icon: Icons.email_outlined,
@@ -746,7 +754,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     ),
                     const SizedBox(height: Dimen.largeSpace),
                     // * Download Admission
-                    Container(
+                    SizedBox(
                       height: 51,
                       child: ElevatedButton(
                         onPressed: _universityAdmissionModel!.admissionUrl == null
@@ -853,7 +861,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                   itemBuilder: (context, models, index) {
                     return ItemUniversityScholarship(
                       models: models,
-                      onTap: () {},
+                      onTap: () => _onShowScholarshipDetail(models.id),
                     );
                   },
                   firstPageProgressIndicatorBuilder: (context) => const Center(child: CircularProgressIndicator()),
@@ -1001,6 +1009,138 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
     );
   }
 
+  Widget get _buildScholarshipDetail {
+    return BlocListener<UniversityBloc, UniversityState>(
+      listener: (context, state) {
+        // * Request University Scholarship Detail Success
+        if (state is RequestUniversityScholarshipDetailSuccessState) {
+          // * Set University Scholarship Detail Model
+          _universityScholarshipDetailModel = state.response.body.data;
+          // * Notify
+          setState(() {});
+          // * Return
+          return;
+        }
+        // ! Request University Scholarship Detail Error
+        if (state is RequestUniversityScholarshipDetailErrorState) {
+          // * Return
+          return;
+        }
+      },
+      child: _universityScholarshipDetailModel != null
+          ? SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(Dimen.contentPadding),
+                child: Column(
+                  children: [
+                    // * Scholarship Cover Image
+                    CustomCachedNetworkImage(
+                      imageUrl: _universityScholarshipDetailModel!.image,
+                      config: CustomCachedNetworkImageConfig(
+                        width: double.infinity,
+                        height: 160,
+                        boxFit: BoxFit.contain,
+                        backgroundColor: primaryColor.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+                      ),
+                    ),
+                    // * Scholarship Title
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(top: Dimen.extraLargeSpace),
+                      child: Text(
+                        _universityScholarshipDetailModel!.nameEn,
+                        style: CustomTextStyle.titleTextStyle(bold: true),
+                      ),
+                    ),
+                    // * Scholarship Description
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.mediumSpace),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        _universityScholarshipDetailModel!.descriptionEn,
+                        style: CustomTextStyle.bodyTextStyle(),
+                      ),
+                    ),
+                    // * Scholarship Detail
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.extraLargeSpace),
+                      child: CustomHtmlWidget(
+                        data: _universityScholarshipDetailModel!.detailEn,
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Contact Information',
+                          style: CustomTextStyle.titleTextStyle(bold: true),
+                        ),
+                        const SizedBox(height: Dimen.largeSpace),
+                        // *  Email
+                        Container(
+                          margin: const EdgeInsets.only(bottom: Dimen.smallSpace),
+                          child: Text.rich(
+                            TextSpan(
+                              text: 'Email: ',
+                              style: CustomTextStyle.bodyTextStyle(),
+                              children: [
+                                TextSpan(
+                                  text: _universityScholarshipDetailModel!.contactInfo.email,
+                                  style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () => openURILauncher(
+                                          launchURL:
+                                              'mailto:${_universityScholarshipDetailModel!.contactInfo.email}',
+                                        ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        // * Phone Number
+                        Container(
+                          margin: const EdgeInsets.only(bottom: Dimen.smallSpace),
+                          child: Text.rich(
+                            TextSpan(
+                              text: 'Phone Number: ',
+                              style: CustomTextStyle.bodyTextStyle(),
+                              children: [
+                                TextSpan(
+                                  text: _universityScholarshipDetailModel!.contactInfo.primaryPhoneNumber,
+                                  style: CustomTextStyle.bodyTextStyle(),
+                                ),
+                                TextSpan(
+                                  text: _universityScholarshipDetailModel!.contactInfo.secondPhoneNumber != null
+                                      ? '/${_universityScholarshipDetailModel!.contactInfo.secondPhoneNumber}'
+                                      : '',
+                                  style: CustomTextStyle.bodyTextStyle(),
+                                ),
+                                TextSpan(
+                                  text: _universityScholarshipDetailModel!.contactInfo.thirdPhoneNumber != null
+                                      ? '/${_universityScholarshipDetailModel!.contactInfo.thirdPhoneNumber}'
+                                      : '',
+                                  style: CustomTextStyle.bodyTextStyle(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        // * Address
+                        Text(
+                          'Address: ${_universityScholarshipDetailModel!.contactInfo.address}',
+                          style: CustomTextStyle.bodyTextStyle(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : const ProgressBar(),
+    );
+  }
+
   void _onChangeDegreeLevel(int id) {
     setState(() {
       _selectedDegreeLevelId = id;
@@ -1025,6 +1165,13 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
       _showSpecializeDetail = !_showSpecializeDetail;
     });
     context.read<UniversityBloc>().add(RequestUniversitySpecializeDetailEvent(id: id));
+  }
+
+  void _onShowScholarshipDetail(int id) {
+    setState(() {
+      _showScholarshipDetail = !_showScholarshipDetail;
+    });
+    context.read<UniversityBloc>().add(RequestUniversityScholarshipDetailEvent(id: id));
   }
 }
 

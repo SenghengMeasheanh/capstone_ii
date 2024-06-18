@@ -428,16 +428,17 @@ Widget get _buildCompanyDetail {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // * Title
           Container(
             margin: const EdgeInsets.all(10),
             child: Text(
               'About the Company',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: CustomTextStyle.titleTextStyle(bold: true),
             ),
           ),
           const SizedBox(height: Dimen.mediumSpace),
 
-          // CEO Section
+          // * CEO Section
           Container(
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
@@ -461,7 +462,7 @@ Widget get _buildCompanyDetail {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'John Doe', // Replace with actual CEO name
+                      'John Doe', 
                       style: CustomTextStyle.titleTextStyle(bold: true),
                     ),
                     const SizedBox(height: Dimen.smallSpace),
@@ -475,7 +476,7 @@ Widget get _buildCompanyDetail {
             ),
           ),
           const SizedBox(height: Dimen.largeSpace),
-          // Founded and Company Size
+          // * Founded and Company Size
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -497,7 +498,7 @@ Widget get _buildCompanyDetail {
                     ),
                     const SizedBox(height: Dimen.largeSpace),
                     Text(
-                      '1996', // Replace with actual founding year
+                      '1996', 
                       style: CustomTextStyle.bodyTextStyle(fontSize: 14),
                     ),
                   ],
@@ -533,7 +534,7 @@ Widget get _buildCompanyDetail {
 
           Text(
             'Snap Inc is a technology company. We believe the camera presents the greatest opportunity to improve the way people live and communicate. Snap contributes to human progress by empowering people to express themselves, live in the moment, learn about the world, and have fun together. The Company’s three core products are Snapchat, a visual messaging app that enhances your relationships with friends, family, and the world.', // Replace with actual company description
-            style: TextStyle(fontSize: 14, color: Colors.grey),
+            style: CustomTextStyle.bodyTextStyle(),
           ),
           Container(
             margin: const EdgeInsets.only(top: Dimen.defaultSpace),
@@ -542,7 +543,7 @@ Widget get _buildCompanyDetail {
             ),
           ),
           const SizedBox(height: Dimen.mediumSpace),
-          // Company Details
+          // * Company Details
           Text(
             'Company Details',
             style: CustomTextStyle.titleTextStyle(bold: true),

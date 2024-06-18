@@ -11,7 +11,8 @@ class CustomHtmlWidget extends StatelessWidget {
       data: data,
       style: <String, Style>{
         'body': Style(
-          padding: HtmlPaddings.symmetric(horizontal: 16),
+          padding: HtmlPaddings.symmetric(horizontal: 0),
+          margin: Margins.zero,
         ),
         'h1': Style(
           fontSize: FontSize(18),
@@ -26,12 +27,12 @@ class CustomHtmlWidget extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
         'p': Style(
-            fontSize: FontSize(14),
-            lineHeight: LineHeight.number(1.42857),
-            textAlign: TextAlign.justify,
-            padding: HtmlPaddings.zero,
-            margin: Margins.zero,
-          ),
+          fontSize: FontSize(14),
+          lineHeight: LineHeight.number(1.42857),
+          textAlign: TextAlign.justify,
+          padding: HtmlPaddings.zero,
+          margin: Margins.zero,
+        ),
         '.content': Style(
           width: Width.auto(),
         ),

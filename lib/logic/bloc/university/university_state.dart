@@ -80,18 +80,25 @@ class RequestUniversityAdmissionSuccessState extends UniversityState {
   RequestUniversityAdmissionSuccessState({required this.response});
 }
 
-// * Major Detail | State
+// * University Major Detail | State
 class RequestUniversityMajorDetailSuccessState extends UniversityState {
   final MapBodyResponse<UniversityMajorDetailModels> response;
 
   RequestUniversityMajorDetailSuccessState({required this.response});
 }
 
-// * Specialize Detail | State
+// * University Specialize Detail | State
 class RequestUniversitySpecializeDetailSuccessState extends UniversityState {
   final MapBodyResponse<UniversitySpecializeDetailModels> response;
 
   RequestUniversitySpecializeDetailSuccessState({required this.response});
+}
+
+// * University Scholarship Detail | State
+class RequestUniversityScholarshipDetailSuccessState extends UniversityState {
+  final MapBodyResponse<UniversityScholarshipDetailModels> response;
+
+  RequestUniversityScholarshipDetailSuccessState({required this.response});
 }
 
 // ! List | State
@@ -126,3 +133,6 @@ class RequestUniversityMajorDetailErrorState extends UniversityState {}
 
 // ! Specialize Detail | State
 class RequestUniversitySpecializeDetailErrorState extends UniversityState {}
+
+// ! Scholarship Detail | State
+class RequestUniversityScholarshipDetailErrorState extends UniversityState {}

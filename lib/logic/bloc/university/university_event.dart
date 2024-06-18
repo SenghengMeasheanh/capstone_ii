@@ -49,7 +49,7 @@ class RequestUniversityScholarshipListEvent extends UniversityEvent {
   });
 }
 
-// * Major Detail | Event
+// * University Major Detail | Event
 class RequestUniversityMajorDetailEvent extends UniversityEvent {
   final int id;
   RequestUniversityMajorDetailEvent({
@@ -57,13 +57,22 @@ class RequestUniversityMajorDetailEvent extends UniversityEvent {
   });
 }
 
-// * Specialize Detail | Event
+// * University Specialize Detail | Event
 class RequestUniversitySpecializeDetailEvent extends UniversityEvent {
   final int id;
   RequestUniversitySpecializeDetailEvent({
       required this.id,
   });
 }
+
+// * University Scholarship Detail | Event
+class RequestUniversityScholarshipDetailEvent extends UniversityEvent {
+  final int id;
+  RequestUniversityScholarshipDetailEvent({
+      required this.id,
+  });
+}
+
 
 class RequestDegreeListEvent extends UniversityEvent {}
 
