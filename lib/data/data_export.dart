@@ -16,6 +16,7 @@ export 'models/university/university_detail/program/university_specialize/univer
 export 'models/university/university_detail/program/university_specialize/university_specialize_detail/university_specialize_detail_models.dart';
 export 'models/university/university_detail/tuition/university_tuition_models.dart';
 export 'models/university/university_detail/scholarship/university_scholarship_models.dart';
+export 'models/university/university_detail/scholarship/university_scholarship_detail/university_scholarship_detail_models.dart';
 
 // * Repositories
 export 'repositories/university_repo.dart';

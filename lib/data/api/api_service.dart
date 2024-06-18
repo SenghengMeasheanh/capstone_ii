@@ -90,6 +90,11 @@ abstract class ApiService {
     @Path('id') required int id,
   });
 
+  @GET('/universities/scholarship/detail/{id}')
+  Future<MapBodyResponse<UniversityScholarshipDetailModels>> getUniversityScholarshipDetail({
+    @Path('id') required int id,
+  });
+
   @GET('/getFilter/degrees')
   Future<ListBodyResponse<DegreeModels>> getDegreeList();
 

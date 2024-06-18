@@ -29,7 +29,7 @@ class Dimen {
   static const titleTextSize = 18.0;
 
   /// Body Text Size 16.0
-  static const bodyTextSize = 16.0;
+  static const bodyTextSize = 14.0;
 
   /// Caption Text Size 14.0
   static const captionTextSize = 12.0;

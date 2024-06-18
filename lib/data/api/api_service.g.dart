@@ -358,6 +358,39 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<MapBodyResponse<UniversityScholarshipDetailModels>>
+      getUniversityScholarshipDetail({required int id}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<MapBodyResponse<UniversityScholarshipDetailModels>>(
+            Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+                .compose(
+                  _dio.options,
+                  '/universities/scholarship/detail/${id}',
+                  queryParameters: queryParameters,
+                  data: _data,
+                )
+                .copyWith(
+                    baseUrl: _combineBaseUrls(
+                  _dio.options.baseUrl,
+                  baseUrl,
+                ))));
+    final value = MapBodyResponse<UniversityScholarshipDetailModels>.fromJson(
+      _result.data!,
+      (json) => UniversityScholarshipDetailModels.fromJson(
+          json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<ListBodyResponse<DegreeModels>> getDegreeList() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
