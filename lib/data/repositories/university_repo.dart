@@ -89,6 +89,12 @@ class UniversityRepo {
     return await ApiService().getUniversityEvent(id: id);
   }
 
+  Future<MapBodyResponse<UniversityEventDetailModels>> getUniversityEventDetail({
+    required int id,
+  }) async {
+    return await ApiService().getUniversityEventDetail(id: id);
+  }
+
   Future<ListBodyResponse<DegreeModels>> getDegreeList() async {
     return await ApiService().getDegreeList();
   }

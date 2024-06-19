@@ -107,6 +107,13 @@ class RequestUniversityScholarshipDetailSuccessState extends UniversityState {
   RequestUniversityScholarshipDetailSuccessState({required this.response});
 }
 
+// * University Event Detail | State
+class RequestUniversityEventDetailSuccessState extends UniversityState {
+  final MapBodyResponse<UniversityEventDetailModels> response;
+
+  RequestUniversityEventDetailSuccessState({required this.response});
+}
+
 // ! List | State
 class RequestUniversityListErrorState extends UniversityState {}
 
@@ -144,3 +151,6 @@ class RequestUniversitySpecializeDetailErrorState extends UniversityState {}
 
 // ! Scholarship Detail | State
 class RequestUniversityScholarshipDetailErrorState extends UniversityState {}
+
+// ! Event Detail | State
+class RequestUniversityEventDetailErrorState extends UniversityState {}

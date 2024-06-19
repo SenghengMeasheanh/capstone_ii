@@ -35,6 +35,8 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
     on<RequestUniversitySpecializeDetailEvent>(_requestUniversitySpecializeDetail);
     // * University Scholarship Detail | Bloc
     on<RequestUniversityScholarshipDetailEvent>(_requestUniversityScholarshipDetail);
+    // * University Event Detail | Bloc
+    on<RequestUniversityEventDetailEvent>(_requestUniversityEventDetail);
   }
 
   Future<void> _requestUniversityList(
@@ -499,12 +501,39 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
       // * Debug Print Error
       debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
       // * If Server Not Response
-       // * If Server Not Response
+      // * If Server Not Response
       if (exception is DioException) {
         // * Await 5 Seconds
         await Future.delayed(const Duration(seconds: 5));
         // * Emit Error State
         add(RequestUniversityEventListEvent(id: event.id));
+        // * Return
+        return;
+      }
+    });
+  }
+
+  Future<void> _requestUniversityEventDetail(
+    RequestUniversityEventDetailEvent event,
+    Emitter<UniversityState> emit,
+  ) async {
+    // * Get Result
+    final result = _universityRepo.getUniversityEventDetail(id: event.id);
+    // * Check Result
+    await result.then((response) {
+      if (response.header.statusCode == 200) {
+        emit(RequestUniversityEventDetailSuccessState(response: response));
+      } else {
+        emit(RequestUniversityEventDetailErrorState());
+      }
+    }, onError: (exception, stackTrace) async {
+      // * Debug Print Error
+      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+      // * If Server Not Response
+      // * If Server Not Response
+      if (exception is DioException) {
+        // * Emit Error State
+        emit(RequestUniversityEventDetailErrorState());
         // * Return
         return;
       }
