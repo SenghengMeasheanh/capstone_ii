@@ -1,3 +1,4 @@
+import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'university_specialize_models.g.dart';
@@ -36,6 +37,8 @@ class SpecializeName {
    final String nameKh;
 
   SpecializeName({required this.id, required this.nameEn, required this.nameKh,});
+
+  String get name => getDataBasedOnCurrentLanguage(kh: nameKh, en: nameEn);
 
   factory SpecializeName.fromJson(Map<String, dynamic> json) => _$SpecializeNameFromJson(json);
 

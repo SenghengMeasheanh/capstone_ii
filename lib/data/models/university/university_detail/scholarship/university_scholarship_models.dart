@@ -1,3 +1,4 @@
+import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'university_scholarship_models.g.dart';
@@ -38,6 +39,10 @@ class UniversityScholarshipModels {
     required this.closeDate,
     required this.image,
   });
+
+  String get name => getDataBasedOnCurrentLanguage(kh: nameKh, en: nameEn);
+
+  String get description => getDataBasedOnCurrentLanguage(kh: descriptionKh, en: descriptionEn);
 
   factory UniversityScholarshipModels.fromJson(Map<String, dynamic> json) =>_$UniversityScholarshipModelsFromJson(json);
 

@@ -9,7 +9,8 @@ part of 'university_models.dart';
 UniversityModels _$UniversityModelsFromJson(Map<String, dynamic> json) =>
     UniversityModels(
       id: (json['id'] as num).toInt(),
-      name: json['name'] as String,
+      nameEn: json['name'] as String,
+      nameKh: json['name_kh'] as String,
       graduationRate: json['graduation_rate'] as String,
       averageTuition: json['average_tuition'] as String,
       averageStudyYear: json['average_study_year'] as String,
@@ -22,7 +23,8 @@ UniversityModels _$UniversityModelsFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$UniversityModelsToJson(UniversityModels instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
+      'name': instance.nameEn,
+      'name_kh': instance.nameKh,
       'graduation_rate': instance.graduationRate,
       'average_tuition': instance.averageTuition,
       'average_study_year': instance.averageStudyYear,

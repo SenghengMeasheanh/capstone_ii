@@ -1,8 +1,8 @@
+import 'package:capstone_ii/helper/global/global_helper.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:capstone_ii/data/data_export.dart';
 
 part 'university_overview_models.g.dart';
-
 
 @JsonSerializable()
 class UniversityOverviewModels {
@@ -22,7 +22,10 @@ class UniversityOverviewModels {
   final String? averageStudyYear;
 
   @JsonKey(name: 'description')
-  final String description;
+  final String descriptionEn;
+
+  @JsonKey(name: 'description_kh')
+  final String descriptionKh;
 
   @JsonKey(name: 'type')
   final TypeModels type;
@@ -39,13 +42,16 @@ class UniversityOverviewModels {
     required this.graduationRate,
     required this.averageTuition,
     required this.averageStudyYear,
-    required this.description,
+    required this.descriptionEn,
+    required this.descriptionKh,
     required this.type,
     required this.studyOption,
     required this.contact,
   });
-  
-  factory UniversityOverviewModels.fromJson(Map<String, dynamic> json) =>_$UniversityOverviewModelsFromJson(json);
+
+  get description => getDataBasedOnCurrentLanguage(kh: descriptionKh, en: descriptionEn);
+
+  factory UniversityOverviewModels.fromJson(Map<String, dynamic> json) => _$UniversityOverviewModelsFromJson(json);
 
   Map<String, dynamic> toJson() => _$UniversityOverviewModelsToJson(this);
 }
@@ -66,6 +72,8 @@ class StudyOption {
     required this.nameEn,
     required this.nameKh,
   });
+
+  String get name => getDataBasedOnCurrentLanguage(kh: nameKh, en: nameEn);
 
   factory StudyOption.fromJson(Map<String, dynamic> json) => _$StudyOptionFromJson(json);
 

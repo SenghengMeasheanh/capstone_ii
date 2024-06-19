@@ -42,11 +42,11 @@ class ItemUniversityScholarship extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // * Scholarship Title
-                  Text(models.nameEn, style: CustomTextStyle.titleTextStyle(bold: true)),
+                  Text(models.name, style: CustomTextStyle.titleTextStyle(bold: true)),
                   const SizedBox(height: Dimen.smallSpace),
                   // * Scholarship Description
                   Text(
-                    models.descriptionEn,
+                    models.description,
                     style: CustomTextStyle.bodyTextStyle(),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

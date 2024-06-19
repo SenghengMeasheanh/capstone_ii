@@ -220,7 +220,7 @@ class _UniversityFilterDialogState extends State<_UniversityFilterDialog> with M
           builderDelegate: PagedChildBuilderDelegate<dynamic>(
             itemBuilder: (context, models, index) {
               return ItemFilter(
-                title: models.nameEn ?? '',
+                title: models.name ?? '',
                 onTap: () => dismiss(context: context, result: models),
               );
             },

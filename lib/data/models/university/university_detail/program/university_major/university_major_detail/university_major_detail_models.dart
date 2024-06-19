@@ -1,3 +1,4 @@
+import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'university_major_detail_models.g.dart';
@@ -22,6 +23,8 @@ class UniversityMajorDetailModels {
     required this.descriptionKh,
     required this.curriculumUrl,
   });
+
+  String get description => getDataBasedOnCurrentLanguage(kh: descriptionKh, en: descriptionEn);
 
   factory UniversityMajorDetailModels.fromJson(Map<String, dynamic> json) =>_$UniversityMajorDetailModelsFromJson(json);
 
