@@ -66,6 +66,12 @@ class RequestUniversityScholarshipListSuccessState extends UniversityState {
   RequestUniversityScholarshipListSuccessState({required this.response});
 }
 
+class RequestUniversityEventListSuccessState extends UniversityState {
+  final ListBodyResponse<UniversityEventModels> response;
+
+  RequestUniversityEventListSuccessState({required this.response});
+}
+
 // * University Overview | State
 class RequestUniversityOverviewSuccessState extends UniversityState {
   final MapBodyResponse<UniversityOverviewModels> response;
@@ -121,6 +127,8 @@ class RequestTypeListErrorState extends UniversityState {}
 class RequestTuitionListErrorState extends UniversityState {}
 
 class RequestUniversityScholarshipListErrorState extends UniversityState {}
+
+class RequestUniversityEventListErrorState extends UniversityState {}
 
 // ! University Overview | State
 class RequestUniversityOverviewErrorState extends UniversityState {}

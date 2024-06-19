@@ -1,9 +1,11 @@
 import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
+import 'package:capstone_ii/presentation/items/item_events.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -34,6 +36,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
   final _universitySpecializeController = PagingController<int, UniversitySpecializeModels>(firstPageKey: 1);
   final _universityTuitionController = PagingController<int, UniversityTuitionModels>(firstPageKey: 1);
   final _universityScholarshipController = PagingController<int, UniversityScholarshipModels>(firstPageKey: 1);
+  final _universityEventController = PagingController<int, UniversityEventModels>(firstPageKey: 1);
 
   // * Modal
   final _progressDialog = ProgressDialog();
@@ -54,12 +57,23 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
 
   @override
   void initState() {
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
     // * Request University Overview
     context.read<UniversityBloc>().add(RequestUniversityOverviewEvent(id: widget.universityId));
     // * Request University Admission
     _tabController.addListener(_handleTabSelection);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _universityMajorController.dispose();
+    _universitySpecializeController.dispose();
+    _universityTuitionController.dispose();
+    _universityScholarshipController.dispose();
+    _universityEventController.dispose();
+    super.dispose();
   }
 
   void _handleTabSelection() {
@@ -82,6 +96,10 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
           context.read<UniversityBloc>().add(RequestUniversityScholarshipListEvent(id: widget.universityId));
           break;
         case 4:
+          // * Request University Event
+          context.read<UniversityBloc>().add(RequestUniversityEventListEvent(id: widget.universityId));
+          break;
+        case 5:
           // * Request University Tuition
           context.read<UniversityBloc>().add(RequestUniversityTuitionListEvent(id: widget.universityId));
           break;
@@ -89,16 +107,6 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
           break;
       }
     }
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    _universityMajorController.dispose();
-    _universitySpecializeController.dispose();
-    _universityTuitionController.dispose();
-    _universityScholarshipController.dispose();
-    super.dispose();
   }
 
   @override
@@ -267,6 +275,9 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         text: 'Scholarships',
                       ),
                       Tab(
+                        text: 'Event',
+                      ),
+                      Tab(
                         text: 'Tuition',
                       ),
                     ],
@@ -287,6 +298,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     : _buildProgramsTab,
             _buildAdmissionsTab,
             _showScholarshipDetail ? _buildScholarshipDetail : _buildScholarshipsTab,
+            _buildEventTab,
             _buildTuitionTab,
           ],
         ),
@@ -774,6 +786,101 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
     );
   }
 
+  Widget get _buildScholarshipsTab {
+    return BlocListener<UniversityBloc, UniversityState>(
+      listener: (context, state) {
+        // * Request University Scholarships List Success
+        if (state is RequestUniversityScholarshipListSuccessState) {
+          // * Set University Scholarships List
+          _universityScholarshipController.itemList = state.response.body.data;
+          // * Notify
+          setState(() {});
+          // * Return
+          return;
+        }
+        // ! Request University Scholarships List Error
+        if (state is RequestUniversityScholarshipListErrorState) {
+          // * Return
+          return;
+        }
+      },
+      child: RefreshIndicator(
+        onRefresh: () async {
+          // * Request University Scholarships List
+          context.read<UniversityBloc>().add(RequestUniversityScholarshipListEvent(id: widget.universityId));
+        },
+        child: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.all(Dimen.contentPadding),
+            child: Column(
+              children: [
+                const SizedBox(height: Dimen.largeSpace),
+                // * Scholarship List
+                PagedListView<int, UniversityScholarshipModels>.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  pagingController: _universityScholarshipController,
+                  separatorBuilder: (context, index) => const SizedBox(height: Dimen.largeSpace),
+                  builderDelegate: PagedChildBuilderDelegate<UniversityScholarshipModels>(
+                    itemBuilder: (context, models, index) {
+                      return ItemUniversityScholarship(
+                        models: models,
+                        onTap: () => _onShowScholarshipDetail(models.id),
+                      );
+                    },
+                    firstPageProgressIndicatorBuilder: (context) =>
+                        const Center(child: CircularProgressIndicator()),
+                    noItemsFoundIndicatorBuilder: (context) => const Center(child: Text('No Scholarship found!')),
+                    newPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget get _buildEventTab {
+    return BlocListener<UniversityBloc, UniversityState>(
+      listener: (context, state) {
+        // * Request University Event List Success
+        if (state is RequestUniversityEventListSuccessState) {
+          // * Set University Event List
+          _universityEventController.itemList = state.response.body.data;
+          // * Notify
+          setState(() {});
+          // * Return
+          return;
+        }
+        // ! Request University Event List Error
+        if (state is RequestUniversityEventListErrorState) {
+          // * Return
+          return;
+        }
+      },
+      child: PagedListView<int, UniversityEventModels>.separated(
+        pagingController: _universityEventController,
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(Dimen.contentPadding),
+        separatorBuilder: (context, index) => const SizedBox(height: Dimen.largeSpace),
+        builderDelegate: PagedChildBuilderDelegate<UniversityEventModels>(
+          itemBuilder: (context, models, index) {
+            return ItemUniversityEvent(
+              models: models,
+              onTap: (){}
+            );
+          },
+          firstPageProgressIndicatorBuilder: (context) => const Center(child: CircularProgressIndicator()),
+          noItemsFoundIndicatorBuilder: (context) => const Center(child: Text('No Event found!')),
+          newPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
+        ),
+      ),
+    );
+  }
+
   Widget get _buildTuitionTab {
     return BlocListener<UniversityBloc, UniversityState>(
       listener: (context, state) {
@@ -817,55 +924,6 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                   },
                   firstPageProgressIndicatorBuilder: (context) => const Center(child: CircularProgressIndicator()),
                   noItemsFoundIndicatorBuilder: (context) => const Center(child: Text('No Tuition found!')),
-                  newPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget get _buildScholarshipsTab {
-    return BlocListener<UniversityBloc, UniversityState>(
-      listener: (context, state) {
-        // * Request University Scholarships List Success
-        if (state is RequestUniversityScholarshipListSuccessState) {
-          // * Set University Scholarships List
-          _universityScholarshipController.itemList = state.response.body.data;
-          // * Notify
-          setState(() {});
-          // * Return
-          return;
-        }
-        // ! Request University Scholarships List Error
-        if (state is RequestUniversityScholarshipListErrorState) {
-          // * Return
-          return;
-        }
-      },
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(Dimen.contentPadding),
-          child: Column(
-            children: [
-              const SizedBox(height: Dimen.largeSpace),
-              // * Scholarship List
-              PagedListView<int, UniversityScholarshipModels>.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                pagingController: _universityScholarshipController,
-                separatorBuilder: (context, index) => const SizedBox(height: Dimen.largeSpace),
-                builderDelegate: PagedChildBuilderDelegate<UniversityScholarshipModels>(
-                  itemBuilder: (context, models, index) {
-                    return ItemUniversityScholarship(
-                      models: models,
-                      onTap: () => _onShowScholarshipDetail(models.id),
-                    );
-                  },
-                  firstPageProgressIndicatorBuilder: (context) => const Center(child: CircularProgressIndicator()),
-                  noItemsFoundIndicatorBuilder: (context) => const Center(child: Text('No Scholarship found!')),
                   newPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
                 ),
               ),
