@@ -6,6 +6,7 @@ export 'items/item_scholarship.dart';
 export 'items/item_university_scholarship.dart';
 export 'items/item_university_filter.dart';
 export 'items/item_university.dart';
+export 'items/item_university_event.dart';
 export 'items/item_university_program.dart';
 export 'items/item_university_tuition.dart';
 

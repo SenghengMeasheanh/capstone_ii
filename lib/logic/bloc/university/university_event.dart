@@ -49,6 +49,13 @@ class RequestUniversityScholarshipListEvent extends UniversityEvent {
   });
 }
 
+class RequestUniversityEventListEvent extends UniversityEvent {
+  final int id;
+  RequestUniversityEventListEvent({
+      required this.id,
+  });
+}
+
 // * University Major Detail | Event
 class RequestUniversityMajorDetailEvent extends UniversityEvent {
   final int id;

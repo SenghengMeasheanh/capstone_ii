@@ -26,6 +26,7 @@ class Assets {
   static const String iconForum = '$_iconPath/ic_forum.svg';
   static const String iconGuides = '$_iconPath/ic_guides.svg';
   static const String iconHome = '$_iconPath/ic_home.svg';
+  static const String iconLocation = '$_iconPath/ic_location.svg';
   static const String iconQuiz = '$_iconPath/ic_quiz.svg';
   static const String iconMoney = '$_iconPath/ic_money.svg';
   static const String iconScholarship = '$_iconPath/ic_scholarship.svg';

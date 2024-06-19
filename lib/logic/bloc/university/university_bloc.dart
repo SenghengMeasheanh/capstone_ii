@@ -24,6 +24,7 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
     on<RequestUniversitySpecializeListEvent>(_requestUniversitySpecializeList);
     on<RequestUniversityTuitionListEvent>(_requestUniversityTuitionList);
     on<RequestUniversityScholarshipListEvent>(_requestUniversityScholarshipList);
+    on<RequestUniversityEventListEvent>(_requestUniversityEventList);
     // * University Overview | Bloc
     on<RequestUniversityOverviewEvent>(_requestUniversityOverview);
     // * University Admission | Bloc
@@ -475,6 +476,35 @@ class UniversityBloc extends Bloc<UniversityEvent, UniversityState> {
       if (exception is DioException) {
         // * Emit Error State
         emit(RequestUniversityScholarshipDetailErrorState());
+        // * Return
+        return;
+      }
+    });
+  }
+
+  Future<void> _requestUniversityEventList(
+    RequestUniversityEventListEvent event,
+    Emitter<UniversityState> emit,
+  ) async {
+    // * Get Result
+    final result = _universityRepo.getUniversityEvent(id: event.id);
+    // * Check Result
+    await result.then((response) {
+      if (response.header.statusCode == 200) {
+        emit(RequestUniversityEventListSuccessState(response: response));
+      } else {
+        emit(RequestUniversityEventListErrorState());
+      }
+    }, onError: (exception, stackTrace) async {
+      // * Debug Print Error
+      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+      // * If Server Not Response
+       // * If Server Not Response
+      if (exception is DioException) {
+        // * Await 5 Seconds
+        await Future.delayed(const Duration(seconds: 5));
+        // * Emit Error State
+        add(RequestUniversityEventListEvent(id: event.id));
         // * Return
         return;
       }
