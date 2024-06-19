@@ -80,6 +80,14 @@ class RequestUniversityScholarshipDetailEvent extends UniversityEvent {
   });
 }
 
+// * University Event Detail | Event
+class RequestUniversityEventDetailEvent extends UniversityEvent {
+  final int id;
+  RequestUniversityEventDetailEvent({
+      required this.id,
+  });
+}
+
 
 class RequestDegreeListEvent extends UniversityEvent {}
 

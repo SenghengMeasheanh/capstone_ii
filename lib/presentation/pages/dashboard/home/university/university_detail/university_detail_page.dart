@@ -1,11 +1,10 @@
 import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
-import 'package:capstone_ii/presentation/items/item_events.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -38,9 +37,6 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
   final _universityScholarshipController = PagingController<int, UniversityScholarshipModels>(firstPageKey: 1);
   final _universityEventController = PagingController<int, UniversityEventModels>(firstPageKey: 1);
 
-  // * Modal
-  final _progressDialog = ProgressDialog();
-
   // * Models
   UniversityOverviewModels? _universityOverviewModel;
   UniversityAdmissionModels? _universityAdmissionModel;
@@ -48,12 +44,14 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
   UniversityMajorDetailModels? _universityMajorDetailModel;
   UniversitySpecializeDetailModels? _universitySpecializeDetailModel;
   UniversityScholarshipDetailModels? _universityScholarshipDetailModel;
+  UniversityEventDetailModels? _universityEventDetailModel;
 
   // * Variables
   var _selectedDegreeLevelId = 0;
   var _showMajorDetail = false;
   var _showSpecializeDetail = false;
   var _showScholarshipDetail = false;
+  var _showEventDetail = false;
 
   @override
   void initState() {
@@ -250,6 +248,12 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                           setState(() {
                             _showScholarshipDetail = false;
                           })
+                        },
+                      if (value == 4)
+                        {
+                          setState(() {
+                            _showEventDetail = false;
+                          })
                         }
                     },
                     isScrollable: true,
@@ -298,7 +302,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     : _buildProgramsTab,
             _buildAdmissionsTab,
             _showScholarshipDetail ? _buildScholarshipDetail : _buildScholarshipsTab,
-            _buildEventTab,
+            _showEventDetail ? _buildEventDetail : _buildEventTab,
             _buildTuitionTab,
           ],
         ),
@@ -870,7 +874,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
           itemBuilder: (context, models, index) {
             return ItemUniversityEvent(
               models: models,
-              onTap: (){}
+              onTap: () => _onShowEventDetail(models.id),
             );
           },
           firstPageProgressIndicatorBuilder: (context) => const Center(child: CircularProgressIndicator()),
@@ -1199,6 +1203,93 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
     );
   }
 
+  Widget get _buildEventDetail {
+    return BlocListener<UniversityBloc, UniversityState>(
+      listener: (context, state) {
+        // * Request University Event Detail Success
+        if (state is RequestUniversityEventDetailSuccessState) {
+          // * Set University Event Detail Model
+          _universityEventDetailModel = state.response.body.data;
+          // * Notify
+          setState(() {});
+          // * Return
+          return;
+        }
+        // ! Request University Event Detail Error
+        if (state is RequestUniversityEventDetailErrorState) {
+          // * Return
+          return;
+        }
+      },
+      child: _universityEventDetailModel != null
+          ? SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(Dimen.contentPadding),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // * Event Title
+                    Text(
+                      _universityEventDetailModel!.name,
+                      style: CustomTextStyle.titleTextStyle(bold: true),
+                    ),
+                    // * Event Date and Time
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.defaultRadius),
+                      child: Text(
+                        '${DateFormat('d MMMM y').format(DateTime.parse(_universityEventDetailModel!.eventDate))} | ${_universityEventDetailModel!.startAt} to ${_universityEventDetailModel!.endAt}',
+                        style: CustomTextStyle.bodyTextStyle(),
+                      ),
+                    ),
+                    // * Event Category and Location
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.extraLargeSpace + 5),
+                      child: Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: _universityEventDetailModel!.category.name,
+                              style: CustomTextStyle.bodyTextStyle(bold: true),
+                            ),
+                            TextSpan(
+                              text: ' - ${_universityEventDetailModel!.location}',
+                              style: CustomTextStyle.bodyTextStyle(),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap =
+                                    () => openURILauncher(launchURL: _universityEventDetailModel!.locationLink),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    // * Event Cover Image
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                      child: CustomCachedNetworkImage(
+                        imageUrl: _universityEventDetailModel!.thumbnailImage,
+                        config: CustomCachedNetworkImageConfig(
+                          width: double.infinity,
+                          height: 400,
+                          backgroundColor: primaryColor.withOpacity(0.2),
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                        ),
+                      ),
+                    ),
+                    // * Event Description
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.defaultSpace * 2),
+                      child: CustomHtmlWidget(
+                        data: _universityEventDetailModel!.description,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+          : const Center(child: CircularProgressIndicator()),
+    );
+  }
+
   void _onChangeDegreeLevel(int id) {
     setState(() {
       _selectedDegreeLevelId = id;
@@ -1230,6 +1321,13 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
       _showScholarshipDetail = !_showScholarshipDetail;
     });
     context.read<UniversityBloc>().add(RequestUniversityScholarshipDetailEvent(id: id));
+  }
+
+  void _onShowEventDetail(int id) {
+    setState(() {
+      _showEventDetail = !_showEventDetail;
+    });
+    context.read<UniversityBloc>().add(RequestUniversityEventDetailEvent(id: id));
   }
 }
 
