@@ -95,7 +95,7 @@ class ItemUniversity extends StatelessWidget {
                           // * University Year of Study and Type
                           ItemUniversityBrief(
                             icon: const Icon(Icons.school),
-                            value: '${models.averageStudyYear} years ${models.typeEn}',
+                            value: '${models.averageStudyYear} years ${models.type}',
                           ),
                           // * University Fees
                           ItemUniversityBrief(

@@ -335,7 +335,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         _OverviewBriefDetails(
                           icon: Icons.info,
                           title: 'Type',
-                          subtitle: _universityOverviewModel!.type.nameEn,
+                          subtitle: _universityOverviewModel!.type.name,
                         ),
                         _OverviewBriefDetails(
                           icon: Icons.attach_money_outlined,
@@ -386,7 +386,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         bottom: Dimen.mediumSpace,
                       ),
                       child: Text(
-                        _universityOverviewModel!.studyOption!.map((e) => e.nameEn).join(', '),
+                        _universityOverviewModel!.studyOption!.map((e) => e.name).join(', '),
                         style: CustomTextStyle.bodyTextStyle(bold: true),
                       ),
                     ),
@@ -539,7 +539,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                   spacing: Dimen.mediumSpace,
                   children: _degreeLevelsList.map((e) {
                     return _DegreeLevelsMenu(
-                      label: e.nameEn,
+                      label: e.name,
                       isSelected: _selectedDegreeLevelId == e.id,
                       onSelected: (value) {
                         _onChangeDegreeLevel(e.id);
@@ -568,7 +568,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         return ItemUniversityProgram(
                           onTap: () => _onShowMajorDetail(models.id),
                           imageUrl: models.majorImage,
-                          title: models.majorName.nameEn,
+                          title: models.majorName.name,
                         );
                       },
                       firstPageProgressIndicatorBuilder: (context) =>
@@ -596,7 +596,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         return ItemUniversityProgram(
                           onTap: () => _onShowSpecializeDetail(models.id),
                           imageUrl: models.specializeImage,
-                          title: models.specializeName.nameEn,
+                          title: models.specializeName.name,
                         );
                       },
                       firstPageProgressIndicatorBuilder: (context) =>
@@ -899,7 +899,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                 children: [
                   // * Major Detail
                   CustomHtmlWidget(
-                    data: _universityMajorDetailModel!.descriptionEn,
+                    data: _universityMajorDetailModel!.description,
                   ),
                   // * Download Curriculum Button
                   Container(
@@ -966,7 +966,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                 children: [
                   // * Major Detail
                   CustomHtmlWidget(
-                    data: _universitySpecializeDetailModel!.descriptionEn,
+                    data: _universitySpecializeDetailModel!.description,
                   ),
                   // * Download Curriculum Button
                   Container(
@@ -1049,7 +1049,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       alignment: Alignment.centerLeft,
                       margin: const EdgeInsets.only(top: Dimen.extraLargeSpace),
                       child: Text(
-                        _universityScholarshipDetailModel!.nameEn,
+                        _universityScholarshipDetailModel!.name,
                         style: CustomTextStyle.titleTextStyle(bold: true),
                       ),
                     ),
@@ -1058,7 +1058,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       margin: const EdgeInsets.only(top: Dimen.mediumSpace),
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        _universityScholarshipDetailModel!.descriptionEn,
+                        _universityScholarshipDetailModel!.description,
                         style: CustomTextStyle.bodyTextStyle(),
                       ),
                     ),

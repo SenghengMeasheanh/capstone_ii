@@ -1,3 +1,4 @@
+import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'university_tuition_models.g.dart';
@@ -18,6 +19,8 @@ class UniversityTuitionModels {
     required this.nameKh,
     required this.tuition,
   });
+
+  String get name => getDataBasedOnCurrentLanguage(kh: nameKh, en: nameEn);
 
   factory UniversityTuitionModels.fromJson(Map<String, dynamic> json) =>_$UniversityTuitionModelsFromJson(json);
 

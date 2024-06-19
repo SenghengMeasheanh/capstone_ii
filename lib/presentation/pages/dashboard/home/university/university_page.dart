@@ -165,10 +165,11 @@ class _UniversityPageState extends State<UniversityPage> {
                       itemBuilder: (context, models, item) => ItemUniversity(
                         onTap: () => context.push(
                           destination: UniversityDetailPage(
-                              universityId: models.id,
-                              coverImageUrl: models.image,
-                              logoImageUrl: models.logoImage,
-                              universityModels: models),
+                            universityId: models.id,
+                            coverImageUrl: models.image,
+                            logoImageUrl: models.logoImage,
+                            universityModels: models,
+                          ),
                         ),
                         models: models,
                       ),
@@ -176,12 +177,12 @@ class _UniversityPageState extends State<UniversityPage> {
                         return const Center(child: ProgressBar());
                       },
                       newPageProgressIndicatorBuilder: (_) {
-                        return const Center(child: ProgressBar());
+                        return const SizedBox.shrink();
                       },
                       noItemsFoundIndicatorBuilder: (_) {
                         return const Center(child: EmptyItems());
                       },
-                      noMoreItemsIndicatorBuilder: (_) => const Center(child: Text('No More Items')),
+                      noMoreItemsIndicatorBuilder: (context) => const SizedBox.shrink(),
                     ),
                   ),
                 ],

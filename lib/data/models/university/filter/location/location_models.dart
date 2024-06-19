@@ -1,3 +1,4 @@
+import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'location_models.g.dart';
@@ -26,6 +27,8 @@ class LocationModels {
     required this.nameEn,
     required this.type,
   });
+
+  String get name => getDataBasedOnCurrentLanguage(kh: nameKh, en: nameEn);
 
   factory LocationModels.fromJson(Map<String, dynamic> json) => _$LocationModelsFromJson(json);
 

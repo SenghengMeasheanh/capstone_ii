@@ -120,19 +120,17 @@ import 'package:url_launcher/url_launcher_string.dart';
 //   return '${Flavor.instance.webViewURL}$data';
 // }
 
-// // * Get Data Based On Current Language
-// String getDataBasedOnCurrentLanguage({
-//   required String kh,
-//   required String en,
-//   required String cn,
-// }) {
-//   final map = {
-//     LanguageManager.defaultLanguage: en,
-//     LanguageManager.khmerLanguage: kh,
-//     LanguageManager.chinaLanguage: cn,
-//   };
-//   return map[getCurrentContext.locale] ?? '';
-// }
+// * Get Data Based On Current Language
+String getDataBasedOnCurrentLanguage({
+  required String kh,
+  required String en,
+}) {
+  final map = {
+    LanguageManager.defaultLanguage: en,
+    LanguageManager.khmerLanguage: kh,
+  };
+  return map[getCurrentContext.locale] ?? '';
+}
 
 // * Get Error Content
 String getErrorContent({

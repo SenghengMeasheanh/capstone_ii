@@ -1,3 +1,4 @@
+import 'package:capstone_ii/helper/global/global_helper.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'university_models.g.dart';
@@ -8,7 +9,10 @@ class UniversityModels {
   final int id;
 
   @JsonKey(name: 'name')
-  final String name;
+  final String nameEn;
+
+  @JsonKey(name: 'name_kh')
+  final String nameKh;
 
   @JsonKey(name: 'graduation_rate')
   final String graduationRate;
@@ -22,10 +26,8 @@ class UniversityModels {
   @JsonKey(name: 'type_en')
   final String? typeEn;
 
-
   @JsonKey(name: 'type_kh')
   final String? typeKh;
-
 
   @JsonKey(name: 'logo_image')
   final String? logoImage;
@@ -35,7 +37,8 @@ class UniversityModels {
 
   UniversityModels({
     required this.id,
-    required this.name,
+    required this.nameEn,
+    required this.nameKh,
     required this.graduationRate,
     required this.averageTuition,
     required this.averageStudyYear,
@@ -44,6 +47,10 @@ class UniversityModels {
     this.logoImage,
     this.image,
   });
+
+  String get name => getDataBasedOnCurrentLanguage(kh: nameKh, en: nameEn);
+
+  String get type => getDataBasedOnCurrentLanguage(kh: typeKh!, en: typeEn!);
 
   factory UniversityModels.fromJson(Map<String, dynamic> json) => _$UniversityModelsFromJson(json);
 
