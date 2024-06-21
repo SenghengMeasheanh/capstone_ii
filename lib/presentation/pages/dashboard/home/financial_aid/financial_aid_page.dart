@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'financial_aid_detail/financial_aid_detail_page.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 
@@ -57,7 +56,7 @@ class _FinancialAidPageState extends State<FinancialAidPage> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: Dimen.mediumSpace),
-                    child: FinancialAidItem(
+                    child: ItemFinancialAid(
                       imageUrl:
                           'https://www.alleducationschools.com/wp-content/uploads/2018/03/careers-student-teacher.jpg',
                       title: 'Financial Aid Title $index',
@@ -66,7 +65,7 @@ class _FinancialAidPageState extends State<FinancialAidPage> {
                       onTap: () {
                         context.push(
                           destination: FinancialAidDetailPage(
-                           
+                            
                           ),
                         );
                       },

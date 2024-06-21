@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 
-class FinancialAidItem extends StatelessWidget {
+class ItemFinancialAid extends StatelessWidget {
   final String imageUrl;
   final String title;
   final String description;
   final Function() onTap;
 
-  const FinancialAidItem({
+  const ItemFinancialAid({
     super.key,
     required this.imageUrl,
     required this.title,
