@@ -31,6 +31,10 @@ abstract class ApiService {
     return _ApiService(dio, baseUrl: baseUrl ?? Flavor.instance.apiURL);
   }
 
+  // * Career Endpoint
+  @GET('/careers/types')
+  Future<ListBodyResponse<CareerTypeModels>> getCareerTypeList();
+
   // * Unversity Endpoint
   @GET('/universities')
   Future<ListBodyResponse<UniversityModels>> getUniversityList({

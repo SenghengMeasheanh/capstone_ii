@@ -55,6 +55,7 @@ Future<void> main() async {
         enabled: true,
         builder: (_) => MultiBlocProvider(
           providers: [
+            BlocProvider(create: (_) => CareerBloc()),
             BlocProvider(create: (_) => InternetCubit()),
             BlocProvider(create: (_) => UniversityBloc()),
           ],
