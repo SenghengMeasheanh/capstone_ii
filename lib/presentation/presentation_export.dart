@@ -9,7 +9,7 @@ export 'items/item_university.dart';
 export 'items/item_university_event.dart';
 export 'items/item_university_program.dart';
 export 'items/item_university_tuition.dart';
-
+export 'items/item_financial_aid.dart';
 // * Modals
 // ? Modals (Bottom Sheets)
 export 'modals/bottom_sheets/language_picker_bottom_sheet.dart';
@@ -47,9 +47,11 @@ export 'pages/dashboard/home/compare_college/compare_college_page.dart';
 
 // ? Pages (Dashboard/Home/Events)
 export 'pages/dashboard/home/events/events_page.dart';
+export 'pages/dashboard/home/events/events_detail/event_detail_page.dart';
 
 // ? Pages (Dashboard/Home/Financial Aid)
 export 'pages/dashboard/home/financial_aid/financial_aid_page.dart';
+export 'pages/dashboard/home/financial_aid/financial_aid_detail/financial_aid_detail_page.dart';
 
 // ? Pages (Dashboard/Home/Forum)
 export 'pages/dashboard/home/forum/forum_page.dart';
