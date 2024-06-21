@@ -15,6 +15,7 @@ class CareerBloc extends Bloc<CareerEvent, CareerState> {
   final _careerRepo = CareerRepo();
   CareerBloc() : super(CareerInitial()) {
     // * List | Bloc
+    on<RequestCareerListEvent>(_requestCareerList);
     on<RequestCareerTypeListEvent>(_requestCareerTypeList);
   }
 
@@ -43,6 +44,42 @@ class CareerBloc extends Bloc<CareerEvent, CareerState> {
         await Future.delayed(const Duration(seconds: 5));
         // * Call Event Again
         add(RequestCareerTypeListEvent());
+        // * Return
+        return;
+      }
+    });
+  }
+
+  Future<void> _requestCareerList(
+    RequestCareerListEvent event,
+    Emitter<CareerState> emit,
+  ) async {
+    // * Get Result
+    final result = _careerRepo.getCareerList(
+      search: event.paginationRequest.search,
+      limit: event.paginationRequest.limit,
+      page: event.paginationRequest.page,
+      type: event.type,
+    );
+    // * Check Result
+    await result.then((response) {
+      // * If Status Code = 200
+      if (response.header.statusCode == 200) {
+        // * Emit Success State
+        emit(RequestCareerListSuccessState(response: response));
+      } else {
+        // * Emit Error State
+        emit(RequestCareerListErrorState());
+      }
+    }, onError: (exception, stackTrace) async {
+      // * Debug Print Error
+      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+      // * If Server Not Response
+      if (exception is DioException) {
+        // * Await 5 Seconds
+        await Future.delayed(const Duration(seconds: 5));
+        // * Call Event Again
+        add(RequestCareerListEvent(paginationRequest: event.paginationRequest, type: event.type));
         // * Return
         return;
       }

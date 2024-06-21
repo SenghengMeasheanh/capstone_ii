@@ -1,10 +1,10 @@
 import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
-import 'package:capstone_ii/presentation/pages/dashboard/home/career/career_detail_page.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class CareerPage extends StatefulWidget {
   const CareerPage({super.key});
@@ -14,6 +14,9 @@ class CareerPage extends StatefulWidget {
 }
 
 class _CareerPageState extends State<CareerPage> {
+  // * Pagination
+  final _pagingController = PagingController<int, CareerModels>(firstPageKey: 1);
+  final _paginationRequest = PaginationRequest();
   // * Controller
   final _searchBarController = TextEditingController();
 
@@ -23,6 +26,16 @@ class _CareerPageState extends State<CareerPage> {
   @override
   void initState() {
     super.initState();
+
+    // * Pagination
+    _pagingController.addPageRequestListener((pageKey) {
+      // * Init Pagination Request
+      _paginationRequest.page = pageKey;
+      _paginationRequest.limit = 10;
+      // * Request Career List
+      context.read<CareerBloc>().add(RequestCareerListEvent(paginationRequest: _paginationRequest));
+    });
+
     // * Request Career Type List
     context.read<CareerBloc>().add(RequestCareerTypeListEvent());
   }
@@ -30,6 +43,7 @@ class _CareerPageState extends State<CareerPage> {
   @override
   void dispose() {
     _searchBarController.dispose();
+    _pagingController.dispose();
     super.dispose();
   }
 
@@ -43,12 +57,28 @@ class _CareerPageState extends State<CareerPage> {
       ),
       body: BlocListener<CareerBloc, CareerState>(
         listener: (context, state) {
+          // * Request Career List Success State
+          if (state is RequestCareerListSuccessState) {
+            // * Init Pagination
+            pagination(
+              list: state.response.body.data,
+              page: _paginationRequest.page!,
+              pagingController: _pagingController,
+            );
+            // * Return
+            return;
+          }
           // * Request Career Type List Success State
           if (state is RequestCareerTypeListSuccessState) {
             // * Set Career Type List
             _careerTypeList = state.response.body.data;
             // * Notify
             setState(() {});
+            // * Return
+            return;
+          }
+          // ! Request Career List Error State
+          if (state is RequestCareerListErrorState) {
             // * Return
             return;
           }
@@ -116,15 +146,22 @@ class _CareerPageState extends State<CareerPage> {
                 // * Career List
                 Container(
                   margin: const EdgeInsets.only(top: Dimen.largeSpace),
-                  child: ListView.builder(
+                  child: PagedListView.separated(
+                    pagingController: _pagingController,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 2,
-                    itemBuilder: (context, index) {
-                      return ItemCareer(
-                        onTap: () => context.push(destination: const CareerDetailPage()),
-                      );
-                    },
+                    builderDelegate: PagedChildBuilderDelegate<CareerModels>(
+                      itemBuilder: (context, models, index) => ItemCareer(
+                        onTap: () => {},
+                        models: models,
+                      ),
+                      firstPageProgressIndicatorBuilder: (context) =>
+                          const Center(child: CircularProgressIndicator()),
+                      newPageProgressIndicatorBuilder: (context) =>
+                          const Center(child: CircularProgressIndicator()),
+                      noItemsFoundIndicatorBuilder: (context) => const EmptyItems(),
+                    ),
+                    separatorBuilder: (context, index) => const SizedBox(height: Dimen.extraLargeSpace + 5),
                   ),
                 ),
               ],

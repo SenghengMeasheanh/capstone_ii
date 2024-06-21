@@ -1,11 +1,17 @@
+import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ItemCareer extends StatefulWidget {
+  final CareerModels models;
   final Function() onTap;
-  const ItemCareer({super.key, required this.onTap});
+  const ItemCareer({
+    super.key,
+    required this.onTap,
+    required this.models,
+  });
 
   @override
   State<ItemCareer> createState() => _ItemCareerState();
@@ -38,8 +44,7 @@ class _ItemCareerState extends State<ItemCareer> {
               SizedBox(
                 height: 119,
                 child: CustomCachedNetworkImage(
-                  imageUrl:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQe9O2ygl2WDHxE9_Q7rhALYVhVTi-qkJ9JA&s',
+                  imageUrl: widget.models.image,
                   config: CustomCachedNetworkImageConfig(
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(Dimen.defaultRadius),
@@ -63,7 +68,7 @@ class _ItemCareerState extends State<ItemCareer> {
                     Container(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        'Cybersecurity Analyst',
+                        widget.models.name,
                         style: CustomTextStyle.titleTextStyle(bold: true),
                       ),
                     ),
@@ -71,8 +76,10 @@ class _ItemCareerState extends State<ItemCareer> {
                     Container(
                       margin: const EdgeInsets.only(top: Dimen.smallSpace),
                       child: Text(
-                        'Cybersecurity analysts are responsible for protecting an organization’s computer systems and networks.',
-                        style: CustomTextStyle.captionTextStyle(color: Colors.black),
+                        widget.models.jobDo,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: CustomTextStyle.bodyTextStyle(color: Colors.black),
                       ),
                     ),
                     // * Divider
@@ -84,6 +91,7 @@ class _ItemCareerState extends State<ItemCareer> {
                     ),
                     // * Salary and Availability
                     Container(
+                      margin: const EdgeInsets.only(top: Dimen.mediumSpace),
                       child: Column(
                         children: [
                           Row(
@@ -93,14 +101,14 @@ class _ItemCareerState extends State<ItemCareer> {
                                 // * Salary Amount
                                 TextSpan(
                                   text: '\$',
-                                  style: CustomTextStyle.captionTextStyle(color: Colors.black, bold: true),
+                                  style: CustomTextStyle.bodyTextStyle(color: Colors.black, bold: true),
                                   children: [
                                     TextSpan(
-                                      text: '50,000',
-                                      style: CustomTextStyle.captionTextStyle(color: Colors.black, bold: true),
+                                      text: widget.models.yearlyIncome.toString(),
+                                      style: CustomTextStyle.bodyTextStyle(color: Colors.black, bold: true),
                                       children: [
                                         TextSpan(
-                                          style: CustomTextStyle.captionTextStyle(
+                                          style: CustomTextStyle.bodyTextStyle(
                                             color: Colors.black.withOpacity(0.7),
                                           ),
                                           text: '\tmedian salary',
@@ -128,24 +136,22 @@ class _ItemCareerState extends State<ItemCareer> {
                           ),
                           Container(
                             alignment: Alignment.topLeft,
-                            margin: const EdgeInsets.only(top: Dimen.smallSpace, bottom: Dimen.mediumSpace),
+                            margin: const EdgeInsets.only(top: Dimen.smallSpace),
                             child: Text.rich(
                               // * Availability
                               TextSpan(
-                                text: '\$',
+                                text: '',
                                 style: CustomTextStyle.captionTextStyle(color: Colors.black, bold: true),
                                 children: [
                                   TextSpan(
-                                    text: '82,489',
-                                    style: CustomTextStyle.captionTextStyle(color: Colors.black, bold: true),
-                                    children: [
-                                      TextSpan(
-                                        style: CustomTextStyle.captionTextStyle(
-                                          color: Colors.black.withOpacity(0.7),
-                                        ),
-                                        text: '\tjobs available',
-                                      ),
-                                    ],
+                                    text: '${widget.models.jobGrowthRate}%',
+                                    style: CustomTextStyle.bodyTextStyle(color: Colors.black, bold: true),
+                                  ),
+                                  TextSpan(
+                                    style: CustomTextStyle.bodyTextStyle(
+                                      color: Colors.black.withOpacity(0.7),
+                                    ),
+                                    text: '\tJob Growth',
                                   ),
                                 ],
                               ),
