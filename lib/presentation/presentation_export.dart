@@ -38,6 +38,7 @@ export 'pages/dashboard/home/home_screen.dart';
 
 // ? Pages (Dashboard/Home/Career)
 export 'pages/dashboard/home/career/career_page.dart';
+export 'pages/dashboard/home/career/career_detail_page.dart';
 
 // ? Pages (Dashboard/Home/College Quiz)
 export 'pages/dashboard/home/college_quiz/college_quiz_page.dart';

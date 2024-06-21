@@ -6,6 +6,12 @@ sealed class CareerState {}
 final class CareerInitial extends CareerState {}
 
 // * List | State
+class RequestCareerListSuccessState extends CareerState {
+  final ListBodyResponse<CareerModels> response;
+
+  RequestCareerListSuccessState({required this.response});
+}
+
 class RequestCareerTypeListSuccessState extends CareerState{
   final ListBodyResponse<CareerTypeModels> response;
 
@@ -14,4 +20,6 @@ class RequestCareerTypeListSuccessState extends CareerState{
 
 
 // ! List | State
+class RequestCareerListErrorState extends CareerState{}
+
 class RequestCareerTypeListErrorState extends CareerState{}

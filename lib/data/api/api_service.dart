@@ -32,6 +32,14 @@ abstract class ApiService {
   }
 
   // * Career Endpoint
+  @GET('/careers')
+  Future<ListBodyResponse<CareerModels>> getCareerList({
+    @Query('search') String? search,
+    @Query('page') int? page,
+    @Query('limit') int? limit,
+    @Query('type') int? type,
+  });
+
   @GET('/careers/types')
   Future<ListBodyResponse<CareerTypeModels>> getCareerTypeList();
 
