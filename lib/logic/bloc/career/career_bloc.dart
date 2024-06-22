@@ -59,7 +59,7 @@ class CareerBloc extends Bloc<CareerEvent, CareerState> {
       search: event.paginationRequest.search,
       limit: event.paginationRequest.limit,
       page: event.paginationRequest.page,
-      type: event.type,
+      type: event.paginationRequest.type,
     );
     // * Check Result
     await result.then((response) {
@@ -79,7 +79,12 @@ class CareerBloc extends Bloc<CareerEvent, CareerState> {
         // * Await 5 Seconds
         await Future.delayed(const Duration(seconds: 5));
         // * Call Event Again
-        add(RequestCareerListEvent(paginationRequest: event.paginationRequest, type: event.type));
+        add(
+          RequestCareerListEvent(
+            paginationRequest: event.paginationRequest,
+            type: event.paginationRequest.type,
+          ),
+        );
         // * Return
         return;
       }

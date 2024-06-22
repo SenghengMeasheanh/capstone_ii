@@ -76,9 +76,9 @@ class _ItemCareerState extends State<ItemCareer> {
                   ),
                   // * Divider
                   Container(
-                    margin: const EdgeInsets.only(top: Dimen.largeSpace),
-                    child: const Divider(
-                      color: Colors.grey,
+                    margin: const EdgeInsets.only(top: Dimen.smallSpace),
+                    child: Divider(
+                      color: Colors.black.withOpacity(0.5),
                     ),
                   ),
                   // * Salary and Availability
