@@ -20,8 +20,14 @@ class _CareerPageState extends State<CareerPage> {
   // * Controller
   final _searchBarController = TextEditingController();
 
+  // * Debouncer
+  final _debouncer = Debouncer(milliseconds: 500);
+
   // * Models
   var _careerTypeList = <CareerTypeModels>[];
+
+  // * Varaible
+  var _selectedCareerType = 0;
 
   @override
   void initState() {
@@ -88,88 +94,114 @@ class _CareerPageState extends State<CareerPage> {
             return;
           }
         },
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // * Title
-                Container(
-                  margin: const EdgeInsets.only(bottom: Dimen.mediumSpace),
-                  child: Text(
-                    'Career',
-                    style: CustomTextStyle.largeTitleTextStyle(bold: true),
-                  ),
-                ),
-                // * Searchbar
-                SearchBarWidget(
-                  controller: _searchBarController,
-                  onChange: (value) => {},
-                ),
-                // * Subitlet
-                Container(
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.only(top: Dimen.largeSpace),
-                  child: Text(
-                    'Find a career that works \n for you',
-                    style: CustomTextStyle.largeTitleTextStyle(fontSize: Dimen.titleTextSize + 8, bold: true),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                // * Filter Description
-                Container(
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.only(top: Dimen.defaultSpace),
-                  child: Text(
-                    'Filter by job category',
-                    style: CustomTextStyle.bodyTextStyle(),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                // * Filter Menu
-                Container(
-                  margin: const EdgeInsets.only(top: Dimen.mediumSpace),
-                  child: Wrap(
-                    spacing: 10,
-                    children: _careerTypeList
-                        .map(
-                          (e) => _CareerType(
-                            label: e.name,
-                            isSelected: false,
-                            onSelected: (value) => {},
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-                // * Career List
-                Container(
-                  margin: const EdgeInsets.only(top: Dimen.largeSpace),
-                  child: PagedListView.separated(
-                    pagingController: _pagingController,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    builderDelegate: PagedChildBuilderDelegate<CareerModels>(
-                      itemBuilder: (context, models, index) => ItemCareer(
-                        onTap: () => {},
-                        models: models,
-                      ),
-                      firstPageProgressIndicatorBuilder: (context) =>
-                          const Center(child: CircularProgressIndicator()),
-                      newPageProgressIndicatorBuilder: (context) =>
-                          const Center(child: CircularProgressIndicator()),
-                      noItemsFoundIndicatorBuilder: (context) => const EmptyItems(),
+        child: RefreshIndicator(
+          onRefresh: () async => {
+            _pagingController.refresh(),
+          },
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // * Title
+                  Container(
+                    margin: const EdgeInsets.only(bottom: Dimen.mediumSpace),
+                    child: Text(
+                      'Career',
+                      style: CustomTextStyle.largeTitleTextStyle(bold: true),
                     ),
-                    separatorBuilder: (context, index) => const SizedBox(height: Dimen.extraLargeSpace + 5),
                   ),
-                ),
-              ],
+                  // * Searchbar
+                  SearchBarWidget(
+                    controller: _searchBarController,
+                    onChange: _onSearchCareer,
+                  ),
+                  // * Subitlet
+                  Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                    child: Text(
+                      'Find a career that works \n for you',
+                      style: CustomTextStyle.largeTitleTextStyle(fontSize: Dimen.titleTextSize + 8, bold: true),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  // * Filter Description
+                  Container(
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(top: Dimen.defaultSpace),
+                    child: Text(
+                      'Filter by job category',
+                      style: CustomTextStyle.bodyTextStyle(),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  // * Filter Menu
+                  Container(
+                    margin: const EdgeInsets.only(top: Dimen.mediumSpace),
+                    child: Wrap(
+                      spacing: 10,
+                      children: _careerTypeList
+                          .map(
+                            (e) => _CareerType(
+                              label: e.name,
+                              isSelected: _selectedCareerType == e.id,
+                              onSelected: (value) => _onFilterCareerType(e.id),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                  // * Career List
+                  Container(
+                    margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                    child: PagedListView.separated(
+                      pagingController: _pagingController,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      builderDelegate: PagedChildBuilderDelegate<CareerModels>(
+                        itemBuilder: (context, models, index) => ItemCareer(
+                          onTap: () => {},
+                          models: models,
+                        ),
+                        firstPageProgressIndicatorBuilder: (context) =>
+                            const Center(child: CircularProgressIndicator()),
+                        newPageProgressIndicatorBuilder: (context) =>
+                            const Center(child: CircularProgressIndicator()),
+                        noItemsFoundIndicatorBuilder: (context) => const EmptyItems(),
+                      ),
+                      separatorBuilder: (context, index) => const SizedBox(height: Dimen.extraLargeSpace + 5),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  void _onSearchCareer(String value) {
+    // * Init Search
+    _paginationRequest.search = value;
+    // * Debounce
+    _debouncer.run(() {
+      // * Reset Pagination
+      _pagingController.refresh();
+    });
+  }
+
+  void _onFilterCareerType(int id) {
+    // * Set Selected Career Type
+    setState(() {
+      _selectedCareerType = id;
+    });
+    // * Init Filter
+    _paginationRequest.type = id;
+    // * Reset Pagination
+    _pagingController.refresh();
   }
 }
 

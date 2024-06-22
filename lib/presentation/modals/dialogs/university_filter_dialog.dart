@@ -240,7 +240,7 @@ class _UniversityFilterDialogState extends State<_UniversityFilterDialog> with M
   void _onSearchFilterItem(String value) {
     // * Filter List
     final filteredList = _duplicateList.where((element) {
-      return element.nameEn!.toLowerCase().contains(value.toLowerCase());
+      return element.name!.toLowerCase().contains(value.toLowerCase());
     }).toList();
     // * Set Filtered List
     _pagingController.itemList = filteredList;
