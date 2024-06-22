@@ -76,6 +76,7 @@ export 'pages/dashboard/settings/setting_screen.dart';
 
 // * Widgets
 export 'widgets/action_menu_widget.dart';
+export 'widgets/custom_brief_widget.dart';
 export 'widgets/custom_button_with_icon.dart';
 export 'widgets/custom_cached_network_image_widget.dart';
 export 'widgets/custom_html_widget.dart';
