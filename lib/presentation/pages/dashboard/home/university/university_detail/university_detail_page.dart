@@ -6,7 +6,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class UniversityDetailPage extends StatefulWidget {
@@ -665,29 +664,29 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     ),
                     Column(
                       children: [
-                        _AdmissionBriefDetails(
+                        CustomBriefWidget(
                           title: 'Acceptance Number',
                           subtitle: '${_universityAdmissionModel!.averageStudentAcceptance.toString()} people',
                           icon: Assets.iconAcceptance,
                         ),
-                        _AdmissionBriefDetails(
+                        CustomBriefWidget(
                           title: 'Regular Application Due',
                           subtitle: _universityAdmissionModel!.isActive == 1
                               ? _universityAdmissionModel!.applicationDeadline
                               : 'Closed',
                           icon: Assets.iconCalendar,
                         ),
-                        _AdmissionBriefDetails(
+                        CustomBriefWidget(
                           title: 'Application Fee',
                           subtitle: '${_universityAdmissionModel!.applicationFee ?? 'Free'}\$',
                           icon: Assets.iconApplication,
                         ),
-                        _AdmissionBriefDetails(
+                        CustomBriefWidget(
                           title: 'Enrollment Type',
                           subtitle: _universityAdmissionModel!.enrollTypeEn,
                           icon: Assets.iconEnrollType,
                         ),
-                        _AdmissionBriefDetails(
+                        CustomBriefWidget(
                           title: 'Tuition',
                           subtitle: '${_universityAdmissionModel!.tuition}\$',
                           icon: Assets.iconMoney,
@@ -1375,38 +1374,6 @@ class _ContactItem extends StatelessWidget {
       dense: true,
       leading: Icon(icon, color: Colors.black),
       title: title,
-    );
-  }
-}
-
-class _AdmissionBriefDetails extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String icon;
-  const _AdmissionBriefDetails({
-    required this.title,
-    required this.subtitle,
-    required this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      dense: true,
-      leading: SvgPicture.asset(
-        icon,
-        width: 35,
-        height: 35,
-      ),
-      title: Text(
-        title,
-        style: CustomTextStyle.bodyTextStyle(),
-      ),
-      subtitle: Text(
-        subtitle,
-        style: CustomTextStyle.bodyTextStyle(),
-      ),
     );
   }
 }
