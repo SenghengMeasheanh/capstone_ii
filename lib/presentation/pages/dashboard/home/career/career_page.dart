@@ -162,7 +162,7 @@ class _CareerPageState extends State<CareerPage> {
                       physics: const NeverScrollableScrollPhysics(),
                       builderDelegate: PagedChildBuilderDelegate<CareerModels>(
                         itemBuilder: (context, models, index) => ItemCareer(
-                          onTap: () => context.push(destination: const CareerDetailPage()),
+                          onTap: () => context.push(destination: CareerDetailPage(id: models.id)),
                           models: models,
                         ),
                         firstPageProgressIndicatorBuilder: (context) =>

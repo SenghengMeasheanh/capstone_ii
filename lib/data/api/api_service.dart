@@ -40,6 +40,11 @@ abstract class ApiService {
     @Query('type') int? type,
   });
 
+  @GET('/careers/{id}')
+  Future<MapBodyResponse<CareerDetailModels>> getCareerDetail({
+    @Path('id') required int id,
+  });
+
   @GET('/careers/types')
   Future<ListBodyResponse<CareerTypeModels>> getCareerTypeList();
 

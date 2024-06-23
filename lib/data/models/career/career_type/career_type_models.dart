@@ -14,8 +14,8 @@ class CareerTypeModels {
   @JsonKey(name: 'name_en')
   final String nameEn;
 
-  @JsonKey(name: 'is_active')
-  final int isActive;
+  @JsonKey(name: 'is_active', includeIfNull: false)
+  final int? isActive;
 
   CareerTypeModels({
     required this.id,

@@ -17,6 +17,8 @@ class CareerBloc extends Bloc<CareerEvent, CareerState> {
     // * List | Bloc
     on<RequestCareerListEvent>(_requestCareerList);
     on<RequestCareerTypeListEvent>(_requestCareerTypeList);
+    // * Career Detail | Bloc
+    on<RequestCareerDetailEvent>(_requestCareerDetail);
   }
 
   Future<void> _requestCareerTypeList(
@@ -85,6 +87,35 @@ class CareerBloc extends Bloc<CareerEvent, CareerState> {
             type: event.paginationRequest.type,
           ),
         );
+        // * Return
+        return;
+      }
+    });
+  }
+
+  Future<void> _requestCareerDetail(
+    RequestCareerDetailEvent event,
+    Emitter<CareerState> emit,
+  ) async {
+    // * Get Result
+    final result = _careerRepo.getCareerDetail(event.id);
+    // * Check Result
+    await result.then((response) {
+      // * If Status Code = 200
+      if (response.header.statusCode == 200) {
+        // * Emit Success State
+        emit(RequestCareerDetailSuccessState(response: response));
+      } else {
+        // * Emit Error State
+        emit(RequestCareerDetailErrorState());
+      }
+    }, onError: (exception, stackTrace) async {
+      // * Debug Print Error
+      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+      // * If Server Not Response
+      if (exception is DioException) {
+        // * Emit Error State
+        emit(RequestCareerDetailErrorState());
         // * Return
         return;
       }

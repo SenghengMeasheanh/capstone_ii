@@ -15,6 +15,10 @@ class CareerRepo {
     );
   } 
 
+  Future<MapBodyResponse<CareerDetailModels>> getCareerDetail(int id) async {
+    return await ApiService().getCareerDetail(id: id);
+  } 
+
   Future<ListBodyResponse<CareerTypeModels>> getCareerTypeList() async {
     return await ApiService().getCareerTypeList();
   }

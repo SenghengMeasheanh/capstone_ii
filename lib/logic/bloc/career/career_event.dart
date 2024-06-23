@@ -14,3 +14,9 @@ class RequestCareerListEvent extends CareerEvent {
 }
 
 class RequestCareerTypeListEvent extends CareerEvent {}
+
+// * Career Detail | Event
+class RequestCareerDetailEvent extends CareerEvent {
+  final int id;
+  RequestCareerDetailEvent({required this.id});
+}
