@@ -60,6 +60,37 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<MapBodyResponse<CareerDetailModels>> getCareerDetail(
+      {required int id}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<MapBodyResponse<CareerDetailModels>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/careers/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = MapBodyResponse<CareerDetailModels>.fromJson(
+      _result.data!,
+      (json) => CareerDetailModels.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<ListBodyResponse<CareerTypeModels>> getCareerTypeList() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

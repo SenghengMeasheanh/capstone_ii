@@ -6,11 +6,15 @@ class CustomBriefWidget extends StatelessWidget {
   final String title;
   final String subtitle;
   final String icon;
+  final bool? isTitleBold;
+  final bool? isSubtitleBold;
   const CustomBriefWidget({
     super.key,
     required this.title,
     required this.subtitle,
     required this.icon,
+    this.isTitleBold = false,
+    this.isSubtitleBold = false,
   });
 
   @override
@@ -25,11 +29,11 @@ class CustomBriefWidget extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: CustomTextStyle.bodyTextStyle(),
+        style: CustomTextStyle.titleTextStyle(bold: isTitleBold!, color: Colors.black),
       ),
       subtitle: Text(
         subtitle,
-        style: CustomTextStyle.bodyTextStyle(),
+        style: CustomTextStyle.bodyTextStyle(bold: isSubtitleBold!, color: Colors.black),
       ),
     );
   }
