@@ -10,16 +10,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 final languageStreamController = StreamController.broadcast();
 Future<void> main() async {
   // * Ensure Widget Initialized
   WidgetsFlutterBinding.ensureInitialized();
-
-  // * Request Permission
-  [Permission.storage].request();
-
   // * Initialize Trusted Certificate Https
   HttpOverrides.global = MyHttpOverrides();
 
