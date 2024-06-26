@@ -77,8 +77,6 @@ dependencies:
   flutter_svg: ^2.0.10+1
   #Fuzzy
   fuzzy: ^0.5.1
-  #Gal
-  gal: ^2.3.0
   # In App Review
   in_app_review: ^2.0.9
   # Image Cropper
@@ -92,6 +90,8 @@ dependencies:
   json_annotation: ^4.8.1
   # Lottie
   lottie: ^3.1.0
+  # Open File
+  open_file: ^3.3.2
   # One Signal
   onesignal_flutter: ^5.1.0
   # Package Info Plus

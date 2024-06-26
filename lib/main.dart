@@ -15,7 +15,6 @@ final languageStreamController = StreamController.broadcast();
 Future<void> main() async {
   // * Ensure Widget Initialized
   WidgetsFlutterBinding.ensureInitialized();
-
   // * Initialize Trusted Certificate Https
   HttpOverrides.global = MyHttpOverrides();
 
