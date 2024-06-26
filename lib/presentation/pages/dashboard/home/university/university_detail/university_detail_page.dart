@@ -2,11 +2,13 @@ import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:open_file/open_file.dart';
 
 class UniversityDetailPage extends StatefulWidget {
   final int universityId;
@@ -772,9 +774,9 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     SizedBox(
                       height: 51,
                       child: ElevatedButton(
-                        onPressed: _universityAdmissionModel!.admissionUrl == null
-                            ? () => context.showInfoSnackBar(msg: 'No Admission URL found!')
-                            : () {},
+                        onPressed: () => DownloadingProgressDialog().show(
+                            downloadUrl: _universityAdmissionModel!.admissionUrl!,
+                            fileName: '${widget.universityModels.nameEn}-Admission'),
                         child: Text(
                           'Download Admission',
                           style: CustomTextStyle.buttonTextStyle(),
@@ -967,7 +969,10 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     margin: const EdgeInsets.only(top: Dimen.largeSpace),
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => DownloadingProgressDialog().show(
+                        downloadUrl: _universityMajorDetailModel!.curriculumUrl,
+                        fileName: '${widget.universityModels.nameEn}-Curriculum',
+                      ),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           horizontal: Dimen.extraLargeSpace,
@@ -984,7 +989,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     margin: const EdgeInsets.only(top: Dimen.largeSpace),
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => _tabController.animateTo(2),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           horizontal: Dimen.extraLargeSpace,
