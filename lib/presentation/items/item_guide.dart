@@ -1,12 +1,13 @@
+import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/styles/dimen.dart';
-import 'package:capstone_ii/presentation/pages/dashboard/home/guides/guides_details/guides_details.dart';
 
 class ItemGuide extends StatelessWidget {
   final int index;
   final List<Map<String, dynamic>> guides;
   final TextStyle captionTextStyle;
   final Color captionTextColor;
+ 
 
   const ItemGuide({
     Key? key,
@@ -14,22 +15,13 @@ class ItemGuide extends StatelessWidget {
     required this.guides,
     required this.captionTextStyle,
     required this.captionTextColor,
+
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => GuidesDetails(
-              guideIndex: index,
-              guides: guides,
-            ),
-          ),
-        );
-      },
+      
       child: Card(
         margin: const EdgeInsets.only(top: Dimen.mediumSpace),
         shape: RoundedRectangleBorder(

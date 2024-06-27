@@ -1,19 +1,20 @@
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/helper/styles/dimen.dart';
 import 'package:capstone_ii/presentation/items/item_guide.dart';
+import 'package:capstone_ii/presentation/pages/dashboard/home/guides/guides_details/guides_details.dart';
 import 'package:capstone_ii/presentation/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 
-
 class GuidesPage extends StatefulWidget {
-  const GuidesPage({super.key});
+  const GuidesPage({Key? key}) : super(key: key);
 
   @override
   State<GuidesPage> createState() => _GuidesPageState();
 }
 
 class _GuidesPageState extends State<GuidesPage> {
-  final _searchBarController = TextEditingController();
+  final TextEditingController _searchBarController = TextEditingController();
+
   final List<Map<String, dynamic>> guides = [
     {
       'title': 'Your Guide to Choosing the Right University in Cambodia',
@@ -41,6 +42,15 @@ class _GuidesPageState extends State<GuidesPage> {
     super.dispose();
   }
 
+  void navigateToDetailsPage(BuildContext context, int index) {
+    context.push(
+      destination: GuidesDetails(
+        guides: guides,
+        guideIndex: index,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,28 +65,34 @@ class _GuidesPageState extends State<GuidesPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // * Title
+              // Title
               Container(
                 margin: const EdgeInsets.only(bottom: Dimen.mediumSpace),
                 child: Text(
                   'College Guidance',
-                  style: CustomTextStyle.largeTitleTextStyle(bold: true),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
-              // * Searchbar
+              // Searchbar
               SearchBarWidget(
-                  controller: _searchBarController, onChange: (value) => {}),
-              // * Card to display Guide blog
+                controller: _searchBarController,
+                onChange: (value) => {},
+              ),
+              // Card to display Guide blogs
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: guides.length,
                 itemBuilder: (context, index) {
-                  return ItemGuide(
-                    index: index,
-                    guides: guides,
-                    captionTextStyle: CustomTextStyle.bodyTextStyle(),
-                    captionTextColor: Colors.black, // Specify the correct color
+                  return GestureDetector(
+                    onTap: () => navigateToDetailsPage(context, index),
+                    child: ItemGuide(
+                      index: index,
+                      guides: guides,
+                      captionTextStyle: TextStyle(fontSize: 16),
+                      captionTextColor: Colors.black,
+                    
+                    ),
                   );
                 },
               ),
