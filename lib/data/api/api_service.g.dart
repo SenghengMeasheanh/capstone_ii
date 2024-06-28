@@ -121,6 +121,45 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<ListBodyResponse<FinancialAidModels>> getFinancialAidList({
+    String? search,
+    int? page,
+    int? limit,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'search': search,
+      r'page': page,
+      r'limit': limit,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListBodyResponse<FinancialAidModels>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/financial_aids',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ListBodyResponse<FinancialAidModels>.fromJson(
+      _result.data!,
+      (json) => FinancialAidModels.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<ListBodyResponse<UniversityModels>> getUniversityList({
     String? search,
     int? page,

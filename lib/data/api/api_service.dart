@@ -48,6 +48,14 @@ abstract class ApiService {
   @GET('/careers/types')
   Future<ListBodyResponse<CareerTypeModels>> getCareerTypeList();
 
+  // * Financial Aid Endpoint
+  @GET('/financial_aids')
+  Future<ListBodyResponse<FinancialAidModels>> getFinancialAidList({
+    @Query('search') String? search,
+    @Query('page') int? page,
+    @Query('limit') int? limit,
+  });
+
   // * Unversity Endpoint
   @GET('/universities')
   Future<ListBodyResponse<UniversityModels>> getUniversityList({
