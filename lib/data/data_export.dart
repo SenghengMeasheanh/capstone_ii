@@ -6,6 +6,7 @@ export 'api/secure/api_service_secure.dart';
 export 'models/career/career_models.dart';
 export 'models/career/career_detail/career_detail_models.dart';
 export 'models/career/career_type/career_type_models.dart';
+export 'models/financial_aid/financial_aid_models.dart';
 export 'models/university/university_models.dart';
 export 'models/university/filter/degree/degree_models.dart';
 export 'models/university/filter/location/location_models.dart';
@@ -25,8 +26,9 @@ export 'models/university/university_detail/scholarship/university_scholarship_m
 export 'models/university/university_detail/scholarship/university_scholarship_detail/university_scholarship_detail_models.dart';
 
 // * Repositories
-export 'repositories/university_repo.dart';
 export 'repositories/career_repo.dart';
+export 'repositories/financial_aid_repo.dart';
+export 'repositories/university_repo.dart';
 
 // * Request
 export 'request/pagination/pagination_request.dart';
