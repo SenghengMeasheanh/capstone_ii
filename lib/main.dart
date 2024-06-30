@@ -55,8 +55,10 @@ Future<void> main() async {
         builder: (_) => MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => CareerBloc()),
+            BlocProvider(create: (_) => EventsBloc()),
             BlocProvider(create: (_) => FinancialAidBloc()),
             BlocProvider(create: (_) => InternetCubit()),
+            BlocProvider(create: (_) => ScholarshipBloc()),
             BlocProvider(create: (_) => UniversityBloc()),
           ],
           child: const MyApp(),

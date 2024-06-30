@@ -66,6 +66,14 @@ abstract class ApiService {
     @Path('id') required int id,
   });
 
+  // * Scholarship Endpoint
+  @GET('/scholarships')
+  Future<ListBodyResponse<ScholarshipModels>> getScholarshipList({
+    @Query('search') String? search,
+    @Query('page') int? page,
+    @Query('limit') int? limit,
+  });
+
   // * Unversity Endpoint
   @GET('/universities')
   Future<ListBodyResponse<UniversityModels>> getUniversityList({

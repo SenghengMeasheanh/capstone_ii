@@ -829,7 +829,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                   separatorBuilder: (context, index) => const SizedBox(height: Dimen.largeSpace),
                   builderDelegate: PagedChildBuilderDelegate<UniversityScholarshipModels>(
                     itemBuilder: (context, models, index) {
-                      return ItemUniversityScholarship(
+                      return ItemScholarship(
                         models: models,
                         onTap: () => _onShowScholarshipDetail(models.id),
                       );
