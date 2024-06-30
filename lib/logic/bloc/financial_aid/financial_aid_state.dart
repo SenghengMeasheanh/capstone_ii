@@ -14,6 +14,28 @@ final class RequestFinancialAidListSuccessState extends FinancialAidState {
   });
 }
 
+final class RequestFinancialAidMoreArticlesListSuccessState extends FinancialAidState {
+  final ListBodyResponse<FinancialAidModels> response;
+
+  RequestFinancialAidMoreArticlesListSuccessState({
+    required this.response,
+  });
+}
+
+// * Financial Aid Detail | State
+final class RequestFinancialAidDetailSuccessState extends FinancialAidState {
+  final MapBodyResponse<FinancialAidDetailModels> response;
+
+  RequestFinancialAidDetailSuccessState({
+    required this.response,
+  });
+}
+
 
 // ! List | State
 final class RequestFinancialAidListErrorState extends FinancialAidState {}
+
+final class RequestFinancialAidMoreArticlesListErrorState extends FinancialAidState {}
+
+// ! Financial Aid | State 
+final class RequestFinancialAidDetailErrorState extends FinancialAidState {}

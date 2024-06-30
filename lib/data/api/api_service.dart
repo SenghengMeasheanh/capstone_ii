@@ -56,6 +56,16 @@ abstract class ApiService {
     @Query('limit') int? limit,
   });
 
+  @GET('/financial_aids/{id}')
+  Future<MapBodyResponse<FinancialAidDetailModels>> getFinancialAidDetail({
+    @Path('id') required int id,
+  });
+
+  @GET('/financial_aids/more_articles/{id}')
+  Future<ListBodyResponse<FinancialAidModels>> getFinancialAidMoreArticlesList({
+    @Path('id') required int id,
+  });
+
   // * Unversity Endpoint
   @GET('/universities')
   Future<ListBodyResponse<UniversityModels>> getUniversityList({
