@@ -104,7 +104,7 @@ class _FinancialAidPageState extends State<FinancialAidPage> {
                         itemBuilder: (context, models, index) {
                           return ItemFinancialAid(
                             models: models,
-                            onTap: () {},
+                            onTap: () => context.push(destination: FinancialAidDetailPage(id: models.id)),
                           );
                         },
                         firstPageProgressIndicatorBuilder: (context) => const ProgressBar(),

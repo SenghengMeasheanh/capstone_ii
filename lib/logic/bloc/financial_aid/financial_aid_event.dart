@@ -11,3 +11,20 @@ class RequestFinancialAidListEvent extends FinancialAidEvent {
     required this.paginationRequest,
   });
 }
+
+class RequestFinancialAidMoreArticlesListEvent extends FinancialAidEvent {
+  final int id;
+
+  RequestFinancialAidMoreArticlesListEvent({
+    required this.id,
+  });
+}
+
+// * Financial Detail | Event
+class RequestFinancialAidDetailEvent extends FinancialAidEvent {
+  final int id;
+
+  RequestFinancialAidDetailEvent({
+    required this.id,
+  });
+}

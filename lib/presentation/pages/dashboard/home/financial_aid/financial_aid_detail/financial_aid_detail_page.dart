@@ -1,15 +1,36 @@
+import 'package:capstone_ii/data/data_export.dart';
+import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FinancialAidDetailPage extends StatefulWidget {
-  const FinancialAidDetailPage({super.key});
+  final int id;
+  const FinancialAidDetailPage({
+    super.key,
+    required this.id,
+  });
 
   @override
   State<FinancialAidDetailPage> createState() => _FinancialAidDetailPageState();
 }
 
 class _FinancialAidDetailPageState extends State<FinancialAidDetailPage> {
+  // * Models
+  FinancialAidDetailModels? _models;
+  var _moreArticlesModels = <FinancialAidModels>[];
+
+  // * Init State
+  @override
+  void initState() {
+    super.initState();
+    // * Request Financial Aid Detail
+    context.read<FinancialAidBloc>().add(RequestFinancialAidDetailEvent(id: widget.id));
+    // * Request Financial Aid More Articles List
+    context.read<FinancialAidBloc>().add(RequestFinancialAidMoreArticlesListEvent(id: widget.id));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,134 +39,53 @@ class _FinancialAidDetailPageState extends State<FinancialAidDetailPage> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(Dimen.mediumSpace),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'How to pay for a college: a complete guide for parents',
-              style: CustomTextStyle.titleTextStyle(
-                  bold: true, fontSize: Dimen.midTitleTextSize),
-            ),
-            const SizedBox(height: Dimen.largeSpace),
-            SizedBox(
-              height: 180,
-              child: CustomCachedNetworkImage(
-                imageUrl:
-                    'https://www.alleducationschools.com/wp-content/uploads/2018/03/careers-student-teacher.jpg',
-                config: CustomCachedNetworkImageConfig(
-                  width: double.infinity,
-                  height: double.infinity,
-                  boxFit: BoxFit.cover,
-                ),
-              ),
-            ),
-            const SizedBox(height: Dimen.largeSpace),
-            Text(
-              'As a parent, the thought of college expenses can be overwhelming, but with the right understanding and approach, paying for college can be manageable and less stressful for the whole family. This guide is tailored to help you navigate the complex world of college finances and learn how new programs, like Niche Direct Admissions, are making college education more affordable. ',
-              style: CustomTextStyle.bodyTextStyle(),
-            ),
-            const SizedBox(height: Dimen.largeSpace),
-            Center(
-              child: Text(
-                'Understanding College Costs',
-                style: CustomTextStyle.titleTextStyle(
-                    bold: true, color: primaryColor),
-              ),
-            ),
-            const SizedBox(height: Dimen.largeSpace),
-            Text(
-              'The key to tackling college expenses is knowing what you’re up against. Tuition and fees are  just the beginning. Room and board, books, supplies and miscellaneous expenses can quickly add up. When planning for college, it’s important to build a comprehensive budget that factors in all of the following potential costs.',
-              style: CustomTextStyle.bodyTextStyle(),
-            ),
-            const SizedBox(height: Dimen.mediumSpace),
-            Text(
-              'Tuition and fees',
-              style: CustomTextStyle.titleTextStyle(bold: true),
-            ),
-            const SizedBox(height: Dimen.mediumSpace),
-            Text(
-              'Most parents are familiar with these two. Tuition is the cost of courses, usually based on credits, while fees can include things like technology and activity fees. It’s wise to expect them to rise every year.',
-              style: CustomTextStyle.bodyTextStyle(),
-            ),
-            const SizedBox(height: Dimen.mediumSpace),
-            Text(
-              'Room for board',
-              style: CustomTextStyle.titleTextStyle(bold: true),
-            ),
-            const SizedBox(height: Dimen.mediumSpace),
-            Text(
-              'Most parents are familiar with these two. Tuition is the cost of courses, usually based on credits, while fees can include things like technology and activity fees. It’s wise to expect them to rise every year.',
-              style: CustomTextStyle.bodyTextStyle(),
-            ),
-            const SizedBox(height: Dimen.mediumSpace),
-            Text(
-              'Books and supplies',
-              style: CustomTextStyle.titleTextStyle(bold: true),
-            ),
-            const SizedBox(height: Dimen.mediumSpace),
-            Text(
-              'Most parents are familiar with these two. Tuition is the cost of courses, usually based on credits, while fees can include things like technology and activity fees. It’s wise to expect them to rise every year.',
-              style: CustomTextStyle.bodyTextStyle(),
-            ),
-            const SizedBox(height: Dimen.mediumSpace),
-            Text(
-              'Miscellaneous expenses',
-              style: CustomTextStyle.titleTextStyle(bold: true),
-            ),
-            const SizedBox(height: Dimen.mediumSpace),
-            Text(
-              'Most parents are familiar with these two. Tuition is the cost of courses, usually based on credits, while fees can include things like technology and activity fees. It’s wise to expect them to rise every year.',
-              style: CustomTextStyle.bodyTextStyle(),
-            ),
-            const SizedBox(height: Dimen.largeSpace),
-            Text('AUTHOR: Writer Name',
-                style: CustomTextStyle.titleTextStyle(bold: true)),
-            const SizedBox(height: Dimen.smallSpace),
-            Text(
-              'PathFinder helps you discover the schools and neighborhoods that are right for you.',
-              style: CustomTextStyle.bodyTextStyle(),
-            ),
-            const SizedBox(height: Dimen.smallSpace),
-            Text('www.heloooBTS.com',
-                style: CustomTextStyle.bodyTextStyle(color: Colors.blue)),
-            const SizedBox(height: Dimen.smallSpace),
-            Container(
-              margin: const EdgeInsets.only(top: Dimen.defaultSpace),
-              child: const Divider(
-                color: captionTextColor,
-              ),
-            ),
-            Row(children: [
-              Text(
-                'POSTED ON: ',
-                style: CustomTextStyle.bodyTextStyle(bold: true),
-              ),
-              Text(
-                'October 4,2024 11:00 AM',
-                style: CustomTextStyle.bodyTextStyle(color: Colors.grey),
-              ),
-            ]),
-            const SizedBox(height: Dimen.largeSpace),
-            Text(
-              'More Articles By PathFinder',
-              style: CustomTextStyle.bodyTextStyle(),
-            ),
-            //More articles sample
-            Card(
-              margin: EdgeInsets.all(Dimen.smallSpace),
-              child: Padding(
-                padding: EdgeInsets.all(Dimen.mediumSpace),
-                child: Row(
+      body: BlocListener<FinancialAidBloc, FinancialAidState>(
+        listener: (context, state) {
+          // * Request Financial Aid Detail Success
+          if (state is RequestFinancialAidDetailSuccessState) {
+            // * Set Models
+            _models = state.response.body.data;
+            // * Notify
+            setState(() {});
+            // * Return
+            return;
+          }
+          // * Request Financial Aid More Articles List Success
+          if (state is RequestFinancialAidMoreArticlesListSuccessState) {
+            // * Set More Articles Models
+            _moreArticlesModels = state.response.body.data;
+            // * Notify
+            setState(() {});
+            // * Return
+            return;
+          }
+          // ! Request Financial Aid Detail Error
+          if (state is RequestFinancialAidDetailErrorState) {
+            // * Return
+            return;
+          }
+          // ! Request Financial Aid More Articles List Error
+          if (state is RequestFinancialAidMoreArticlesListErrorState) {
+            // * Return
+            return;
+          }
+        },
+        child: _models != null
+            ? SingleChildScrollView(
+                padding: const EdgeInsets.all(Dimen.contentPadding),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 70,
-                      width: 90,
+                    Text(
+                      _models!.name,
+                      style: CustomTextStyle.titleTextStyle(bold: true, fontSize: Dimen.midTitleTextSize),
+                    ),
+                    // * Cover Image
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                      height: 197,
                       child: CustomCachedNetworkImage(
-                        imageUrl:
-                            'https://res.cloudinary.com/highereducation/images/f_auto,q_auto/v1659634197/BestColleges.com/BC_What-Is-Student-Teaching_247733fd61/BC_What-Is-Student-Teaching_247733fd61.jpg',
+                        imageUrl: _models!.image,
                         config: CustomCachedNetworkImageConfig(
                           width: double.infinity,
                           height: double.infinity,
@@ -153,71 +93,72 @@ class _FinancialAidDetailPageState extends State<FinancialAidDetailPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: Dimen.mediumSpace),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Everything students need to know...',
-                              style: CustomTextStyle.bodyTextStyle(
-                                  bold: true, color: Colors.blue)),
-                          const SizedBox(width: Dimen.smallSpace),
-                          Text(
-                            'Des sskjfns afnsis tsheb aojdhh dnkhei sjhfioieba jhs sjab',
-                            style:
-                                CustomTextStyle.bodyTextStyle(fontSize: 14.0),
-                          ),
-                        ],
+                    // * Short Description
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                      child: Text(
+                        _models!.shortDescription,
+                        style: CustomTextStyle.bodyTextStyle(),
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: Dimen.smallSpace),
-            Card(
-              margin: EdgeInsets.all(Dimen.smallSpace),
-              child: Padding(
-                padding: EdgeInsets.all(Dimen.mediumSpace),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 80,
-                      width: 100,
-                      child: CustomCachedNetworkImage(
-                        imageUrl:
-                            'https://res.cloudinary.com/highereducation/images/f_auto,q_auto/v1659634197/BestColleges.com/BC_What-Is-Student-Teaching_247733fd61/BC_What-Is-Student-Teaching_247733fd61.jpg',
-                        config: CustomCachedNetworkImageConfig(
-                          width: double.infinity,
-                          height: double.infinity,
-                          boxFit: BoxFit.cover,
+                    // * Description
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                      child: CustomHtmlWidget(
+                        data: _models!.detailDescription,
+                      ),
+                    ),
+                    // * Divider
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                      child: const Divider(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    // * Post Date
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                      child: Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'POSTED ON: ',
+                              style: CustomTextStyle.bodyTextStyle(bold: true),
+                            ),
+                            TextSpan(
+                              text: '${_models!.publishAt} updated -${_models!.updateAt}',
+                              style: CustomTextStyle.bodyTextStyle(),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    const SizedBox(width: Dimen.mediumSpace),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Everything students need to know...',
-                              style: CustomTextStyle.bodyTextStyle(
-                                  bold: true, color: Colors.blue)),
-                          const SizedBox(width: Dimen.smallSpace),
-                          Text(
-                            'Des sskjfns afnsis tsheb aojdhh dnkhei sjhfioieba jhs sjab',
-                            style:
-                                CustomTextStyle.bodyTextStyle(fontSize: 14.0),
-                          ),
-                        ],
+                    //* More Articles List
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.extraLargeSpace * 2),
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: _moreArticlesModels.length,
+                        separatorBuilder: (context, index) => const SizedBox(height: Dimen.defaultSpace * 2),
+                        itemBuilder: (context, index) {
+                          return ItemMoreArticles(
+                            title: _moreArticlesModels[index].name,
+                            subtitle: _moreArticlesModels[index].shortDescription,
+                            imageUrl: _moreArticlesModels[index].image,
+                            onTap: () => context.push(
+                              destination: FinancialAidDetailPage(id: _moreArticlesModels[index].id),
+                            ),
+                          );
+                        },
                       ),
-                    ),
+                    )
                   ],
                 ),
+              )
+            : const Center(
+                child: CircularProgressIndicator(),
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
