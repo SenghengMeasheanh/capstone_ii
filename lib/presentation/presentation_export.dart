@@ -4,6 +4,8 @@ export 'items/item_filter.dart';
 export 'items/item_slide_show.dart';
 export 'items/item_university_filter.dart';
 export 'items/item_university.dart';
+export 'items/item_guide.dart';
+export 'items/item_guide_details.dart'; 
 // * Modals
 // ? Modals (Bottom Sheets)
 export 'modals/bottom_sheets/language_picker_bottom_sheet.dart';
@@ -50,6 +52,8 @@ export 'pages/dashboard/home/forum/forum_page.dart';
 
 // ? Pages (Dashboard/Home/Guides)
 export 'pages/dashboard/home/guides/guides_page.dart';
+export 'pages/dashboard/home/guides/guides_details/guides_details.dart';
+
 
 // ? Pages (Dashboard/Home/Scholarship)
 export 'pages/dashboard/home/scholarships/scholarships_page.dart';
