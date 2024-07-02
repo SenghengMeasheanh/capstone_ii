@@ -2,6 +2,8 @@
 export 'items/item_career.dart';
 export 'items/item_filter.dart';
 export 'items/item_financial_aid.dart';
+export 'items/item_guide.dart';
+export 'items/item_guide_details.dart'; 
 export 'items/item_more_articles.dart';
 export 'items/item_slide_show.dart';
 export 'items/item_scholarship.dart';
@@ -61,6 +63,8 @@ export 'pages/dashboard/home/forum/forum_page.dart';
 
 // ? Pages (Dashboard/Home/Guides)
 export 'pages/dashboard/home/guides/guides_page.dart';
+export 'pages/dashboard/home/guides/guides_details/guides_details.dart';
+
 
 // ? Pages (Dashboard/Home/Scholarship)
 export 'pages/dashboard/home/scholarships/scholarships_page.dart';
