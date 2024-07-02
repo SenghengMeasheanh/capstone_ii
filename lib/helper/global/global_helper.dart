@@ -1,14 +1,18 @@
 import 'dart:core';
 import 'dart:io';
+import 'dart:developer' as developer;
 
 import 'package:android_id/android_id.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
 
 // * Clear And Restart
 // void clearAndRestart({
@@ -120,19 +124,65 @@ import 'package:url_launcher/url_launcher_string.dart';
 //   return '${Flavor.instance.webViewURL}$data';
 // }
 
-// // * Get Data Based On Current Language
-// String getDataBasedOnCurrentLanguage({
-//   required String kh,
-//   required String en,
-//   required String cn,
-// }) {
-//   final map = {
-//     LanguageManager.defaultLanguage: en,
-//     LanguageManager.khmerLanguage: kh,
-//     LanguageManager.chinaLanguage: cn,
-//   };
-//   return map[getCurrentContext.locale] ?? '';
-// }
+typedef OnDownloadProgressCallback = void Function(double progress, double downloadedSize, double totalSize);
+typedef OnDownloadCompletedCallback = void Function(String filePath);
+Future<void> downloadFile({
+  String? url,
+  required CancelToken cancelToken,
+  required OnDownloadProgressCallback onDownloadProgress,
+  required OnDownloadCompletedCallback onDownloadCompleted,
+  required void Function(String) onSuccess,
+  required void Function(String) onFailed,
+  required String fileName,
+}) async {
+  // * Get Save Path
+  final savePath = await getExternalStorageDirectory();
+  // * File Path
+  final filePath = '${savePath!.uri.toFilePath()}/$fileName';
+  // * Check iF URL null
+  if (url != null) {
+    // * Try Download
+    try {
+      await Dio().download(
+        url,
+        filePath,
+        cancelToken: cancelToken,
+        onReceiveProgress: (received, total) {
+          // * Progress
+          final progress = (received / total * 100).floorToDouble();
+          final downloadedSize = (received / 1024 / 1024).floorToDouble();
+          final totalSize = (total / 1024 / 1024).floorToDouble();
+          // * Progress
+          onDownloadProgress(progress, downloadedSize, totalSize);
+          // * If Progress Bigger Than 100
+          if (progress >= 100) {
+            // * Call On Completed
+            onDownloadCompleted.call(filePath);
+            // * Log Download Success
+            developer.log('Download Success: $filePath');
+          }
+        },
+      );
+    }
+    // ! On Error
+    catch (e) {
+      // ! Call On Failed
+      onFailed.call(e.toString());
+    }
+  } else {
+    // ! Call on Failed
+    onFailed.call('The university doesn\'t provide any admission');
+  }
+}
+
+// * Get Data Based On Current Language
+String getDataBasedOnCurrentLanguage({required String kh, required String en, t}) {
+  final map = {
+    LanguageManager.defaultLanguage: en,
+    LanguageManager.khmerLanguage: kh,
+  };
+  return map[getCurrentContext.locale] ?? '';
+}
 
 // * Get Error Content
 String getErrorContent({
@@ -376,25 +426,25 @@ String getEventFilterMenuTitle(EventFilterMenu value) {
 //   if (getCurrentContext.mounted) {
 //     getCurrentContext.showSuccessSnackBar(msg: tr(LocaleKeys.transaction_has_been_saved_to_your_gallery));
 //   }   // // * If Screenshot Not Equal Null
-  // if (screenshot != null) {
-  //   // * Init Screenshot File
-  //   final file = File(screenshot);
-  //   // * Put Screenshot In Gallery
-  //   await Gal.putImage(file.path, album: 'Rith Mony');`
-  //   // * Delete Screenshot File To Prevent From Out of Storage (Because It's Already Saved Into Gallery)
-  //   file.delete();
-  //   // * Dismiss Progress Dialog
-  //   progressDialog.dismiss();
-  //   // * Show Snack Bar
-  //   if (getCurrentContext.mounted) {
-  //     getCurrentContext.showSuccessSnackBar(msg: 'Transaction has been saved to your gallery');
-  //   }
-  // }
-  // // * If Screenshot Equal Null
-  // else {
-  //   // * Dismiss Progress Dialog
-  //   progressDialog.dismiss();
-  //   // ! Show Snack Bar
-  //   if (getCurrentContext.mounted) getCurrentContext.showInfoSnackBar(msg: 'Failed to save transaction');
-  // }
+// if (screenshot != null) {
+//   // * Init Screenshot File
+//   final file = File(screenshot);
+//   // * Put Screenshot In Gallery
+//   await Gal.putImage(file.path, album: 'Rith Mony');`
+//   // * Delete Screenshot File To Prevent From Out of Storage (Because It's Already Saved Into Gallery)
+//   file.delete();
+//   // * Dismiss Progress Dialog
+//   progressDialog.dismiss();
+//   // * Show Snack Bar
+//   if (getCurrentContext.mounted) {
+//     getCurrentContext.showSuccessSnackBar(msg: 'Transaction has been saved to your gallery');
+//   }
+// }
+// // * If Screenshot Equal Null
+// else {
+//   // * Dismiss Progress Dialog
+//   progressDialog.dismiss();
+//   // ! Show Snack Bar
+//   if (getCurrentContext.mounted) getCurrentContext.showInfoSnackBar(msg: 'Failed to save transaction');
+// }
 // }

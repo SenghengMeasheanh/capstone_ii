@@ -7,7 +7,7 @@ class ItemEvent extends StatelessWidget {
   final String date;
   final String time;
   final String location;
-  final VoidCallback onTap;
+  final Function() onTap;
 
   const ItemEvent({
     super.key,

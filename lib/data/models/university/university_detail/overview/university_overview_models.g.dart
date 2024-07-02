@@ -14,7 +14,8 @@ UniversityOverviewModels _$UniversityOverviewModelsFromJson(
       graduationRate: json['graduation_rate'] as String?,
       averageTuition: json['average_tuition'] as String?,
       averageStudyYear: json['average_study_year'] as String?,
-      description: json['description'] as String,
+      descriptionEn: json['description'] as String,
+      descriptionKh: json['description_kh'] as String,
       type: TypeModels.fromJson(json['type'] as Map<String, dynamic>),
       studyOption: (json['study_option'] as List<dynamic>?)
           ?.map((e) => StudyOption.fromJson(e as Map<String, dynamic>))
@@ -32,7 +33,8 @@ Map<String, dynamic> _$UniversityOverviewModelsToJson(
       'graduation_rate': instance.graduationRate,
       'average_tuition': instance.averageTuition,
       'average_study_year': instance.averageStudyYear,
-      'description': instance.description,
+      'description': instance.descriptionEn,
+      'description_kh': instance.descriptionKh,
       'type': instance.type,
       'study_option': instance.studyOption,
       'contact': instance.contact,
@@ -56,6 +58,7 @@ Contact _$ContactFromJson(Map<String, dynamic> json) => Contact(
       name: json['name'] as String,
       email: json['email'] as String,
       address: json['address'] as String,
+      addressLink: json['address_link'] as String,
       primaryPhoneNumber: json['primary_phone_number'] as String,
       secondPhoneNumber: json['second_phone_number'] as String?,
       thirdPhoneNumber: json['third_phone_number'] as String?,
@@ -68,6 +71,7 @@ Map<String, dynamic> _$ContactToJson(Contact instance) {
     'name': instance.name,
     'email': instance.email,
     'address': instance.address,
+    'address_link': instance.addressLink,
     'primary_phone_number': instance.primaryPhoneNumber,
   };
 

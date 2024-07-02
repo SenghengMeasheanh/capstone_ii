@@ -33,6 +33,68 @@ class UniversityRepo {
     return await ApiService().getUniversityAdmission(id: id);
   }
 
+  Future<ListBodyResponse<DegreeLevelsModels>> getUniversityDegreeLevelsList({
+    required int id,
+  }) async {
+    return await ApiService().getUniversityDegreeLevelsList(id: id);
+  }
+
+  Future<ListBodyResponse<UniversityMajorModels>> getUniversityMajorList({
+    required int id,
+    int? degreeLevel,
+  }) async {
+    return await ApiService().getUniversityMajorList(id: id, degreeLevel: degreeLevel);
+  }
+
+  Future<MapBodyResponse<UniversityMajorDetailModels>> getUniversityMajorDetail({
+    required int id,
+  }) async {
+    return await ApiService().getUniversityMajorDetail(id: id);
+  }
+
+  Future<ListBodyResponse<UniversitySpecializeModels>> getUniversitySpecializeList({
+    required int id,
+    int? degreeLevel,
+  }) async {
+    return await ApiService().getUniversitySpecializeList(id: id, degreeLevel: degreeLevel);
+  }
+
+  Future<MapBodyResponse<UniversitySpecializeDetailModels>> getUniversitySpecializeDetail({
+    required int id,
+  }) async {
+    return await ApiService().getUniversitySpecializeDetail(id: id);
+  }
+
+  Future<ListBodyResponse<UniversityTuitionModels>> getUniversityTuition({
+    required int id,
+  }) async {
+    return await ApiService().getUniversityTuition(id: id);
+  }
+
+  Future<ListBodyResponse<UniversityScholarshipModels>> getUniversityScholarship({
+    required int id,
+  }) async {
+    return await ApiService().getUniversityScholarship(id: id);
+  }
+
+  Future<MapBodyResponse<UniversityScholarshipDetailModels>> getUniversityScholarshipDetail({
+    required int id,
+  }) async {
+    return await ApiService().getUniversityScholarshipDetail(id: id);
+  }
+
+  Future<ListBodyResponse<UniversityEventModels>> getUniversityEvent({
+    required int id,
+  }) async {
+    return await ApiService().getUniversityEvent(id: id);
+  }
+
+  Future<MapBodyResponse<UniversityEventDetailModels>> getUniversityEventDetail({
+    required int id,
+  }) async {
+    return await ApiService().getUniversityEventDetail(id: id);
+  }
+
   Future<ListBodyResponse<DegreeModels>> getDegreeList() async {
     return await ApiService().getDegreeList();
   }

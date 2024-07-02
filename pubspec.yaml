@@ -44,7 +44,7 @@ dependencies:
 
 # => Pub.Dev Packages
 # Android ID
-  android_id: ^0.3.6
+  android_id: ^0.4.0
   # Badges
   badges: ^3.1.2
   # Cached Network Image
@@ -66,7 +66,7 @@ dependencies:
   # Envied
   envied: ^0.5.3
   # Flutter Bloc
-  flutter_bloc: ^8.1.5
+  flutter_bloc: ^8.1.6
   # Flutter Cache Manager
   flutter_cache_manager: ^3.3.1
   # Flutter Html
@@ -77,12 +77,10 @@ dependencies:
   flutter_svg: ^2.0.10+1
   #Fuzzy
   fuzzy: ^0.5.1
-  #Gal
-  gal: ^2.3.0
   # In App Review
   in_app_review: ^2.0.9
   # Image Cropper
-  image_cropper: ^5.0.1
+  image_cropper: ^7.0.5
   # Image Picker
   image_picker: ^1.0.7
   # Infinite Scroll Pagination
@@ -92,6 +90,8 @@ dependencies:
   json_annotation: ^4.8.1
   # Lottie
   lottie: ^3.1.0
+  # Open File
+  open_file: ^3.3.2
   # One Signal
   onesignal_flutter: ^5.1.0
   # Package Info Plus

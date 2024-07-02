@@ -15,7 +15,6 @@ final languageStreamController = StreamController.broadcast();
 Future<void> main() async {
   // * Ensure Widget Initialized
   WidgetsFlutterBinding.ensureInitialized();
-
   // * Initialize Trusted Certificate Https
   HttpOverrides.global = MyHttpOverrides();
 
@@ -52,10 +51,14 @@ Future<void> main() async {
       fallbackLocale: LanguageManager.defaultLanguage,
       child: DevicePreview(
         // enabled: await getDeviceName() == debugDeviceName,
-        enabled: true,
+        enabled: false,
         builder: (_) => MultiBlocProvider(
           providers: [
+            BlocProvider(create: (_) => CareerBloc()),
+            BlocProvider(create: (_) => EventsBloc()),
+            BlocProvider(create: (_) => FinancialAidBloc()),
             BlocProvider(create: (_) => InternetCubit()),
+            BlocProvider(create: (_) => ScholarshipBloc()),
             BlocProvider(create: (_) => UniversityBloc()),
           ],
           child: const MyApp(),

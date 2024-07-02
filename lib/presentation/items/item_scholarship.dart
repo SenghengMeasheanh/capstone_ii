@@ -1,24 +1,17 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
-import 'package:capstone_ii/presentation/widgets/custom_cached_network_image_widget.dart';
+import 'package:capstone_ii/presentation/presentation_export.dart';
 
 class ItemScholarship extends StatelessWidget {
-  final String imageUrl;
-  final String name;
-  final String description;
-  final String openDate;
-  final String closeDate;
-  final VoidCallback onTap;
+  final dynamic models;
+  final Function() onTap;
 
   const ItemScholarship({
-    Key? key,
-    required this.imageUrl,
-    required this.name,
-    required this.description,
-    required this.openDate,
-    required this.closeDate,
+    super.key,
+    required this.models,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,31 +19,33 @@ class ItemScholarship extends StatelessWidget {
       onTap: onTap,
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(10.0)),
+          borderRadius: BorderRadius.circular(Dimen.defaultRadius),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        elevation: 2,
+        shadowColor: Colors.grey,
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.start,
           children: [
             CustomCachedNetworkImage(
-              imageUrl: imageUrl,
+              imageUrl: models.image,
               config: CustomCachedNetworkImageConfig(
-                height: 200,
+                height: 125,
                 width: double.infinity,
                 boxFit: BoxFit.cover,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(Dimen.defaultRadius)),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(Dimen.extraLargeSpace),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // * Scholarship Title
-                  Text(name, style: CustomTextStyle.titleTextStyle(bold: true)),
+                  Text(models.name, style: CustomTextStyle.titleTextStyle(bold: true)),
                   const SizedBox(height: Dimen.smallSpace),
                   // * Scholarship Description
                   Text(
-                    description,
+                    models.description,
                     style: CustomTextStyle.bodyTextStyle(),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -61,66 +56,30 @@ class ItemScholarship extends StatelessWidget {
                   ),
                   const SizedBox(height: Dimen.mediumSpace),
                   // * Scholarship Deadline
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
                         children: [
-                          Row(
-                            children: [
-                              Icon(Icons.calendar_today,
-                                  size: 15, color: Colors.grey),
-                              const SizedBox(width: Dimen.smallSpace),
-                              Text('Open: $openDate',
-                                  style: TextStyle(
-                                    fontSize: 15.0,
-                                  )),
-                            ],
-                          ),
-                          const SizedBox(height: Dimen.smallSpace),
-                          Row(
-                            children: [
-                              Icon(Icons.calendar_today,
-                                  size: 15, color: Colors.grey),
-                              const SizedBox(width: Dimen.smallSpace),
-                              Text(
-                                'Close: $closeDate',
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                ),
-                              ),
-                            ],
+                          const SizedBox(width: Dimen.smallSpace),
+                          Text(
+                            'Open Date: ${DateFormat('d MMMM y').format(DateTime.parse(models.openDate))}',
+                            style: CustomTextStyle.bodyTextStyle(),
                           ),
                         ],
                       ),
-                      GestureDetector(
-                        onTap: onTap, // Navigate to the detailed page
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(2.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 5,
-                                offset: const Offset(0, 3),
-                              ),
-                            ],
+                      const SizedBox(height: Dimen.smallSpace),
+                      Row(
+                        children: [
+                          const SizedBox(width: Dimen.smallSpace),
+                          Text(
+                            'Close Date: ${DateFormat('d MMMM y').format(DateTime.parse(models.closeDate))}',
+                            style: CustomTextStyle.bodyTextStyle(),
                           ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12.0, vertical: 10.0),
-                          child: Text(
-                            'See more...',
-                            style: CustomTextStyle.bodyTextStyle(
-                                color: Colors.white),
-                          ),
-                        ),
+                        ],
                       ),
                     ],
                   ),
-                  const SizedBox(height: Dimen.mediumSpace),
                 ],
               ),
             ),

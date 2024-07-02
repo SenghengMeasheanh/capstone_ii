@@ -1,8 +1,10 @@
-import 'package:capstone_ii/presentation/pages/dashboard/home/scholarships/scholarships_detail/scholarship_detail_page.dart';
+import 'package:capstone_ii/data/data_export.dart';
+import 'package:capstone_ii/logic/logic_export.dart';
+import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
-import 'package:capstone_ii/presentation/widgets/search_bar_widget.dart';
-import 'package:capstone_ii/presentation/items/item_scholarship.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ScholarshipsPage extends StatefulWidget {
   const ScholarshipsPage({super.key});
@@ -12,10 +14,30 @@ class ScholarshipsPage extends StatefulWidget {
 }
 
 class _ScholarshipsPageState extends State<ScholarshipsPage> {
-  //* controller for search bar
+  // * Paging Controller
+  final _pagingController = PagingController<int, ScholarshipModels>(firstPageKey: 1);
+  final _paginationRequest = PaginationRequest();
+
+  // * Controller for search bar
   final _searchBarController = TextEditingController();
-  String _searchText = '';
-  String _selectedFilter = 'All Scholarships';
+
+  // * Debouncer
+  final _debouncer = Debouncer(milliseconds: 800);
+
+  @override
+  void initState() {
+    super.initState();
+    //* Request Scholarship List
+    _pagingController.addPageRequestListener(
+      (pageKey) {
+        // * Init Pagination
+        _paginationRequest.page = pageKey;
+        _paginationRequest.limit = 10;
+        // * Request Scholarship List
+        context.read<ScholarshipBloc>().add(RequestScholarshipListEvent(paginationRequest: _paginationRequest));
+      },
+    );
+  }
 
   @override
   void dispose() {
@@ -31,140 +53,80 @@ class _ScholarshipsPageState extends State<ScholarshipsPage> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Title
-              Container(
-                margin: const EdgeInsets.only(bottom: Dimen.mediumSpace),
-                child: Text(
-                  'Scholarships',
-                  style: CustomTextStyle.largeTitleTextStyle(bold: true),
-                ),
-              ),
-              // Searchbar
-              SearchBarWidget(
-                controller: _searchBarController,
-                onChange: (value) {
-                  setState(() {
-                    _searchText = value;
-                  });
-                },
-              ),
-              // Filter Menu
-              Container(
-                margin: const EdgeInsets.only(top: Dimen.mediumSpace),
-                child: Wrap(
-                  spacing: 10,
-                  children: [
-                    ChoiceChip(
-                      label: const Text('All Scholarships'),
-                      selected: _selectedFilter == 'All Scholarships',
-                      onSelected: (bool selected) {
-                        setState(() {
-                          _selectedFilter = 'All Scholarships';
-                        });
-                      },
-                      selectedColor: primaryColor,
+      body: BlocListener<ScholarshipBloc, ScholarshipState>(
+        listener: (context, state) {
+          // * Request Scholarship List Success
+          if (state is RequestScholarshipListSuccessState) {
+            // * Init Pagination
+            pagination(
+              list: state.response.body.data,
+              page: _paginationRequest.page!,
+              pagingController: _pagingController,
+            );
+            // * Return
+            return;
+          }
+          // ! Request Scholarship List Error
+          if (state is RequestScholarshipListErrorState) {
+            // * Return
+            return;
+          }
+        },
+        child: RefreshIndicator(
+          onRefresh: () async => _pagingController.refresh(),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // * Title
+                  Container(
+                    margin: const EdgeInsets.only(bottom: Dimen.mediumSpace),
+                    child: Text(
+                      'Scholarships',
+                      style: CustomTextStyle.largeTitleTextStyle(bold: true),
                     ),
-                    ChoiceChip(
-                      label: const Text('100% Scholarship'),
-                      selected: _selectedFilter == '100% Scholarship',
-                      onSelected: (bool selected) {
-                        setState(() {
-                          _selectedFilter = '100% Scholarship';
-                        });
-                      },
-                      selectedColor: primaryColor,
+                  ),
+                  // * Searchbar
+                  SearchBarWidget(
+                    controller: _searchBarController,
+                    onChange: (value) => _debouncer.run(() => _onSearchScholarship(value)),
+                  ),
+                  // * Scholarship List
+                  Container(
+                    margin: const EdgeInsets.only(top: 5.0),
+                    child: PagedListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      pagingController: _pagingController,
+                      builderDelegate: PagedChildBuilderDelegate<ScholarshipModels>(
+                        itemBuilder: (context, models, index) {
+                          return ItemScholarship(
+                            models: models,
+                            onTap: () => context.push(destination: ScholarshipsDetailPage(id: models.id)),
+                          );
+                        },
+                        firstPageProgressIndicatorBuilder: (context) => const ProgressBar(),
+                        newPageProgressIndicatorBuilder: (context) => const ProgressBar(),
+                        noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
+                      ),
+                      separatorBuilder: (context, index) => const SizedBox(height: Dimen.largeSpace),
                     ),
-                    ChoiceChip(
-                      label: const Text('50% Scholarship'),
-                      selected: _selectedFilter == '50% Scholarship',
-                      onSelected: (bool selected) {
-                        setState(() {
-                          _selectedFilter = '50% Scholarship';
-                        });
-                      },
-                      selectedColor: primaryColor,
-                    ),
-                    ChoiceChip(
-                      label: const Text('Study Abroad Scholarship'),
-                      selected: _selectedFilter == 'Study Abroad Scholarship',
-                      onSelected: (bool selected) {
-                        setState(() {
-                          _selectedFilter = 'Study Abroad Scholarship';
-                        });
-                      },
-                      selectedColor: primaryColor,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              // Scholarship List
-              Container(
-                margin: const EdgeInsets.only(top: 5.0),
-                child: ListView.separated(
-                  separatorBuilder: (_, __) =>
-                      const SizedBox(height: Dimen.mediumSpace),
-                  padding: const EdgeInsets.all(8),
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount:
-                      3, // Replace with the actual count of your scholarships
-                  itemBuilder: (context, index) {
-                    // Example scholarship data
-                    final scholarship = {
-                      'imageUrl':
-                          'https://asset.cambodia.gov.kh/provincial/sites/22/2022/01/272881049_2952009725110325_3648865441051457800_n.jpg',
-                      'name': 'Scholarship Name $index',
-                      'description':
-                          'This is a description for Scholarship $index',
-                      'openDate': 'July 1, 2024',
-                      'closeDate': 'August 31, 2024',
-                    };
-
-                    // Filtering logic
-                    if (_selectedFilter != 'All Scholarships' &&
-                        scholarship['name'] != _selectedFilter) {
-                      return Container();
-                    }
-
-                    if (_searchText.isNotEmpty &&
-                        !scholarship['name']
-                            .toString()
-                            .toLowerCase()
-                            .contains(_searchText.toLowerCase())) {
-                      return Container();
-                    }
-
-                    return ItemScholarship(
-                      imageUrl: scholarship['imageUrl']!,
-                      name: scholarship['name']!,
-                      description: scholarship['description']!,
-                      openDate: scholarship['openDate']!,
-                      closeDate: scholarship['closeDate']!,
-                      onTap: () {
-                        context.push(
-                          destination: ScholarshipsDetailPage(
-                            imageUrl: scholarship['imageUrl']!,
-                            name: scholarship['name']!,
-                            description: scholarship['description']!,
-                            openDate: scholarship['openDate']!,
-                            closeDate: scholarship['closeDate']!,
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void _onSearchScholarship(String value) {
+    // * Init Pagination
+    _paginationRequest.search = value;
+    // * Request Scholarship List
+    _pagingController.refresh();
   }
 }
