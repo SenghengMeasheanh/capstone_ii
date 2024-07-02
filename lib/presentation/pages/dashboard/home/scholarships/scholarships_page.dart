@@ -104,7 +104,7 @@ class _ScholarshipsPageState extends State<ScholarshipsPage> {
                         itemBuilder: (context, models, index) {
                           return ItemScholarship(
                             models: models,
-                            onTap: () {},
+                            onTap: () => context.push(destination: ScholarshipsDetailPage(id: models.id)),
                           );
                         },
                         firstPageProgressIndicatorBuilder: (context) => const ProgressBar(),

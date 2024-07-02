@@ -94,6 +94,9 @@ class Contact {
   @JsonKey(name: 'address')
   final String address;
 
+  @JsonKey(name: 'address_link')
+  final String addressLink;
+
   @JsonKey(name: 'primary_phone_number')
   final String primaryPhoneNumber;
 
@@ -111,6 +114,7 @@ class Contact {
     required this.name,
     required this.email,
     required this.address,
+    required this.addressLink,
     required this.primaryPhoneNumber,
     required this.secondPhoneNumber,
     required this.thirdPhoneNumber,

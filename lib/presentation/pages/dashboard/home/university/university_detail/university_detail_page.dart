@@ -421,11 +421,14 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                             style: CustomTextStyle.titleTextStyle(bold: true),
                           ),
                           const SizedBox(height: Dimen.largeSpace),
-                          _ContactItem(
-                            icon: Icons.location_on_outlined,
-                            title: Text(
-                              _universityOverviewModel!.contact!.address,
-                              style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
+                          InkWell(
+                            onTap: () => openURILauncher(launchURL: _universityOverviewModel!.contact!.addressLink),
+                            child: _ContactItem(
+                              icon: Icons.location_on_outlined,
+                              title: Text(
+                                _universityOverviewModel!.contact!.address,
+                                style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
+                              ),
                             ),
                           ),
                           _ContactItem(
@@ -465,6 +468,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                               ),
                             ),
                           ),
+                          // * Email
                           _ContactItem(
                             icon: Icons.email_outlined,
                             title: InkWell(
@@ -716,11 +720,15 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                           ),
                           const SizedBox(height: Dimen.largeSpace),
                           // * Address
-                          _ContactItem(
-                            icon: Icons.location_on_outlined,
-                            title: Text(
-                              _universityAdmissionModel!.contactInfo.address,
-                              style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
+                          InkWell(
+                            onTap: () =>
+                                openURILauncher(launchURL: _universityAdmissionModel!.contactInfo.addressLink),
+                            child: _ContactItem(
+                              icon: Icons.location_on_outlined,
+                              title: Text(
+                                _universityAdmissionModel!.contactInfo.address,
+                                style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
+                              ),
                             ),
                           ),
                           // * Phone Number
@@ -759,11 +767,16 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                               ),
                             ),
                           ),
-                          _ContactItem(
-                            icon: Icons.email_outlined,
-                            title: Text(
-                              _universityOverviewModel!.contact!.email,
-                              style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
+                          // * Email
+                          InkWell(
+                            onTap: () => openURILauncher(
+                                launchURL: 'mailto:${_universityAdmissionModel!.contactInfo.email}'),
+                            child: _ContactItem(
+                              icon: Icons.email_outlined,
+                              title: Text(
+                                _universityOverviewModel!.contact!.email,
+                                style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
+                              ),
                             ),
                           ),
                         ],
@@ -1135,69 +1148,123 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         data: _universityScholarshipDetailModel!.detailEn,
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Contact Information',
-                          style: CustomTextStyle.titleTextStyle(bold: true),
-                        ),
-                        const SizedBox(height: Dimen.largeSpace),
-                        // *  Email
-                        Container(
-                          margin: const EdgeInsets.only(bottom: Dimen.smallSpace),
-                          child: Text.rich(
-                            TextSpan(
-                              text: 'Email: ',
-                              style: CustomTextStyle.bodyTextStyle(),
-                              children: [
-                                TextSpan(
-                                  text: _universityScholarshipDetailModel!.contactInfo.email,
-                                  style: CustomTextStyle.bodyTextStyle(decoration: TextDecoration.underline),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () => openURILauncher(
-                                          launchURL:
-                                              'mailto:${_universityScholarshipDetailModel!.contactInfo.email}',
-                                        ),
-                                ),
-                              ],
+                    // * Contact Information
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.largeSpace * 2),
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Contact Information',
+                            style: CustomTextStyle.titleTextStyle(bold: true),
+                          ),
+                          const SizedBox(height: Dimen.largeSpace),
+                          // *  Email
+                          Container(
+                            margin: const EdgeInsets.only(bottom: Dimen.smallSpace),
+                            child: Text.rich(
+                              TextSpan(
+                                text: 'Email: ',
+                                style: CustomTextStyle.bodyTextStyle(),
+                                children: [
+                                  TextSpan(
+                                    text: _universityScholarshipDetailModel!.contactInfo.email,
+                                    style: CustomTextStyle.bodyTextStyle(),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () => openURILauncher(
+                                            launchURL:
+                                                'mailto:${_universityScholarshipDetailModel!.contactInfo.email}',
+                                          ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        // * Phone Number
-                        Container(
-                          margin: const EdgeInsets.only(bottom: Dimen.smallSpace),
-                          child: Text.rich(
-                            TextSpan(
-                              text: 'Phone Number: ',
-                              style: CustomTextStyle.bodyTextStyle(),
-                              children: [
-                                TextSpan(
-                                  text: _universityScholarshipDetailModel!.contactInfo.primaryPhoneNumber,
-                                  style: CustomTextStyle.bodyTextStyle(),
-                                ),
-                                TextSpan(
-                                  text: _universityScholarshipDetailModel!.contactInfo.secondPhoneNumber != null
-                                      ? '/${_universityScholarshipDetailModel!.contactInfo.secondPhoneNumber}'
-                                      : '',
-                                  style: CustomTextStyle.bodyTextStyle(),
-                                ),
-                                TextSpan(
-                                  text: _universityScholarshipDetailModel!.contactInfo.thirdPhoneNumber != null
-                                      ? '/${_universityScholarshipDetailModel!.contactInfo.thirdPhoneNumber}'
-                                      : '',
-                                  style: CustomTextStyle.bodyTextStyle(),
-                                ),
-                              ],
+                          // * Phone Number
+                          Container(
+                            margin: const EdgeInsets.only(bottom: Dimen.smallSpace),
+                            child: Text.rich(
+                              TextSpan(
+                                text: 'Phone Number: ',
+                                style: CustomTextStyle.bodyTextStyle(),
+                                children: [
+                                  TextSpan(
+                                    text: _universityScholarshipDetailModel!.contactInfo.primaryPhoneNumber,
+                                    style: CustomTextStyle.bodyTextStyle(),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () => openURILauncher(
+                                            launchURL:
+                                                'tel:${_universityScholarshipDetailModel!.contactInfo.primaryPhoneNumber}',
+                                          ),
+                                  ),
+                                  TextSpan(
+                                    text: _universityScholarshipDetailModel!.contactInfo.secondPhoneNumber != null
+                                        ? '/${_universityScholarshipDetailModel!.contactInfo.secondPhoneNumber}'
+                                        : '',
+                                    style: CustomTextStyle.bodyTextStyle(),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () => openURILauncher(
+                                            launchURL:
+                                                'tel:${_universityScholarshipDetailModel!.contactInfo.secondPhoneNumber}',
+                                          ),
+                                  ),
+                                  TextSpan(
+                                    text: _universityScholarshipDetailModel!.contactInfo.thirdPhoneNumber != null
+                                        ? '/${_universityScholarshipDetailModel!.contactInfo.thirdPhoneNumber}'
+                                        : '',
+                                    style: CustomTextStyle.bodyTextStyle(),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () => openURILauncher(
+                                            launchURL:
+                                                'tel:${_universityScholarshipDetailModel!.contactInfo.thirdPhoneNumber}',
+                                          ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
+                          // * Address
+                          Container(
+                            margin: const EdgeInsets.only(bottom: Dimen.smallSpace),
+                            child: Text.rich(
+                              TextSpan(
+                                text: 'Address: ',
+                                style: CustomTextStyle.bodyTextStyle(),
+                                children: [
+                                  TextSpan(
+                                    text: _universityScholarshipDetailModel!.contactInfo.address,
+                                    style: CustomTextStyle.bodyTextStyle(),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () => openURILauncher(
+                                            launchURL: _universityScholarshipDetailModel!.contactInfo.addressLink,
+                                          ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // * Apply Button
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () => _universityScholarshipDetailModel!.applyLink != null
+                            ? openURILauncher(launchURL: _universityScholarshipDetailModel!.applyLink!)
+                            : getCurrentContext.showInfoSnackBar(msg: 'Link is not available'),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: Dimen.extraLargeSpace,
+                          ),
                         ),
-                        // * Address
-                        Text(
-                          'Address: ${_universityScholarshipDetailModel!.contactInfo.address}',
-                          style: CustomTextStyle.bodyTextStyle(),
+                        child: Text(
+                          'Apply',
+                          style: CustomTextStyle.buttonTextStyle(),
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),

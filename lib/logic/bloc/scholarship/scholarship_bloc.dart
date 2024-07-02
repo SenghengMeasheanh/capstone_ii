@@ -15,7 +15,10 @@ class ScholarshipBloc extends Bloc<ScholarshipEvent, ScholarshipState> {
   final _scholarshipRepo = ScholarshipRepo();
 
   ScholarshipBloc() : super(ScholarshipInitial()) {
+    // * List | Bloc
     on<RequestScholarshipListEvent>(_onRequestScholarshipListEvent);
+    // * Scholarship Detail | Bloc
+    on<RequestScholarshipDetailEvent>(_onRequestScholarshipDetailEvent);
   }
 
   Future<void> _onRequestScholarshipListEvent(
@@ -52,7 +55,35 @@ class ScholarshipBloc extends Bloc<ScholarshipEvent, ScholarshipState> {
         // * Return
         return;
       }
-    }
-  );
+    });
+  }
+
+  Future<void> _onRequestScholarshipDetailEvent(
+    RequestScholarshipDetailEvent event,
+    Emitter<ScholarshipState> emit,
+  ) async {
+    // * Get Result
+    final result = _scholarshipRepo.getScholarshipDetail(id: event.id);
+    // * Check Result
+    await result.then((response) {
+      // * If Status Code = 200
+      if (response.header.statusCode == 200) {
+        // * Emit Success State
+        emit(RequestScholarshipDetailSuccessState(response: response));
+      } else {
+        // * Emit Error State
+        emit(RequestScholarshipDetailErrorState());
+      }
+    }, onError: (exception, stackTrace) async {
+      // * Debug Print Error
+      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+      // * If Server Not Response
+      if (exception is DioException) {
+        // * Emit Error State
+        emit(RequestScholarshipDetailErrorState());
+        // * Return
+        return;
+      }
+    });
   }
 }
