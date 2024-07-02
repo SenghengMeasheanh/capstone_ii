@@ -12,4 +12,11 @@ class ScholarshipRepo {
       limit: limit,
     );
   }
+
+  Future<MapBodyResponse<ScholarshipDetailModels>> getScholarshipDetail({
+    required int id,
+  }) async {
+    return await ApiService().getScholarshipDetail(id: id);
+  }
+
 }

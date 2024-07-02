@@ -74,7 +74,12 @@ abstract class ApiService {
     @Query('limit') int? limit,
   });
 
-  // * Unversity Endpoint
+  @GET('/scholarships/{id}')
+  Future<MapBodyResponse<ScholarshipDetailModels>> getScholarshipDetail({
+    @Path('id') required int id,
+  });
+
+  // * University Endpoint
   @GET('/universities')
   Future<ListBodyResponse<UniversityModels>> getUniversityList({
     @Query('search') String? search,

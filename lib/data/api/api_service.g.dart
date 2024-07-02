@@ -261,6 +261,37 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<MapBodyResponse<ScholarshipDetailModels>> getScholarshipDetail(
+      {required int id}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<MapBodyResponse<ScholarshipDetailModels>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/scholarships/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = MapBodyResponse<ScholarshipDetailModels>.fromJson(
+      _result.data!,
+      (json) => ScholarshipDetailModels.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<ListBodyResponse<UniversityModels>> getUniversityList({
     String? search,
     int? page,
