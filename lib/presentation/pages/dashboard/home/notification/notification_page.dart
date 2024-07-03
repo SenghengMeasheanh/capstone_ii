@@ -37,45 +37,7 @@ class _NotificationPageState extends State<NotificationPage> {
                 separatorBuilder: (_, __) => const SizedBox(
                   height: Dimen.mediumSpace,
                 ),
-                itemBuilder: (_, index) => ListTile(
-                  tileColor: primaryColor.withOpacity(0.2),
-                  leading: ActionMenuIcon(
-                    radius: 24,
-                    icon: const Icon(
-                      Icons.edit,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {},
-                    backgroundColor: primaryColor,
-                  ),
-                  visualDensity: const VisualDensity(
-                    horizontal: -2,
-                    vertical: 4,
-                  ),
-                  minTileHeight: 6,
-                  minLeadingWidth: 2,
-                  contentPadding: const EdgeInsets.only(
-                    left: Dimen.mediumSpace,
-                    right: Dimen.mediumSpace,
-                    top: Dimen.mediumSpace,
-                  ),
-                  title: Text('Notification Title'),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'You may qualify for additional financial aid from certain schools.',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: Dimen.largeSpace),
-                        child: Text('Notification Date'),
-                      ),
-                    ],
-                  ),
-                  isThreeLine: true,
-                ),
+                itemBuilder: (_, index) => const ItemNotification(),
               ),
             )
           ],
