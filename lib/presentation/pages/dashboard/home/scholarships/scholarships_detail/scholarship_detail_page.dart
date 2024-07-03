@@ -3,7 +3,6 @@ import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:capstone_ii/presentation/widgets/custom_cached_network_image_widget.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

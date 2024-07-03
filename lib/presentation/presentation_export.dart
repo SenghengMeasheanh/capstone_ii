@@ -65,6 +65,9 @@ export 'pages/dashboard/home/forum/forum_page.dart';
 export 'pages/dashboard/home/guides/guides_page.dart';
 export 'pages/dashboard/home/guides/guides_details/guides_details.dart';
 
+// ? Pages (Dashboard/Home/Notification)
+export 'pages/dashboard/home/notification/notification_page.dart';
+export 'pages/dashboard/home/notification/notifictaion_detail_page.dart';
 
 // ? Pages (Dashboard/Home/Scholarship)
 export 'pages/dashboard/home/scholarships/scholarships_page.dart';

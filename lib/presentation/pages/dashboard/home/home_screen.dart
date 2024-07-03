@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text('Home', style: CustomTextStyle.titleTextStyle(fontSize: 30, bold: true)),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () => context.push(destination: const NotificationPage()),
               icon: const Icon(
                 Icons.notifications,
                 size: 31,
