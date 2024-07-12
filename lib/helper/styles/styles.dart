@@ -54,6 +54,7 @@ final textFormFieldTheme = InputDecorationTheme(
   hintStyle: CustomTextStyle.bodyTextStyle(color: Colors.grey),
   labelStyle: CustomTextStyle.bodyTextStyle(color: Colors.grey),
   errorStyle: CustomTextStyle.captionTextStyle(color: Colors.red),
+  isDense: true,
   border: OutlineInputBorder(
     borderSide: const BorderSide(color: Colors.black),
     borderRadius: BorderRadius.circular(Dimen.textFieldRadius),
@@ -82,7 +83,6 @@ class CustomTextStyle {
     bool bold = false,
     double fontSize = Dimen.largeTitleTextSize,
     FontWeight? fontWeight,
-    
   }) {
     return TextStyle(
       color: color,

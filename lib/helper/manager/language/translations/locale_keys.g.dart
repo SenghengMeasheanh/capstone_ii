@@ -48,5 +48,31 @@ abstract class  LocaleKeys {
   static const privacy_policy = 'privacy_policy';
   static const terms_and_conditions  = 'terms_and_conditions ';
   static const career = 'career';
+  static const please_fill_the_information = 'please_fill_the_information';
+  static const invalid_email = 'invalid_email';
+  static const password_must_be_at_least_8_characters_long = 'password_must_be_at_least_8_characters_long';
+  static const password_must_contain_at_least_one_symbol = 'password_must_contain_at_least_one_symbol';
+  static const new_and_confirm_password_must_be_the_same = 'new_and_confirm_password_must_be_the_same';
+  static const email = 'email';
+  static const password = 'password';
+  static const confirm_password = 'confirm_password';
+  static const birthday = 'birthday';
+  static const gender = 'gender';
+  static const select_gender = 'select_gender';
+  static const i_agree_to_the = 'i_agree_to_the';
+  static const and = 'and';
+  static const sign_in = 'sign_in';
+  static const fullname = 'fullname';
+  static const please_agree_to_our_terms_and_condition_and_pivacy_policy = 'please_agree_to_our_terms_and_condition_and_pivacy_policy';
+  static const remember_me = 'remember_me';
+  static const log_out = 'log_out';
+  static const share_app = 'share_app';
+  static const rate_us = 'rate_us';
+  static const ok = 'ok';
+  static const cancel = 'cancel';
+  static const session_expired = 'session_expired';
+  static const please_login_again = 'please_login_again';
+  static const log_out_of_account = 'log_out_of_account';
+  static const to_see_it_again_log_back_in_to_your_account = 'to_see_it_again_log_back_in_to_your_account';
 
 }

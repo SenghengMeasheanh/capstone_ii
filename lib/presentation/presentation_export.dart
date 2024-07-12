@@ -20,6 +20,7 @@ export 'modals/bottom_sheets/language_picker_bottom_sheet.dart';
 
 // ? Modals (Dialogs)
 export 'modals/dialogs/downloading_progress_dialog.dart';
+export 'modals/dialogs/info_dialog.dart';
 export 'modals/dialogs/no_internet_dialog.dart';
 export 'modals/dialogs/progress_dialog.dart';
 export 'modals/dialogs/university_filter_dialog.dart';

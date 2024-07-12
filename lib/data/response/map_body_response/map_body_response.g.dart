@@ -12,7 +12,7 @@ MapBodyResponse<T> _$MapBodyResponseFromJson<T>(
 ) =>
     MapBodyResponse<T>(
       GlobalHeader.fromJson(json['header'] as Map<String, dynamic>),
-      Body<T>.fromJson(
+      MapBody<T>.fromJson(
           json['body'] as Map<String, dynamic>, (value) => fromJsonT(value)),
     );
 
@@ -27,16 +27,16 @@ Map<String, dynamic> _$MapBodyResponseToJson<T>(
       ),
     };
 
-Body<T> _$BodyFromJson<T>(
+MapBody<T> _$MapBodyFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
 ) =>
-    Body<T>(
+    MapBody<T>(
       fromJsonT(json['data']),
     );
 
-Map<String, dynamic> _$BodyToJson<T>(
-  Body<T> instance,
+Map<String, dynamic> _$MapBodyToJson<T>(
+  MapBody<T> instance,
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
