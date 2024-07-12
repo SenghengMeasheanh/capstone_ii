@@ -11,6 +11,23 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  // * Variable
+  late String _fullname;
+
+  // * Init State
+  @override
+  void initState() {
+    super.initState();
+    // * Get User Info
+    _getUserInfo();
+  }
+
+  // * Get User Info
+  void _getUserInfo() {
+    // * Get User Info
+    _fullname = AppPreference.getUser?.name ?? 'Username';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +66,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Eminem', style: CustomTextStyle.largeTitleTextStyle(bold: true)),
+                            Text(_fullname, style: CustomTextStyle.largeTitleTextStyle(bold: true)),
                             Text('CADT', style: CustomTextStyle.bodyTextStyle()),
                           ],
                         ),
@@ -91,24 +108,40 @@ class _SettingScreenState extends State<SettingScreen> {
                       onTap: () {},
                     ),
                     // * Privacy Policy
-                    _buildListTileWithDivider(
-                      leading: const Icon(Icons.privacy_tip, color: primaryColor),
-                      title: Text(tr(LocaleKeys.privacy_policy), style: CustomTextStyle.bodyTextStyle()),
-                      onTap: () {},
-                      trailing: const Icon(Icons.arrow_forward_ios, color: primaryColor),
+                    Visibility(
+                      visible: isSignedIn(),
+                      child: _buildListTileWithDivider(
+                        leading: const Icon(Icons.privacy_tip, color: primaryColor),
+                        title: Text(tr(LocaleKeys.privacy_policy), style: CustomTextStyle.bodyTextStyle()),
+                        onTap: () {},
+                        trailing: const Icon(Icons.arrow_forward_ios, color: primaryColor),
+                      ),
                     ),
                     // * Terms and Conditions
-                    _buildListTileWithDivider(
-                      leading: const Icon(Icons.description, color: primaryColor),
-                      title: Text(tr(LocaleKeys.terms_and_conditions), style: CustomTextStyle.bodyTextStyle()),
-                      onTap: () {},
-                      trailing: const Icon(Icons.arrow_forward_ios, color: primaryColor),
+                    Visibility(
+                      visible: isSignedIn(),
+                      child: _buildListTileWithDivider(
+                        leading: const Icon(Icons.description, color: primaryColor),
+                        title: Text(tr(LocaleKeys.terms_and_conditions), style: CustomTextStyle.bodyTextStyle()),
+                        onTap: () {},
+                        trailing: const Icon(Icons.arrow_forward_ios, color: primaryColor),
+                      ),
                     ),
                     // * Log out
-                    _buildListTileWithDivider(
-                      leading: const Icon(Icons.logout, color: Colors.red),
-                      title: Text('Log out', style: CustomTextStyle.bodyTextStyle(color: Colors.red)),
-                      onTap: () {},
+                    Visibility(
+                      visible: isSignedIn(),
+                      child: _buildListTileWithDivider(
+                        leading: const Icon(Icons.logout, color: Colors.red),
+                        title:
+                            Text(tr(LocaleKeys.log_out), style: CustomTextStyle.bodyTextStyle(color: Colors.red)),
+                        onTap: () => InfoDialog().show(
+                          title: tr(LocaleKeys.log_out_of_account),
+                          message: tr(LocaleKeys.to_see_it_again_log_back_in_to_your_account),
+                          positiveBtnText: tr(LocaleKeys.log_out),
+                          positiveBtnBgColor: Colors.red,
+                          onPositiveTap: () => clearAndRestart(),
+                        ),
+                      ),
                     ),
                   ],
                 ),

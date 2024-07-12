@@ -30,6 +30,16 @@ abstract class ApiService {
     );
     return _ApiService(dio, baseUrl: baseUrl ?? Flavor.instance.apiURL);
   }
+  // * Authention Endpoint
+  @POST('/auth/user/register')
+  Future<AuthResponse> requestSignUp({
+    @Body() required SignUpRequest signUpRequest,
+  });
+
+  @POST('/auth/user/login')
+  Future<AuthResponse> requestSignIn({
+    @Body() required SignInRequest signInRequest,
+  });
 
   // * Career Endpoint
   @GET('/careers')
@@ -144,9 +154,7 @@ abstract class ApiService {
   });
 
   @GET('/universities/events/{id}')
-  Future<ListBodyResponse<UniversityEventModels>> getUniversityEvent({
-    @Path('id') required int id
-  });
+  Future<ListBodyResponse<UniversityEventModels>> getUniversityEvent({@Path('id') required int id});
 
   @GET('/universities/event/detail/{id}')
   Future<MapBodyResponse<UniversityEventDetailModels>> getUniversityEventDetail({

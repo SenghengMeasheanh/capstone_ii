@@ -27,17 +27,22 @@ export 'models/university/university_detail/program/university_specialize/univer
 export 'models/university/university_detail/tuition/university_tuition_models.dart';
 export 'models/university/university_detail/scholarship/university_scholarship_models.dart';
 export 'models/university/university_detail/scholarship/university_scholarship_detail/university_scholarship_detail_models.dart';
+export 'models/user/user_models.dart';
 
 // * Repositories
+export 'repositories/auth_repo.dart';
 export 'repositories/career_repo.dart';
 export 'repositories/financial_aid_repo.dart';
 export 'repositories/scholarship_repo.dart';
 export 'repositories/university_repo.dart';
 
 // * Request
+export 'request/auth/sign_in/sign_in_request.dart';
+export 'request/auth/sign_up/sign_up_request.dart';
 export 'request/pagination/pagination_request.dart';
 
 // * Response
+export 'response/auth/auth_response.dart';
 export 'response/global/global_response.dart';
 export 'response/list_body_response/list_body_response.dart';
 export 'response/list_body_response/secure/list_body_secure_response.dart';

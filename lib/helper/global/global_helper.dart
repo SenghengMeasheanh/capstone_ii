@@ -15,23 +15,23 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 
 // * Clear And Restart
-// void clearAndRestart({
-//   bool showSessionExpiredDialog = false,
-// }) {
-//   // * Clear Credential
-//   AppPreference.clearCredential();
-//   // * Go To Sign In Page
-//   getCurrentContext.go(destination: const SignInPage());
-//   // * If Show Session Expired Dialog
-//   if (showSessionExpiredDialog) {
-//     // ! Show Info Dialog
-//     InfoDialog().show(
-//       title: tr(LocaleKeys.sign_in_expired),
-//       message: tr(LocaleKeys.please_sign_in_again),
-//       negativeBtnVisible: false,
-//     );
-//   }
-// }
+void clearAndRestart({
+  bool showSessionExpiredDialog = false,
+}) {
+  // * Clear Credential
+  AppPreference.clearCredential();
+  // * Go To Dashboard Page
+  getCurrentContext.go(destination: const DashboardPage());
+  // * If Show Session Expired Dialog
+  if (showSessionExpiredDialog) {
+    // ! Show Info Dialog
+    InfoDialog().show(
+      title: tr(LocaleKeys.session_expired),
+      message: tr(LocaleKeys.please_login_again),
+      negativeBtnVisible: false,
+    );
+  }
+}
 
 // // * Crop Image
 // Future<String?> cropImage({
@@ -327,7 +327,7 @@ Widget getMenuRoute({required Menu value}) {
     Menu.forum: const ForumPage(),
     Menu.events: const EventPage(),
     Menu.guides: const GuidesPage(),
-    Menu.collegeQuiz: const CollegeQuizPage(),
+    Menu.collegeQuiz: isSignedIn() ? const CollegeQuizPage() : const SignInPage(),
     Menu.scholarships: const ScholarshipsPage(),
     Menu.financialAid: const FinancialAidPage(),
     Menu.compareColleges: const CompareCollegePage(),

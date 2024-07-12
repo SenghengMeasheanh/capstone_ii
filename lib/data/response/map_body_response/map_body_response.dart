@@ -9,7 +9,7 @@ class MapBodyResponse<T> {
   final GlobalHeader header;
 
   @JsonKey(name: 'body')
-  final Body<T> body;
+  final MapBody<T> body;
 
   MapBodyResponse(
     this.header,
@@ -18,20 +18,19 @@ class MapBodyResponse<T> {
 
   factory MapBodyResponse.fromJson(Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
       _$MapBodyResponseFromJson(json, fromJsonT);
-  
 }
 
 @JsonSerializable(genericArgumentFactories: true)
-class Body<T> {
+class MapBody<T> {
   @JsonKey(name: 'data')
   final T data;
 
-  Body(
+  MapBody(
     this.data,
   );
 
-  factory Body.fromJson(Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
-      _$BodyFromJson(json, fromJsonT);
+  factory MapBody.fromJson(Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
+      _$MapBodyFromJson(json, fromJsonT);
 
-  Map<String, dynamic> toJson(Object? Function(T value) toJsonT) => _$BodyToJson(this, toJsonT);
+  Map<String, dynamic> toJson(Object? Function(T value) toJsonT) => _$MapBodyToJson(this, toJsonT);
 }

@@ -44,3 +44,6 @@ enum EventFilterMenu {
 
 // * Others
 const pageSize = 10;
+
+const unauthorizedMessage = 'Session Expired, Please sign in again';
+const servererrorMessage = 'Server not response, Please try again';
