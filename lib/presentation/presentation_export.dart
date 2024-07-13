@@ -47,7 +47,7 @@ export 'pages/dashboard/home/career/career_page.dart';
 export 'pages/dashboard/home/career/career_detail_page.dart';
 
 // ? Pages (Dashboard/Home/College Quiz)
-export 'pages/dashboard/home/college_quiz/college_quiz_page.dart';
+export 'pages/dashboard/home/career_quiz/career_quiz_page.dart';
 
 // ? Pages (Dashboard/Home/Compare College)
 export 'pages/dashboard/home/compare_college/compare_college_page.dart';

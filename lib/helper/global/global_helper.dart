@@ -13,7 +13,6 @@ import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-
 // * Clear And Restart
 void clearAndRestart({
   bool showSessionExpiredDialog = false,
@@ -327,7 +326,7 @@ Widget getMenuRoute({required Menu value}) {
     Menu.forum: const ForumPage(),
     Menu.events: const EventPage(),
     Menu.guides: const GuidesPage(),
-    Menu.collegeQuiz: isSignedIn() ? const CollegeQuizPage() : const SignInPage(),
+    Menu.collegeQuiz: isSignedIn() ? const CareerQuizPage() : const SignInPage(),
     Menu.scholarships: const ScholarshipsPage(),
     Menu.financialAid: const FinancialAidPage(),
     Menu.compareColleges: const CompareCollegePage(),
