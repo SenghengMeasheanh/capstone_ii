@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
+import 'package:capstone_ii/data/data_export.dart';
 
 part 'api_service_secure.g.dart';
 
@@ -30,5 +31,9 @@ abstract class ApiServiceSecure {
     );
     return _ApiServiceSecure(dio, baseUrl: baseUrl ?? Flavor.instance.apiURL);
   }
+
+  // * Career Quiz
+  @GET('/career_quiz')
+  Future<ListBodySecureResponse<CareerQuizModels>> getCareerQuiz();
 
 }
