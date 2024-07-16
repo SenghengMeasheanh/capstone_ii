@@ -112,8 +112,10 @@ class CustomTextStyle {
     bool bold = false,
     double fontSize = Dimen.bodyTextSize,
     FontWeight? fontWeight,
+    double? height,
   }) {
     return TextStyle(
+      height: height,
       color: color,
       decoration: decoration,
       fontSize: fontSize,
@@ -128,8 +130,10 @@ class CustomTextStyle {
     bool bold = false,
     double fontSize = Dimen.captionTextSize,
     FontWeight? fontWeight,
+    double? height,
   }) {
     return TextStyle(
+      height: height,
       backgroundColor: backgroundColor,
       color: color,
       fontSize: fontSize,

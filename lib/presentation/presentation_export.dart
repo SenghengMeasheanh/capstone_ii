@@ -1,5 +1,6 @@
 // * Items
 export 'items/item_career.dart';
+export 'items/item_career_quiz_question.dart';
 export 'items/item_filter.dart';
 export 'items/item_financial_aid.dart';
 export 'items/item_guide.dart';
@@ -46,8 +47,10 @@ export 'pages/dashboard/home/home_screen.dart';
 export 'pages/dashboard/home/career/career_page.dart';
 export 'pages/dashboard/home/career/career_detail_page.dart';
 
-// ? Pages (Dashboard/Home/College Quiz)
+// ? Pages (Dashboard/Home/Career Quiz)
 export 'pages/dashboard/home/career_quiz/career_quiz_page.dart';
+export 'pages/dashboard/home/career_quiz/career_quiz_question_page.dart';
+export 'pages/dashboard/home/career_quiz/career_quiz_result_page.dart';
 
 // ? Pages (Dashboard/Home/Compare College)
 export 'pages/dashboard/home/compare_college/compare_college_page.dart';

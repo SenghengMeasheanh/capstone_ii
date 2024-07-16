@@ -74,5 +74,23 @@ abstract class  LocaleKeys {
   static const please_login_again = 'please_login_again';
   static const log_out_of_account = 'log_out_of_account';
   static const to_see_it_again_log_back_in_to_your_account = 'to_see_it_again_log_back_in_to_your_account';
+  static const career_quiz_description = 'career_quiz_description';
+  static const before_we_begin = 'before_we_begin';
+  static const as_you_answer_the_question = 'as_you_answer_the_question';
+  static const career_quiz_tip = 'career_quiz_tip';
+  static const career_quiz = 'career_quiz';
+  static const strongly_dislike = 'strongly_dislike';
+  static const dislike = 'dislike';
+  static const unsure = 'unsure';
+  static const like = 'like';
+  static const strongly_like = 'strongly_like';
+  static const three = 'three';
+  static const four = 'four';
+  static const five = 'five';
+  static const number_one = 'number_one';
+  static const number_two = 'number_two';
+  static const start_career_quiz = 'start_career_quiz';
+  static const all_questions_must_be_answered = 'all_questions_must_be_answered';
+  static const submit = 'submit';
 
 }

@@ -19,7 +19,7 @@ class AppPreference {
 
   // * Setter
   static Future<void> saveAccessToken(String accessToken) async {
-    await _preferences.setString(_keyAccessToken, 'bearer $accessToken');
+    await _preferences.setString(_keyAccessToken, 'Bearer $accessToken');
   }
 
   static Future<void> saveRefreshToken(String refreshToken) async {

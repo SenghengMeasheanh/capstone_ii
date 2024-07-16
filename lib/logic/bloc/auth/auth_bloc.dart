@@ -66,7 +66,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         // * Emit Success State
         emit(RequestSignInSuccessState(signInResponse: response, msg: response.header.message!));
       } else {
-        emit(RequestSignInErrorState(message: response.header.message!));
+        if (response.header.statusCode == 401) {
+          emit(RequestSignInErrorState(message: response.header.message!));
+        }
       }
     }, onError: (exception, stackTrace) {
       // * Debug Print Error
