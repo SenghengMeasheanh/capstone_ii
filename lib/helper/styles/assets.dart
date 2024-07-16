@@ -36,6 +36,7 @@ class Assets {
 
   // * Images
   static const String imageBookmarkOutlined = '$_imagePath/ig_bookmark_outlined.png'; 
+  static const String imageHero1 = '$_imagePath/hero_1.png';
   static const String imageLogo = '$_imagePath/logo.png';
   static const String imageLogoWithBg = '$_imagePath/logo_with_bg.png';
   static const imageNoImage = '$_imagePath/no_image.jpg';
