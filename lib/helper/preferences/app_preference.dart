@@ -23,7 +23,7 @@ class AppPreference {
   }
 
   static Future<void> saveRefreshToken(String refreshToken) async {
-    await _preferences.setString(_keyRefreshToken, refreshToken);
+    await _preferences.setString(_keyRefreshToken, 'Bearer $refreshToken');
   }
 
   static Future<void> saveUser(UserModels userModels) async {

@@ -51,6 +51,7 @@ GlobalBody _$GlobalBodyFromJson(Map<String, dynamic> json) => GlobalBody(
       (json['id'] as num?)?.toInt(),
       json['transactionId'] as String?,
       json['token'] as String?,
+      json['refresh_token'] as String?,
     );
 
 Map<String, dynamic> _$GlobalBodyToJson(GlobalBody instance) {
@@ -67,5 +68,6 @@ Map<String, dynamic> _$GlobalBodyToJson(GlobalBody instance) {
   writeNotNull('id', instance.notificationCount);
   writeNotNull('transactionId', instance.transactionId);
   writeNotNull('token', instance.token);
+  writeNotNull('refresh_token', instance.refreshToken);
   return val;
 }

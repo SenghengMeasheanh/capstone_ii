@@ -22,13 +22,23 @@ class CareerQuizBloc extends Bloc<CareerQuizEvent, CareerQuizState> {
     // * Get Result
     final result = _careerQuizRepo.getCareerQuiz();
     // * Check Result
-    await result.then((response) {
+    await result.then((response) async {
       // * If Status Code =  200
       if (response.header.statusCode == 200) {
         // * Emit Success
         emit(RequestCareerQuizListSuccessState(response: response));
       } else {
-        // * Emit Error
+        if (response.header.statusCode == 401) {
+          // * Replace Access Token With Request
+          await AppPreference.saveAccessToken(AppPreference.getRefreshToken!);
+          // * Fetch Rrefresh Token
+          await fetchRefreshToken();
+          // * Call Event Again
+          add(RequestCareerQuizListEvent());
+          // * Return
+          return;
+        }
+        //  * Emit Error
         emit(RequestCareerQuizListErrorState());
       }
     }, onError: (exception, stackTrace) {

@@ -31,9 +31,11 @@ abstract class ApiServiceSecure {
     );
     return _ApiServiceSecure(dio, baseUrl: baseUrl ?? Flavor.instance.apiURL);
   }
+  // * Refresh Token
+  @POST('/auth/user/refresh_token')
+  Future<AuthResponse> requestRefreshToken();
 
   // * Career Quiz
   @GET('/career_quiz')
   Future<ListBodySecureResponse<CareerQuizModels>> getCareerQuiz();
-
 }

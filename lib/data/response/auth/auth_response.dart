@@ -8,8 +8,8 @@ class AuthResponse {
   @JsonKey(name: 'header')
   final GlobalHeader header;
 
-  @JsonKey(name: 'body')
-  final AuthBody body;
+  @JsonKey(name: 'body', includeIfNull: false)
+  final AuthBody? body;
 
   const AuthResponse(
     this.header,
