@@ -12,4 +12,8 @@ class AuthRepo {
   }) async {
     return await ApiService().requestSignIn(signInRequest: signInRequest);
   }
+
+  Future<AuthResponse> requestRefreshToken() async {
+    return await ApiServiceSecure().requestRefreshToken();
+  }
 }

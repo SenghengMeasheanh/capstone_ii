@@ -7,19 +7,18 @@ final class AuthInitial extends AuthState {}
 
 // * Sign Up | State
 final class RequestSignUpSuccessState extends AuthState {
-  final AuthResponse signUpResponse;
+  final AuthResponse response;
   final String msg;
 
-  RequestSignUpSuccessState({required this.signUpResponse, required this.msg});
+  RequestSignUpSuccessState({required this.response, required this.msg});
 }
 
 // * Sign In | State
-
 final class RequestSignInSuccessState extends AuthState {
-  final AuthResponse signInResponse;
+  final AuthResponse response;
   final String msg;
 
-  RequestSignInSuccessState({required this.signInResponse, required this.msg});
+  RequestSignInSuccessState({required this.response, required this.msg});
 }
 
 // ! Sign Up | State
@@ -35,3 +34,4 @@ final class RequestSignInErrorState extends AuthState {
 
   RequestSignInErrorState({required this.message});
 }
+

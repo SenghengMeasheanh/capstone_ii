@@ -19,6 +19,33 @@ class _ApiServiceSecure implements ApiServiceSecure {
   String? baseUrl;
 
   @override
+  Future<AuthResponse> requestRefreshToken() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<AuthResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/auth/user/refresh_token',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = AuthResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<ListBodySecureResponse<CareerQuizModels>> getCareerQuiz() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

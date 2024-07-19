@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:developer' as developer;
 
 import 'package:android_id/android_id.dart';
+import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
@@ -30,6 +31,33 @@ void clearAndRestart({
       negativeBtnVisible: false,
     );
   }
+}
+
+// * Request Refresh Token
+Future<void> fetchRefreshToken() async {
+  // *  Init Auth Repo
+  final authRepo = AuthRepo();
+  // *  Get Result
+  final result = authRepo.requestRefreshToken();
+  // * Await Result
+  await result.then(
+    (response) {
+      // * Check Result
+      if (response.header.statusCode == 200) {
+        // * Set Token
+        AppPreference.saveAccessToken(response.body!.token);
+      }
+    },
+    onError: (exception, stackTrace) {
+      // * Debug Print Error
+      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+      // * If Server Not Response
+      if (exception is DioException) {
+        // * Request Refresh Token Again
+        fetchRefreshToken();
+      }
+    },
+  );
 }
 
 // // * Crop Image

@@ -31,7 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     await result.then((response) {
       // * Check Result
       if (response.header.statusCode == 200) {
-        emit(RequestSignUpSuccessState(signUpResponse: response, msg: response.header.message!));
+        emit(RequestSignUpSuccessState(response: response, msg: response.header.message!));
       } else {
         emit(RequestSignUpErrorState(message: response.header.message!));
       }
@@ -59,12 +59,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       // * Check Result
       if (response.header.statusCode == 200) {
         // * Save Authentication Info
-        await AppPreference.saveAccessToken(response.body.token);
-        await AppPreference.saveRefreshToken(response.body.refreshToken);
+        await AppPreference.saveAccessToken(response.body!.token);
+        await AppPreference.saveRefreshToken(response.body!.refreshToken);
         // * Save User Info
-        await AppPreference.saveUser(response.body.user);
+        await AppPreference.saveUser(response.body!.user);
         // * Emit Success State
-        emit(RequestSignInSuccessState(signInResponse: response, msg: response.header.message!));
+        emit(RequestSignInSuccessState(response: response, msg: response.header.message!));
       } else {
         if (response.header.statusCode == 401) {
           emit(RequestSignInErrorState(message: response.header.message!));

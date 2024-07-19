@@ -58,7 +58,7 @@ class GlobalHeader {
 
 @JsonSerializable()
 class GlobalBody {
-  @JsonKey(name: 'status',includeIfNull: false)
+  @JsonKey(name: 'status', includeIfNull: false)
   final dynamic status;
 
   @JsonKey(name: 'message', includeIfNull: false)
@@ -74,12 +74,16 @@ class GlobalBody {
   @JsonKey(name: 'token', includeIfNull: false)
   final String? token;
 
+  @JsonKey(name: 'refresh_token', includeIfNull: false)
+  final String? refreshToken;
+
   const GlobalBody(
     this.status,
     this.msg,
     this.notificationCount,
     this.transactionId,
     this.token,
+    this.refreshToken,
   );
 
   String get message => msg!;
