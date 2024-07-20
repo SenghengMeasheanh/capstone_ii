@@ -25,6 +25,8 @@ class PaginationRequest {
   @JsonKey(name: 'major', includeIfNull: false)
   int? major;
 
+  @JsonKey(name: 'category', includeIfNull: false)
+  int? category;
 
   PaginationRequest();
 

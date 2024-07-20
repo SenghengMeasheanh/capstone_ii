@@ -58,6 +58,7 @@ Future<void> main() async {
             BlocProvider(create: (_) => CareerBloc()),
             BlocProvider(create: (_) => CareerQuizBloc()),
             BlocProvider(create: (_) => EventsBloc()),
+            BlocProvider(create: (_) => EventsBloc()),
             BlocProvider(create: (_) => FinancialAidBloc()),
             BlocProvider(create: (_) => InternetCubit()),
             BlocProvider(create: (_) => ScholarshipBloc()),
