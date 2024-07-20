@@ -14,7 +14,8 @@ PaginationRequest _$PaginationRequestFromJson(Map<String, dynamic> json) =>
       ..degree = (json['degree'] as num?)?.toInt()
       ..location = (json['location'] as num?)?.toInt()
       ..type = (json['type'] as num?)?.toInt()
-      ..major = (json['major'] as num?)?.toInt();
+      ..major = (json['major'] as num?)?.toInt()
+      ..category = (json['category'] as num?)?.toInt();
 
 Map<String, dynamic> _$PaginationRequestToJson(PaginationRequest instance) {
   final val = <String, dynamic>{
@@ -33,5 +34,6 @@ Map<String, dynamic> _$PaginationRequestToJson(PaginationRequest instance) {
   writeNotNull('location', instance.location);
   writeNotNull('type', instance.type);
   writeNotNull('major', instance.major);
+  writeNotNull('category', instance.category);
   return val;
 }

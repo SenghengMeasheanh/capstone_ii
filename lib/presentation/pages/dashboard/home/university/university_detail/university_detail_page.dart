@@ -422,7 +422,8 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                           ),
                           const SizedBox(height: Dimen.largeSpace),
                           InkWell(
-                            onTap: () => openURILauncher(launchURL: _universityOverviewModel!.contact!.addressLink),
+                            onTap: () =>
+                                openURILauncher(launchURL: _universityOverviewModel!.contact!.addressLink),
                             child: _ContactItem(
                               icon: Icons.location_on_outlined,
                               title: Text(
@@ -886,7 +887,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
         separatorBuilder: (context, index) => const SizedBox(height: Dimen.largeSpace),
         builderDelegate: PagedChildBuilderDelegate<UniversityEventModels>(
           itemBuilder: (context, models, index) {
-            return ItemUniversityEvent(
+            return ItemEvent(
               models: models,
               onTap: () => _onShowEventDetail(models.id),
             );

@@ -1,13 +1,12 @@
-import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ItemUniversityEvent extends StatelessWidget {
-  final UniversityEventModels models;
+class ItemEvent extends StatelessWidget {
+  final dynamic models;
   final Function() onTap;
-  const ItemUniversityEvent({
+  const ItemEvent({
     super.key,
     required this.models,
     required this.onTap,
