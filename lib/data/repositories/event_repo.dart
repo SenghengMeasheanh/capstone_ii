@@ -18,4 +18,10 @@ class EventRepo {
   Future<ListBodyResponse<EventCategoryModels>> getEventCategoryList(){
     return ApiService().getEventCategoryList();
   }
+
+  Future<MapBodyResponse<EventDetailModels>> getEventDetail({
+    required int id,
+  }) async {
+    return await ApiService().getEventDetail(id: id);
+  }
 }

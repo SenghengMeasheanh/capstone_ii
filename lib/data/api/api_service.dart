@@ -70,6 +70,11 @@ abstract class ApiService {
   @GET('/events/category')
   Future<ListBodyResponse<EventCategoryModels>> getEventCategoryList();
 
+  @GET('/events/{id}')
+  Future<MapBodyResponse<EventDetailModels>> getEventDetail({
+    @Path('id') required int id,
+  });
+
   // * Financial Aid Endpoint
   @GET('/financial_aids')
   Future<ListBodyResponse<FinancialAidModels>> getFinancialAidList({
