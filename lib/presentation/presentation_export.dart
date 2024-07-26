@@ -1,3 +1,7 @@
+// * Global
+export 'global/pre_sign_up_page.dart';
+export 'global/static_pages_page.dart';
+
 // * Items
 export 'items/item_career.dart';
 export 'items/item_career_quiz_question.dart';
@@ -36,9 +40,6 @@ export 'pages/authentication/verification_page.dart';
 
 // ? Pages (Dashboard)
 export 'pages/dashboard/dashboard_page.dart';
-
-// ? Pages (Dashboard/Profile)
-export 'pages/dashboard/profile/profile_screen.dart';
 
 // ? Pages (Dashboard/Home)
 export 'pages/dashboard/home/home_screen.dart';
@@ -82,11 +83,17 @@ export 'pages/dashboard/home/scholarships/scholarships_detail/scholarship_detail
 export 'pages/dashboard/home/university/university_page.dart';
 export 'pages/dashboard/home/university/university_detail/university_detail_page.dart';
 
+// ? Paged (Dashboard/Bookmark)
+export 'pages/dashboard/bookmark/bookmark_screen.dart';
+
 // ? Pages (Dashboard/Calender)
 export 'pages/dashboard/calender/calender_screen.dart';
 
 // ? Pages (Dashboard/Settings)
-export 'pages/dashboard/settings/setting_screen.dart';
+export 'pages/dashboard/settings/account_screen.dart';
+export 'pages/dashboard/settings/privacy_policy/privacy_policy_page.dart';
+export 'pages/dashboard/settings/profile/profile_screen.dart';
+export 'pages/dashboard/settings/terms_and_conditions/terms_and_conditions_page.dart';
 
 // * Widgets
 export 'widgets/action_menu_widget.dart';

@@ -92,5 +92,13 @@ abstract class  LocaleKeys {
   static const start_career_quiz = 'start_career_quiz';
   static const all_questions_must_be_answered = 'all_questions_must_be_answered';
   static const submit = 'submit';
+  static const popular_university = 'popular_university';
+  static const view_all = 'view_all';
+  static const popular_career = 'popular_career';
+  static const profile = 'profile';
+  static const highschool = 'highschool';
+  static const personal_information = 'personal_information';
+  static const contact_info = 'contact_info';
+  static const about_us = 'about_us';
 
 }

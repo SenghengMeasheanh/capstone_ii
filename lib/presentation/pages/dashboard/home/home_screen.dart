@@ -1,8 +1,11 @@
+import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
+import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,12 +26,21 @@ class _HomeScreenState extends State<HomeScreen> {
     'https://www.wwe.com/f/styles/wwe_large/public/all/2024/04/20240314_WM40_Match_USTitle_FC_tonight--fe130dabb803acea2d41f160726019b5.jpg'
   ];
 
+  // * Popular List
+  var _popularUniversityList = <UniversityModels>[];
+  var _popularCareerList = <CareerModels>[];
+
   var _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
+    // * Listen to Language Change
     languageStreamController.stream.listen((_) => setState(() {}));
+    // * Request Popular University List
+    context.read<PopularBloc>().add(RequestPopularUniversityListEvent());
+    // * Request Popular Career List
+    context.read<PopularBloc>().add(RequestPopularCareerListEvent());
   }
 
   @override
@@ -41,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Home', style: CustomTextStyle.titleTextStyle(fontSize: 30, bold: true)),
+          title: Text(tr(LocaleKeys.home), style: CustomTextStyle.titleTextStyle(fontSize: 30, bold: true)),
           actions: [
             IconButton(
               onPressed: () => context.push(destination: const NotificationPage()),
@@ -52,115 +64,168 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           ],
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(Dimen.contentPadding),
-            child: Column(
-              children: [
-                // * Search Bar
-                SearchBarWidget(
-                  controller: _searchBarController,
-                  onChange: (value) => {},
-                ),
-                const SizedBox(height: Dimen.mediumSpace),
-                // * Menu
-                GridView.count(
-                  clipBehavior: Clip.antiAlias,
-                  crossAxisCount: 3,
-                  crossAxisSpacing: Dimen.mediumSpace,
-                  mainAxisSpacing: Dimen.mediumSpace,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.zero,
-                  children: Menu.values
-                      .map(
-                        (e) => _MenuIcon(
-                          onTap: () => context.push(
-                            destination: getMenuRoute(value: e),
+        body: BlocListener<PopularBloc, PopularState>(
+          listener: (context, state) {
+            // * Request Popular University List Success
+            if (state is RequestPopularUniversityListSuccessState) {
+              // * Init Popular University List
+              _popularUniversityList = state.response.body.data;
+              // * Notify
+              setState(() {});
+              // * Return
+              return;
+            }
+            // * Request Popular Career List Success
+            if (state is RequestPopularCareerListSuccessState) {
+              // * Init Popular Career List Success
+              _popularCareerList = state.response.body.data;
+              // * Notify
+              setState(() {});
+              // * Return
+              return;
+            }
+          },
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(Dimen.contentPadding),
+              child: Column(
+                children: [
+                  // * Search Bar
+                  SearchBarWidget(
+                    controller: _searchBarController,
+                    onChange: (value) => {},
+                  ),
+                  const SizedBox(height: Dimen.mediumSpace),
+                  // * Menu
+                  GridView.count(
+                    clipBehavior: Clip.antiAlias,
+                    crossAxisCount: 3,
+                    crossAxisSpacing: Dimen.mediumSpace,
+                    mainAxisSpacing: Dimen.mediumSpace,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.zero,
+                    children: Menu.values
+                        .map(
+                          (e) => _MenuIcon(
+                            onTap: () => context.push(
+                              destination: getMenuRoute(value: e),
+                            ),
+                            icon: SvgPicture.asset(
+                              getIconMenu(value: e),
+                              width: 30,
+                              height: 30,
+                            ),
+                            title: getMenuTitle(value: e),
                           ),
-                          icon: SvgPicture.asset(
-                            getIconMenu(value: e),
-                            width: 30,
-                            height: 30,
-                          ),
-                          title: getMenuTitle(value: e),
+                        )
+                        .toList(),
+                  ),
+                  // * Title
+                  Container(
+                    margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          tr(LocaleKeys.popular_university),
+                          style: CustomTextStyle.titleTextStyle(bold: true),
                         ),
-                      )
-                      .toList(),
-                ),
-                // * Title
-                Container(
-                  margin: const EdgeInsets.only(top: Dimen.largeSpace),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Popular University',
-                        style: CustomTextStyle.titleTextStyle(bold: true),
+                        TextButton(
+                          onPressed: () => context.push(destination: const UniversityPage()),
+                          child: Text(tr(LocaleKeys.view_all)),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: Dimen.mediumSpace),
+                  // * Popular University List
+                  Visibility(
+                    visible: _popularUniversityList.isNotEmpty,
+                    replacement: const ProgressBar(),
+                    child: CarouselSlider(
+                      items: _popularUniversityList
+                          .map(
+                            (e) => ItemSlideShow(
+                              imageUrl: e.image!,
+                              onTap: () => context.push(
+                                destination: UniversityDetailPage(
+                                  universityId: e.id,
+                                  universityName: e.name,
+                                  pathName: e.nameEn,
+                                  coverImageUrl: e.image,
+                                  logoImageUrl: e.logoImage,
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                      options: CarouselOptions(
+                        padEnds: false,
+                        height: 180,
+                        aspectRatio: 16 / 9,
+                        enlargeCenterPage: false,
+                        viewportFraction: 0.95,
+                        initialPage: 0,
+                        enableInfiniteScroll: false,
+                        reverse: false,
+                        autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        scrollDirection: Axis.horizontal,
+                        onPageChanged: (index, reason) => setState(() => _currentIndex = index),
                       ),
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text('View All'),
-                      )
-                    ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: Dimen.mediumSpace),
-                // * Long Slides
-                CarouselSlider(
-                  items: images.map((e) => ItemSlideShow(imageUrl: e)).toList(),
-                  options: CarouselOptions(
-                    padEnds: false,
-                    height: 180,
-                    aspectRatio: 16 / 9,
-                    enlargeCenterPage: false,
-                    viewportFraction: 0.95,
-                    initialPage: 0,
-                    enableInfiniteScroll: false,
-                    reverse: false,
-                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    scrollDirection: Axis.horizontal,
-                    onPageChanged: (index, reason) => setState(() => _currentIndex = index),
+                  Container(
+                    margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          tr(LocaleKeys.popular_career),
+                          style: CustomTextStyle.titleTextStyle(bold: true),
+                        ),
+                        TextButton(
+                          onPressed: () => context.push(destination: const CareerPage()),
+                          child: Text(tr(LocaleKeys.view_all)),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                // // * Title
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: Dimen.mediumSpace),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //       Text(
-                //         ' Events',
-                //         style: CustomTextStyle.titleTextStyle(),
-                //       ),
-                //       TextButton(
-                //         onPressed: () {},
-                //         child: const Text('View All'),
-                //       )
-                //     ],
-                //   ),
-                // ),
-                // const SizedBox(height: Dimen.mediumSpace),
-                // // * Long Slides
-                // CarouselSlider(
-                //   items: smallImages.map((e) => ItemSlideShow(imageUrl: e)).toList(),
-                //   options: CarouselOptions(
-                //     height: 220,
-                //     padEnds: false,
-                //     enlargeCenterPage: false,
-                //     aspectRatio: 16 / 9,
-                //     viewportFraction: 0.43,
-                //     initialPage: 0,
-                //     enableInfiniteScroll: false,
-                //     reverse: false,
-                //     autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                //     autoPlayCurve: Curves.fastOutSlowIn,
-                //     scrollDirection: Axis.horizontal,
-                //     onPageChanged: (index, reason) => setState(() => _currentIndex = index),
-                //   ),
-                // )
-              ],
+                  const SizedBox(height: Dimen.mediumSpace),
+                  // * Popular Carrer List
+                  Visibility(
+                    visible: _popularCareerList.isNotEmpty,
+                    replacement: const ProgressBar(),
+                    child: CarouselSlider(
+                      items: _popularCareerList
+                          .map(
+                            (e) => ItemSlideShow(
+                              imageUrl: e.image,
+                              onTap: () => context.push(
+                                destination: CareerDetailPage(id: e.id),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                      options: CarouselOptions(
+                        padEnds: false,
+                        height: 180,
+                        aspectRatio: 16 / 9,
+                        enlargeCenterPage: false,
+                        viewportFraction: 0.95,
+                        initialPage: 0,
+                        enableInfiniteScroll: false,
+                        reverse: false,
+                        autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        scrollDirection: Axis.horizontal,
+                        onPageChanged: (index, reason) => setState(() => _currentIndex = index),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ));

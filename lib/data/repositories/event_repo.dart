@@ -14,4 +14,8 @@ class EventRepo {
       category: category,
     );
   }
+
+  Future<ListBodyResponse<EventCategoryModels>> getEventCategoryList(){
+    return ApiService().getEventCategoryList();
+  }
 }

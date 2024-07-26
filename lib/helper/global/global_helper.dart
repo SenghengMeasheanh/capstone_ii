@@ -354,7 +354,7 @@ Widget getMenuRoute({required Menu value}) {
     Menu.forum: const ForumPage(),
     Menu.events: const EventPage(),
     Menu.guides: const GuidesPage(),
-    Menu.collegeQuiz: isSignedIn() ? const CareerQuizPage() : const SignInPage(),
+    Menu.collegeQuiz: isSignedIn() ? const CareerQuizPage() : const PreSignUpPage(),
     Menu.scholarships: const ScholarshipsPage(),
     Menu.financialAid: const FinancialAidPage(),
     Menu.compareColleges: const CompareCollegePage(),

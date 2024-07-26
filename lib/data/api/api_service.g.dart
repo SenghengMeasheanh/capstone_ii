@@ -220,6 +220,36 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<ListBodyResponse<EventCategoryModels>> getEventCategoryList() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListBodyResponse<EventCategoryModels>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/events/category',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ListBodyResponse<EventCategoryModels>.fromJson(
+      _result.data!,
+      (json) => EventCategoryModels.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<ListBodyResponse<FinancialAidModels>> getFinancialAidList({
     String? search,
     int? page,
@@ -321,6 +351,66 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<ListBodyResponse<UniversityModels>> getPopularUniversityList() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListBodyResponse<UniversityModels>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/popular/university',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ListBodyResponse<UniversityModels>.fromJson(
+      _result.data!,
+      (json) => UniversityModels.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<ListBodyResponse<CareerModels>> getPopularCareerList() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListBodyResponse<CareerModels>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/popular/career',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ListBodyResponse<CareerModels>.fromJson(
+      _result.data!,
+      (json) => CareerModels.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<ListBodyResponse<ScholarshipModels>> getScholarshipList({
     String? search,
     int? page,
@@ -386,6 +476,38 @@ class _ApiService implements ApiService {
     final value = MapBodyResponse<ScholarshipDetailModels>.fromJson(
       _result.data!,
       (json) => ScholarshipDetailModels.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<ListBodyResponse<StaticPagesModels>> getStaticPagesList(
+      {String? alias}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'alias': alias};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ListBodyResponse<StaticPagesModels>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/static_pages',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ListBodyResponse<StaticPagesModels>.fromJson(
+      _result.data!,
+      (json) => StaticPagesModels.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

@@ -49,7 +49,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ),
       PersistentTabConfig(
-        screen: const EventsScreen(),
+        screen: isSignedIn() ? const BookmarkScreen() : const PreSignUpPage(),
         item: ItemConfig(
           iconSize: 18,
           title: tr(LocaleKeys.bookmark),
@@ -79,7 +79,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ),
       PersistentTabConfig(
-        screen: const SettingScreen(),
+        screen: const AccountScreen(),
         item: ItemConfig(
           iconSize: 18,
           title: tr(LocaleKeys.account),

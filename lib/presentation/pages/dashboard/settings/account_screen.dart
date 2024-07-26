@@ -3,14 +3,14 @@ import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-class SettingScreen extends StatefulWidget {
-  const SettingScreen({super.key});
+class AccountScreen extends StatefulWidget {
+  const AccountScreen({super.key});
 
   @override
-  State<SettingScreen> createState() => _SettingScreenState();
+  State<AccountScreen> createState() => _AccountScreenState();
 }
 
-class _SettingScreenState extends State<SettingScreen> {
+class _AccountScreenState extends State<AccountScreen> {
   // * Variable
   late String _fullname;
 
@@ -46,6 +46,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CustomCachedNetworkImage(
+                        onTap: () => context.push(destination: const ProfilePage()),
                         imageUrl:
                             'https://www.nme.com/wp-content/uploads/2016/09/2015Eminem_GettyImages-187596325020615.jpg',
                         config: CustomCachedNetworkImageConfig(
@@ -73,7 +74,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       ),
                       const Spacer(),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () => context.push(destination: const ProfilePage()),
                         icon: const Icon(
                           Icons.edit,
                           color: primaryColor,
@@ -113,7 +114,12 @@ class _SettingScreenState extends State<SettingScreen> {
                       child: _buildListTileWithDivider(
                         leading: const Icon(Icons.privacy_tip, color: primaryColor),
                         title: Text(tr(LocaleKeys.privacy_policy), style: CustomTextStyle.bodyTextStyle()),
-                        onTap: () {},
+                        onTap: () => context.push(
+                          destination: StaticPagesPage(
+                            alias: 'privacy_policy',
+                            title: tr(LocaleKeys.privacy_policy),
+                          ),
+                        ),
                         trailing: const Icon(Icons.arrow_forward_ios, color: primaryColor),
                       ),
                     ),
@@ -123,9 +129,26 @@ class _SettingScreenState extends State<SettingScreen> {
                       child: _buildListTileWithDivider(
                         leading: const Icon(Icons.description, color: primaryColor),
                         title: Text(tr(LocaleKeys.terms_and_conditions), style: CustomTextStyle.bodyTextStyle()),
-                        onTap: () {},
+                        onTap: () => context.push(
+                          destination: StaticPagesPage(
+                            alias: 'term_condition',
+                            title: tr(LocaleKeys.terms_and_conditions),
+                          ),
+                        ),
                         trailing: const Icon(Icons.arrow_forward_ios, color: primaryColor),
                       ),
+                    ),
+                    // * About Us
+                    _buildListTileWithDivider(
+                      leading: const Icon(Icons.info, color: primaryColor),
+                      title: Text(tr(LocaleKeys.about_us), style: CustomTextStyle.bodyTextStyle()),
+                      onTap: () => context.push(
+                        destination: StaticPagesPage(
+                          alias: 'about_us',
+                          title: tr(LocaleKeys.about_us),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios, color: primaryColor),
                     ),
                     // * Log out
                     Visibility(
