@@ -89,5 +89,13 @@
   "number_two": "2",
   "start_career_quiz": "Start Career Quiz",
   "all_questions_must_be_answered": "All questions must be answered",
-  "submit": "Submit"
+  "submit": "Submit",
+  "popular_university": "Popular University",
+  "view_all": "View All",
+  "popular_career": "Popular Career",
+  "profile": "Profile",
+  "highschool": "Highschool",
+  "personal_information": "Personal Information",
+  "contact_info": "Contact Info",
+  "about_us": "About Us"
 }

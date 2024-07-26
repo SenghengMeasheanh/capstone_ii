@@ -4,10 +4,11 @@ import 'package:capstone_ii/presentation/presentation_export.dart';
 
 class ItemSlideShow extends StatelessWidget {
   final String imageUrl;
+  final Function() onTap;
 
   const ItemSlideShow({
     super.key,
-    required this.imageUrl,
+    required this.imageUrl, required this.onTap,
   });
 
   @override
@@ -15,7 +16,7 @@ class ItemSlideShow extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: CustomCachedNetworkImage(
-        onTap: () {},
+        onTap: onTap,
         imageUrl: imageUrl,
         config: CustomCachedNetworkImageConfig(
           boxFit: BoxFit.cover,

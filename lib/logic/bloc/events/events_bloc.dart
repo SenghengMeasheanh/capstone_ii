@@ -12,7 +12,9 @@ part 'events_state.dart';
 
 class EventsBloc extends Bloc<EventsEvent, EventsState> {
   EventsBloc() : super(EventsInitial()) {
+    // * List | Bloc
     on<RequestEventsListEvent>(_onRequestEventsList);
+    on<RequestEventsCategoryListEvent>(_onRequestEventsCategoryList);
   }
 
   // * Event Repo
@@ -49,6 +51,37 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
         Future.delayed(const Duration(seconds: 5));
         // * Call Event Again
         add(RequestEventsListEvent(paginationRequest: event.paginationRequest));
+        // *  Return
+        return;
+      }
+    });
+  }
+
+  Future<void> _onRequestEventsCategoryList(
+    RequestEventsCategoryListEvent event,
+    Emitter<EventsState> emit,
+  ) async {
+    // * Get Result
+    final result = _eventRepo.getEventCategoryList();
+    // * Await Result
+    await result.then((response) {
+      // * Check Result
+      if (response.header.statusCode == 200) {
+        // * Emit Success
+        emit(RequestEventsCategoryListSuccessState(response: response));
+      } else {
+        // * Emit Error
+        emit(RequestEventsCategoryListErrorState());
+      }
+    }, onError: (exception, stackTrace) {
+      // * Debug Print Error
+      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+      // * If Server Not Response
+      if (exception is DioException) {
+        // * Delay 5 Second
+        Future.delayed(const Duration(seconds: 5));
+        // * Call Event Again
+        add(RequestEventsCategoryListEvent());
         // *  Return
         return;
       }

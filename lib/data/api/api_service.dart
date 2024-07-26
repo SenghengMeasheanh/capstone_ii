@@ -67,6 +67,9 @@ abstract class ApiService {
     @Query('category') int? category,
   });
 
+  @GET('/events/category')
+  Future<ListBodyResponse<EventCategoryModels>> getEventCategoryList();
+
   // * Financial Aid Endpoint
   @GET('/financial_aids')
   Future<ListBodyResponse<FinancialAidModels>> getFinancialAidList({
@@ -85,6 +88,13 @@ abstract class ApiService {
     @Path('id') required int id,
   });
 
+  // * Popular Endpoint
+  @GET('/popular/university')
+  Future<ListBodyResponse<UniversityModels>> getPopularUniversityList();
+
+  @GET('/popular/career')
+  Future<ListBodyResponse<CareerModels>> getPopularCareerList();
+
   // * Scholarship Endpoint
   @GET('/scholarships')
   Future<ListBodyResponse<ScholarshipModels>> getScholarshipList({
@@ -96,6 +106,12 @@ abstract class ApiService {
   @GET('/scholarships/{id}')
   Future<MapBodyResponse<ScholarshipDetailModels>> getScholarshipDetail({
     @Path('id') required int id,
+  });
+
+  // * Setting Endpoint
+  @GET('/static_pages')
+  Future<ListBodyResponse<StaticPagesModels>> getStaticPagesList({
+    @Query('alias') String? alias,
   });
 
   // * University Endpoint

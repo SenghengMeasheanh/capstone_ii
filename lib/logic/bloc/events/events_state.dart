@@ -12,5 +12,13 @@ final class RequestEventsListSuceesState extends EventsState {
   RequestEventsListSuceesState({required this.response});
 }
 
+final class RequestEventsCategoryListSuccessState extends EventsState {
+  final ListBodyResponse<EventCategoryModels> response;
+
+  RequestEventsCategoryListSuccessState({required this.response});
+}
+
 // ! List | State
-final class RequestEventsListErrorState extends EventsState {} 
+final class RequestEventsListErrorState extends EventsState {}
+
+final class RequestEventsCategoryListErrorState extends EventsState {}

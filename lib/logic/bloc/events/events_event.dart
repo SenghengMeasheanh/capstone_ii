@@ -10,3 +10,4 @@ class RequestEventsListEvent extends EventsEvent {
   RequestEventsListEvent({required this.paginationRequest});
 }
 
+class RequestEventsCategoryListEvent extends EventsEvent {}

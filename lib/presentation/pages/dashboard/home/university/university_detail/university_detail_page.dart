@@ -2,25 +2,25 @@ import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
-import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:open_file/open_file.dart';
 
 class UniversityDetailPage extends StatefulWidget {
   final int universityId;
   final String? coverImageUrl;
   final String? logoImageUrl;
-  final UniversityModels universityModels;
+  final String universityName;
+  final String pathName;
   const UniversityDetailPage({
     super.key,
     required this.universityId,
     this.coverImageUrl,
     this.logoImageUrl,
-    required this.universityModels,
+    required this.universityName,
+    required this.pathName
   });
 
   @override
@@ -193,7 +193,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                widget.universityModels.name,
+                                widget.universityName,
                                 style: CustomTextStyle.titleTextStyle(bold: true),
                               ),
                               const SizedBox(height: Dimen.mediumSpace),
@@ -790,7 +790,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       child: ElevatedButton(
                         onPressed: () => DownloadingProgressDialog().show(
                             downloadUrl: _universityAdmissionModel!.admissionUrl!,
-                            fileName: '${widget.universityModels.nameEn}-Admission'),
+                            fileName: '${widget.pathName}-Admission'),
                         child: Text(
                           'Download Admission',
                           style: CustomTextStyle.buttonTextStyle(),
@@ -985,7 +985,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     child: ElevatedButton(
                       onPressed: () => DownloadingProgressDialog().show(
                         downloadUrl: _universityMajorDetailModel!.curriculumUrl,
-                        fileName: '${widget.universityModels.nameEn}-Curriculum',
+                        fileName: '${widget.pathName}-Curriculum',
                       ),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
