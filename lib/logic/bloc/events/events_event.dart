@@ -11,3 +11,10 @@ class RequestEventsListEvent extends EventsEvent {
 }
 
 class RequestEventsCategoryListEvent extends EventsEvent {}
+
+// * Event Detail | Event 
+class RequestEventDetailEvent extends EventsEvent {
+  final int id;
+
+  RequestEventDetailEvent({required this.id});
+}

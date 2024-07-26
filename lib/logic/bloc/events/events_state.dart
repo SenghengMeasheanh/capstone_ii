@@ -18,7 +18,17 @@ final class RequestEventsCategoryListSuccessState extends EventsState {
   RequestEventsCategoryListSuccessState({required this.response});
 }
 
+// *  Event Detail | State
+final class RequestEventDetailSuccessState extends EventsState {
+  final MapBodyResponse<EventDetailModels> response;
+
+  RequestEventDetailSuccessState({required this.response});
+}
+
 // ! List | State
 final class RequestEventsListErrorState extends EventsState {}
 
 final class RequestEventsCategoryListErrorState extends EventsState {}
+
+// ! Event Detail | State
+final class RequestEventDetailErrorState extends EventsState {}

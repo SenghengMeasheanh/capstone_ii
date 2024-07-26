@@ -146,7 +146,12 @@ class _EventPageState extends State<EventPage> {
                       physics: const NeverScrollableScrollPhysics(),
                       pagingController: _pagingController,
                       builderDelegate: PagedChildBuilderDelegate<EventModels>(
-                        itemBuilder: (context, models, index) => ItemEvent(models: models, onTap: () {}),
+                        itemBuilder: (context, models, index) => ItemEvent(
+                          models: models,
+                          onTap: () => context.push(
+                            destination: EventDetailPage(id: models.id),
+                          ),
+                        ),
                       ),
                     ),
                   ),
