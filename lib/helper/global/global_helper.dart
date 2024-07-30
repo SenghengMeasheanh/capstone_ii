@@ -29,12 +29,19 @@ void clearAndRestart({
       title: tr(LocaleKeys.session_expired),
       message: tr(LocaleKeys.please_login_again),
       negativeBtnVisible: false,
+      positiveBtnText: tr(LocaleKeys.ok),
+      onPositiveTap: () {
+        // * Go To Login Page
+        getCurrentContext.push(destination: const SignInPage());
+      },
     );
   }
 }
 
 // * Request Refresh Token
 Future<void> fetchRefreshToken() async {
+  // * Replace Access Token With Request
+  await AppPreference.saveAccessToken(AppPreference.getRefreshToken!);
   // *  Init Auth Repo
   final authRepo = AuthRepo();
   // *  Get Result
@@ -53,8 +60,10 @@ Future<void> fetchRefreshToken() async {
       debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
       // * If Server Not Response
       if (exception is DioException) {
-        // * Request Refresh Token Again
-        fetchRefreshToken();
+        // * Clear And Restart
+        clearAndRestart(showSessionExpiredDialog: true);
+        // * Return
+        return;
       }
     },
   );

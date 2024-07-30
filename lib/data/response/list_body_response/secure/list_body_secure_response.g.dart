@@ -34,7 +34,7 @@ ListBodySecure<T> _$ListBodySecureFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) =>
     ListBodySecure<T>(
-      (json['data'] as List<dynamic>).map(fromJsonT).toList(),
+      (json['data'] as List<dynamic>?)?.map(fromJsonT).toList(),
     );
 
 Map<String, dynamic> _$ListBodySecureToJson<T>(
@@ -42,5 +42,5 @@ Map<String, dynamic> _$ListBodySecureToJson<T>(
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
-      'data': instance.data.map(toJsonT).toList(),
+      'data': instance.data?.map(toJsonT).toList(),
     };

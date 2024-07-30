@@ -11,5 +11,12 @@ final class RequestCareerQuizListSuccessState extends CareerQuizState {
   RequestCareerQuizListSuccessState({required this.response});
 }
 
+final class RequestSubmitAnswerSuccessState extends CareerQuizState {
+  final ListBodySecureResponse<CareerQuizResultModels> response;
+  RequestSubmitAnswerSuccessState({required this.response});
+}
+
 // ! List | State
 final class RequestCareerQuizListErrorState extends CareerQuizState {}
+
+final class RequestSubmitAnswerErrorState extends CareerQuizState {}

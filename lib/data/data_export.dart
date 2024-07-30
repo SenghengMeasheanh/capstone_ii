@@ -7,6 +7,7 @@ export 'models/career/career_models.dart';
 export 'models/career/career_detail/career_detail_models.dart';
 export 'models/career/career_type/career_type_models.dart';
 export 'models/career_quiz/career_quiz_models.dart';
+export 'models/career_quiz/career_quiz_result/career_quiz_result_models.dart';
 export 'models/event/event_models.dart';
 export 'models/event/event_category/event_category_models.dart';
 export 'models/event/event_detail/event_detail_models.dart';
@@ -48,6 +49,7 @@ export 'repositories/university_repo.dart';
 // * Request
 export 'request/auth/sign_in/sign_in_request.dart';
 export 'request/auth/sign_up/sign_up_request.dart';
+export 'request/career_quiz/submit_answer_request.dart';
 export 'request/pagination/pagination_request.dart';
 
 // * Response

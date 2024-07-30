@@ -25,7 +25,7 @@ class ListBodySecureResponse<T> {
 @JsonSerializable(genericArgumentFactories: true)
 class ListBodySecure<T> {
   @JsonKey(name: 'data')
-  final List<T> data;
+  final List<T>? data;
 
   ListBodySecure(
     this.data,

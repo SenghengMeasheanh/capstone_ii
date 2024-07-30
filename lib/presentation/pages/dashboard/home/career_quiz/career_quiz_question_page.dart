@@ -2,6 +2,7 @@ import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/items/item_career_quiz_question.dart';
+import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,13 +20,33 @@ class _CareerQuizQuestionPageState extends State<CareerQuizQuestionPage> {
   final _pagingController = PagingController<int, CareerQuizModels>(firstPageKey: 1);
 
   // * List
-  List<int?> _answerChoiceList = []; // Initialize with an empty list
+  List<int?> _answerChoiceList = [];
+  SubmitAnswerRequest? _submitAnswer;
 
   @override
   void initState() {
     super.initState();
     // * Request Career Quiz List
     context.read<CareerQuizBloc>().add(RequestCareerQuizListEvent());
+  }
+
+  void _submitAnswers() {
+    // Create a list of Answer objects
+    List<Answer> answers = [];
+    for (int i = 0; i < _answerChoiceList.length; i++) {
+      if (_answerChoiceList[i] != null) {
+        answers.add(Answer(
+          questionId: _pagingController.itemList![i].id,
+          rating: _answerChoiceList[i]!,
+        ));
+      }
+    }
+
+    // * Create Submit Answer Request
+    _submitAnswer = SubmitAnswerRequest(answer: answers);
+
+    // * Request Submit Answer
+    context.read<CareerQuizBloc>().add(RequestSubmitAnswerEvent(submitAnswerRequest: _submitAnswer!));
   }
 
   @override
@@ -41,9 +62,16 @@ class _CareerQuizQuestionPageState extends State<CareerQuizQuestionPage> {
           // * Request Career Quiz List Success
           if (state is RequestCareerQuizListSuccessState) {
             // * Initialize answer list with nulls based on the number of questions
-            _answerChoiceList = List<int?>.filled(state.response.body!.data.length, null);
+            _answerChoiceList = List<int?>.filled(state.response.body!.data!.length, null);
             // * Set Career Quiz List
             _pagingController.itemList = state.response.body!.data;
+            // * Return
+            return;
+          }
+          // * Request Submit Answer Success
+          if (state is RequestSubmitAnswerSuccessState) {
+            // * Push To Career Quiz Result Page
+            context.pushReplaceTo(destination: CareerQuizResultPage(models: state.response.body!.data!,));
             // * Return
             return;
           }
@@ -51,6 +79,11 @@ class _CareerQuizQuestionPageState extends State<CareerQuizQuestionPage> {
           if (state is RequestCareerQuizListErrorState) {
             // * Clear And Restart Session
             clearAndRestart(showSessionExpiredDialog: true);
+            // * Return
+            return;
+          }
+          // ! Request Submit Answer Error
+          if (state is RequestSubmitAnswerErrorState) {
             // * Return
             return;
           }
@@ -109,7 +142,7 @@ class _CareerQuizQuestionPageState extends State<CareerQuizQuestionPage> {
                 Container(
                   margin: const EdgeInsets.only(top: Dimen.extraLargeSpace),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: _submitAnswers,
                     child: Text(tr(LocaleKeys.submit)),
                   ),
                 ),
