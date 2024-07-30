@@ -24,7 +24,7 @@ abstract class ApiServiceSecure {
     // * Dio Option
     dio.options = BaseOptions(
       headers: {
-        'Authorization': AppPreference.getAccessToken,
+        'Authorization': 'Bearer ${AppPreference.getAccessToken}',
         'Accept': 'application/json',
         'content-type': 'application/json',
       },
@@ -38,4 +38,9 @@ abstract class ApiServiceSecure {
   // * Career Quiz
   @GET('/career_quiz')
   Future<ListBodySecureResponse<CareerQuizModels>> getCareerQuiz();
+
+  @POST('/career_quiz')
+  Future<ListBodySecureResponse<CareerQuizResultModels>> requestSubmitAnswer({
+    @Body() required SubmitAnswerRequest submitAnswerRequest,
+  });
 }

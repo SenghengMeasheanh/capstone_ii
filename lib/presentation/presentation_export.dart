@@ -5,6 +5,7 @@ export 'global/static_pages_page.dart';
 // * Items
 export 'items/item_career.dart';
 export 'items/item_career_quiz_question.dart';
+export 'items/item_career_quiz_result.dart';
 export 'items/item_filter.dart';
 export 'items/item_financial_aid.dart';
 export 'items/item_guide.dart';

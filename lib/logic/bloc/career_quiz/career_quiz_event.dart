@@ -7,3 +7,12 @@ abstract class CareerQuizEvent {}
 class RequestCareerQuizListEvent extends CareerQuizEvent {
   RequestCareerQuizListEvent();
 }
+
+class RequestSubmitAnswerEvent extends CareerQuizEvent {
+  final SubmitAnswerRequest submitAnswerRequest;
+  RequestSubmitAnswerEvent({
+    required this.submitAnswerRequest,
+  });
+}
+
+

@@ -100,5 +100,8 @@ abstract class  LocaleKeys {
   static const personal_information = 'personal_information';
   static const contact_info = 'contact_info';
   static const about_us = 'about_us';
+  static const your_result = 'your_result';
+  static const careers_that_match_your_area_of_interest = 'careers_that_match_your_area_of_interest';
+  static const score = 'score';
 
 }
