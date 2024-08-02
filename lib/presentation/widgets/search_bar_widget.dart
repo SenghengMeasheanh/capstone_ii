@@ -1,4 +1,5 @@
 import 'package:capstone_ii/helper/helper_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SearchBarWidget extends StatelessWidget {
@@ -15,7 +16,7 @@ class SearchBarWidget extends StatelessWidget {
         onChanged: onChange,
         decoration: InputDecoration(
           isDense: true,
-          hintText: 'Search',
+          hintText: tr(LocaleKeys.search),
           hintStyle: CustomTextStyle.captionTextStyle(),
           prefixIcon: const Icon(Icons.search),
           border: OutlineInputBorder(

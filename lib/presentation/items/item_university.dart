@@ -1,5 +1,6 @@
 import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 
@@ -95,17 +96,17 @@ class ItemUniversity extends StatelessWidget {
                           // * University Year of Study and Type
                           ItemUniversityBrief(
                             icon: const Icon(Icons.school),
-                            value: '${models.averageStudyYear} years ${models.type}',
+                            value: '${models.averageStudyYear} ${tr(LocaleKeys.year)} ${models.type}',
                           ),
                           // * University Fees
                           ItemUniversityBrief(
                             icon: const Icon(Icons.attach_money),
-                            value: '\$${models.averageTuition} Average Per Year After Aid',
+                            value: '\$${models.averageTuition} ${tr(LocaleKeys.average_per_year_after_aid)}',
                           ),
                           // * University Graduation Rate
                           ItemUniversityBrief(
                             icon: const Icon(Icons.school_outlined),
-                            value: 'Graduation Rate ${models.graduationRate}%',
+                            value: '${tr(LocaleKeys.graduation_rate)} ${models.graduationRate}%',
                           ),
                         ],
                       ),

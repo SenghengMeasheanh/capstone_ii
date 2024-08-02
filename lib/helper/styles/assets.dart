@@ -35,7 +35,7 @@ class Assets {
   static const String iconSetting = '$_iconPath/ic_setting.svg';
 
   // * Images
-  static const String imageBookmarkOutlined = '$_imagePath/ig_bookmark_outlined.png'; 
+  static const String imageBookmarkOutlined = '$_imagePath/ig_bookmark_outlined.png';
   static const String imageHero1 = '$_imagePath/hero_1.png';
   static const String imageLogo = '$_imagePath/logo.png';
   static const String imageLogoWithBg = '$_imagePath/logo_with_bg.png';
@@ -49,6 +49,7 @@ class Assets {
   // * Lottie
   static const lottieEmptyItems = '$_lottiePath/empty_items.json';
   static const lottieBooks = '$_lottiePath/books.json';
+  static const lottieComingSoon = '$_lottiePath/coming_soon.json';
   static const lottieInfo = '$_lottiePath/info.json';
   static const lottieNoInternet = '$_lottiePath/no_internet_connection.json';
   static const lottieSuccess = '$_lottiePath/success.json';

@@ -360,13 +360,13 @@ Widget getMenuRoute({required Menu value}) {
   final map = {
     Menu.university: const UniversityPage(),
     Menu.career: const CareerPage(),
-    Menu.forum: const ForumPage(),
+    Menu.forum: const UnderCostructionPage(),
     Menu.events: const EventPage(),
     Menu.guides: const GuidesPage(),
     Menu.collegeQuiz: isSignedIn() ? const CareerQuizPage() : const PreSignUpPage(),
     Menu.scholarships: const ScholarshipsPage(),
     Menu.financialAid: const FinancialAidPage(),
-    Menu.compareColleges: const CompareCollegePage(),
+    Menu.compareColleges: const UnderCostructionPage(),
   };
   return map[value]!;
 }

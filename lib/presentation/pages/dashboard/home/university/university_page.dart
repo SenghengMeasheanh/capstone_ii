@@ -146,7 +146,7 @@ class _UniversityPageState extends State<UniversityPage> {
                   Row(
                     children: [
                       // * Result
-                      Text('$_resultCounter Results', style: CustomTextStyle.titleTextStyle(bold: true)),
+                      Text('$_resultCounter ${tr(LocaleKeys.result)}', style: CustomTextStyle.titleTextStyle(bold: true)),
                       const Spacer(),
                       // * Sort by
                       Text('Sort by', style: CustomTextStyle.bodyTextStyle()),
@@ -162,7 +162,7 @@ class _UniversityPageState extends State<UniversityPage> {
                     separatorBuilder: (context, index) => const SizedBox(height: Dimen.defaultSpace),
                     builderDelegate: PagedChildBuilderDelegate(
                       animateTransitions: true,
-                      itemBuilder: (context, models, item) => ItemUniversity(
+                      itemBuilder: (context, models, index) => ItemUniversity(
                         onTap: () => context.push(
                           destination: UniversityDetailPage(
                             universityId: models.id,

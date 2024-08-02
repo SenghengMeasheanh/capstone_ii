@@ -103,5 +103,25 @@ abstract class  LocaleKeys {
   static const your_result = 'your_result';
   static const careers_that_match_your_area_of_interest = 'careers_that_match_your_area_of_interest';
   static const score = 'score';
+  static const no_internet_connection = 'no_internet_connection';
+  static const please_check_your_internet_connection = 'please_check_your_internet_connection';
+  static const refresh = 'refresh';
+  static const  find_a_career_that_works_for_you = ' find_a_career_that_works_for_you';
+  static const filter_by_job_category = 'filter_by_job_category';
+  static const yearly_income = 'yearly_income';
+  static const job_growth = 'job_growth';
+  static const result = 'result';
+  static const study_options = 'study_options';
+  static const the_university_offers_the_following_degrees = 'the_university_offers_the_following_degrees';
+  static const save_to_bookmark = 'save_to_bookmark';
+  static const specialize = 'specialize';
+  static const admission_overview = 'admission_overview';
+  static const acceptance_number = 'acceptance_number';
+  static const regular_application_due = 'regular_application_due';
+  static const closed = 'closed';
+  static const application_fee = 'application_fee';
+  static const enrollment_type = 'enrollment_type';
+  static const download_curriculum = 'download_curriculum';
+  static const download_admission = 'download_admission';
 
 }

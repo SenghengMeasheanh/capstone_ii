@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
@@ -59,11 +60,11 @@ class _NoInternetDialogState extends State<_NoInternetDialog> with ModalUtilsMix
             // * Title
             Container(
               margin: const EdgeInsets.only(bottom: Dimen.smallSpace),
-              child: Text('', style: CustomTextStyle.titleTextStyle()),
+              child: Text(tr(LocaleKeys.no_internet_connection), style: CustomTextStyle.titleTextStyle()),
             ),
             // * Message
             Text(
-              '',
+              tr(LocaleKeys.please_check_your_internet_connection),
               textAlign: TextAlign.center,
               style: CustomTextStyle.bodyTextStyle(),
             ),
@@ -76,7 +77,7 @@ class _NoInternetDialogState extends State<_NoInternetDialog> with ModalUtilsMix
                 color: primaryColor,
                 controller: _btnRefreshController,
                 onPressed: () => _onRefreshTap(),
-                child: Text('', style: CustomTextStyle.buttonTextStyle()),
+                child: Text(tr(LocaleKeys.refresh), style: CustomTextStyle.buttonTextStyle()),
               ),
             ),
           ],
