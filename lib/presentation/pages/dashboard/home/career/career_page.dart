@@ -2,6 +2,7 @@ import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -100,7 +101,7 @@ class _CareerPageState extends State<CareerPage> {
           },
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding),
+              padding: const EdgeInsets.all(Dimen.contentPadding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -108,7 +109,7 @@ class _CareerPageState extends State<CareerPage> {
                   Container(
                     margin: const EdgeInsets.only(bottom: Dimen.mediumSpace),
                     child: Text(
-                      'Career',
+                      tr(LocaleKeys.career),
                       style: CustomTextStyle.largeTitleTextStyle(bold: true),
                     ),
                   ),
@@ -117,12 +118,12 @@ class _CareerPageState extends State<CareerPage> {
                     controller: _searchBarController,
                     onChange: _onSearchCareer,
                   ),
-                  // * Subitlet
+                  // * Subtitle
                   Container(
                     alignment: Alignment.center,
                     margin: const EdgeInsets.only(top: Dimen.largeSpace),
                     child: Text(
-                      'Find a career that works \n for you',
+                      tr(LocaleKeys.find_a_career_that_works_for_you),
                       style: CustomTextStyle.largeTitleTextStyle(fontSize: Dimen.titleTextSize + 8, bold: true),
                       textAlign: TextAlign.center,
                     ),
@@ -132,7 +133,7 @@ class _CareerPageState extends State<CareerPage> {
                     alignment: Alignment.center,
                     margin: const EdgeInsets.only(top: Dimen.defaultSpace),
                     child: Text(
-                      'Filter by job category',
+                      tr(LocaleKeys.filter_by_job_category),
                       style: CustomTextStyle.bodyTextStyle(),
                       textAlign: TextAlign.center,
                     ),

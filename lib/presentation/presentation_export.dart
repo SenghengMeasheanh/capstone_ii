@@ -1,8 +1,11 @@
 // * Global
 export 'global/pre_sign_up_page.dart';
 export 'global/static_pages_page.dart';
+export 'global/under_costruction_page.dart';
 
 // * Items
+export 'items/item_bookmark_career.dart';
+export 'items/item_bookmark_university.dart';
 export 'items/item_career.dart';
 export 'items/item_career_quiz_question.dart';
 export 'items/item_career_quiz_result.dart';
@@ -86,6 +89,11 @@ export 'pages/dashboard/home/university/university_detail/university_detail_page
 
 // ? Paged (Dashboard/Bookmark)
 export 'pages/dashboard/bookmark/bookmark_screen.dart';
+export 'pages/dashboard/bookmark/tabs/bookmark_career_tab.dart';
+export 'pages/dashboard/bookmark/tabs/bookmark_events_tab.dart';
+export 'pages/dashboard/bookmark/tabs/bookmark_guide_tab.dart';
+export 'pages/dashboard/bookmark/tabs/bookmark_scholarship_tab.dart';
+export 'pages/dashboard/bookmark/tabs/bookmark_university_tab.dart';
 
 // ? Pages (Dashboard/Calender)
 export 'pages/dashboard/calender/calender_screen.dart';

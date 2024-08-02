@@ -1,4 +1,5 @@
 import 'package:capstone_ii/data/data_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
@@ -83,7 +84,7 @@ class _FinancialAidPageState extends State<FinancialAidPage> {
                   Container(
                     margin: const EdgeInsets.only(bottom: Dimen.mediumSpace),
                     child: Text(
-                      'Financial Aid',
+                      tr(LocaleKeys.financial_aid),
                       style: CustomTextStyle.largeTitleTextStyle(bold: true),
                     ),
                   ),

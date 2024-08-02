@@ -193,5 +193,8 @@ flutter_native_splash:
   color_dark: "#FFFFFF"
   image_dark: assets/images/ig_splash.png
   # Others
+  android_12: 
+    color: "#FFFFFF"
+    image: assets/images/ig_splash.png
   fullscreen: true
   web: false

@@ -14,14 +14,13 @@ class UniversityDetailPage extends StatefulWidget {
   final String? logoImageUrl;
   final String universityName;
   final String pathName;
-  const UniversityDetailPage({
-    super.key,
-    required this.universityId,
-    this.coverImageUrl,
-    this.logoImageUrl,
-    required this.universityName,
-    required this.pathName
-  });
+  const UniversityDetailPage(
+      {super.key,
+      required this.universityId,
+      this.coverImageUrl,
+      this.logoImageUrl,
+      required this.universityName,
+      required this.pathName});
 
   @override
   State<UniversityDetailPage> createState() => _UniversityDetailPageState();
@@ -213,7 +212,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                             height: 56,
                             child: CustomButtonWithIcon(
                               onTap: () {},
-                              text: 'Save to Favorite',
+                              text: tr(LocaleKeys.save_to_bookmark),
                               icon: Icons.favorite_outline,
                             ),
                           ),
@@ -266,24 +265,24 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     dividerColor: Colors.black,
                     dividerHeight: 5,
                     controller: _tabController,
-                    tabs: const [
+                    tabs: [
                       Tab(
-                        text: 'Overview',
+                        text: tr(LocaleKeys.overview),
                       ),
                       Tab(
-                        text: 'Programs',
+                        text: tr(LocaleKeys.program),
                       ),
                       Tab(
-                        text: 'Admissions',
+                        text: tr(LocaleKeys.admission),
                       ),
                       Tab(
-                        text: 'Scholarships',
+                        text: tr(LocaleKeys.scholarships),
                       ),
                       Tab(
-                        text: 'Event',
+                        text: tr(LocaleKeys.events),
                       ),
                       Tab(
-                        text: 'Tuition',
+                        text: tr(LocaleKeys.tuition),
                       ),
                     ],
                   ),
@@ -338,12 +337,9 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // * Overview
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: Dimen.contentPadding),
-                      child: Text(
-                        'Overview',
-                        style: CustomTextStyle.titleTextStyle(bold: true),
-                      ),
+                    Text(
+                      tr(LocaleKeys.overview),
+                      style: CustomTextStyle.titleTextStyle(bold: true),
                     ),
                     const SizedBox(height: Dimen.mediumSpace),
                     // * Brief Details
@@ -351,22 +347,22 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       children: [
                         _OverviewBriefDetails(
                           icon: Icons.info,
-                          title: 'Type',
+                          title: tr(LocaleKeys.types),
                           subtitle: _universityOverviewModel!.type.name,
                         ),
                         _OverviewBriefDetails(
                           icon: Icons.attach_money_outlined,
-                          title: 'Average Per Year After Aid',
+                          title: tr(LocaleKeys.average_per_year_after_aid),
                           subtitle: _universityOverviewModel!.averageTuition!,
                         ),
                         _OverviewBriefDetails(
                           icon: Icons.location_on_outlined,
-                          title: 'Location',
+                          title: tr(LocaleKeys.location),
                           subtitle: _universityOverviewModel!.contact!.address,
                         ),
                         _OverviewBriefDetails(
                           icon: Icons.school_outlined,
-                          title: 'Graduation Rate',
+                          title: tr(LocaleKeys.graduation_rate),
                           subtitle: '${_universityOverviewModel!.graduationRate}%',
                         ),
                         const Divider(
@@ -386,14 +382,14 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     Container(
                       margin: const EdgeInsets.only(top: Dimen.mediumSpace),
                       child: Text(
-                        'Study Options',
-                        style: CustomTextStyle.largeTitleTextStyle(bold: true),
+                        tr(LocaleKeys.study_options),
+                        style: CustomTextStyle.titleTextStyle(bold: true),
                       ),
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: Dimen.smallSpace),
                       child: Text(
-                        'The college offers the following degrees: ',
+                        '${tr(LocaleKeys.the_university_offers_the_following_degrees)} ',
                         style: CustomTextStyle.bodyTextStyle(),
                       ),
                     ),
@@ -417,7 +413,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Contact Information',
+                            tr(LocaleKeys.contact_info),
                             style: CustomTextStyle.titleTextStyle(bold: true),
                           ),
                           const SizedBox(height: Dimen.largeSpace),
@@ -573,7 +569,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                 Container(
                   margin: const EdgeInsets.only(top: Dimen.largeSpace),
                   child: Text(
-                    'Majors',
+                    tr(LocaleKeys.major),
                     style: CustomTextStyle.titleTextStyle(bold: true),
                   ),
                 ),
@@ -602,7 +598,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                 ),
                 // * Specialize
                 Text(
-                  'Specialize',
+                  tr(LocaleKeys.specialize),
                   style: CustomTextStyle.titleTextStyle(bold: true),
                 ),
                 // * Specialize List
@@ -665,36 +661,36 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       margin: const EdgeInsets.only(bottom: Dimen.mediumSpace),
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Admissions Overview',
+                        tr(LocaleKeys.admission_overview),
                         style: CustomTextStyle.titleTextStyle(bold: true),
                       ),
                     ),
                     Column(
                       children: [
                         CustomBriefWidget(
-                          title: 'Acceptance Number',
+                          title: tr(LocaleKeys.acceptance_number),
                           subtitle: '${_universityAdmissionModel!.averageStudentAcceptance.toString()} people',
                           icon: Assets.iconAcceptance,
                         ),
                         CustomBriefWidget(
-                          title: 'Regular Application Due',
+                          title: tr(LocaleKeys.regular_application_due),
                           subtitle: _universityAdmissionModel!.isActive == 1
                               ? _universityAdmissionModel!.applicationDeadline
-                              : 'Closed',
+                              : tr(LocaleKeys.closed),
                           icon: Assets.iconCalendar,
                         ),
                         CustomBriefWidget(
-                          title: 'Application Fee',
+                          title: tr(LocaleKeys.application_fee),
                           subtitle: '${_universityAdmissionModel!.applicationFee ?? 'Free'}\$',
                           icon: Assets.iconApplication,
                         ),
                         CustomBriefWidget(
-                          title: 'Enrollment Type',
+                          title: tr(LocaleKeys.enrollment_type),
                           subtitle: _universityAdmissionModel!.enrollTypeEn,
                           icon: Assets.iconEnrollType,
                         ),
                         CustomBriefWidget(
-                          title: 'Tuition',
+                          title: tr(LocaleKeys.tuition),
                           subtitle: '${_universityAdmissionModel!.tuition}\$',
                           icon: Assets.iconMoney,
                         ),
@@ -703,7 +699,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     Container(
                       margin: const EdgeInsets.only(top: Dimen.extraLargeSpace),
                       child: CustomHtmlWidget(
-                        data: _universityAdmissionModel!.descriptionEn,
+                        data: _universityAdmissionModel!.description,
                       ),
                     ),
                     const Divider(
@@ -716,7 +712,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Contact Information',
+                            tr(LocaleKeys.contact_info),
                             style: CustomTextStyle.titleTextStyle(bold: true),
                           ),
                           const SizedBox(height: Dimen.largeSpace),
@@ -790,9 +786,9 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       child: ElevatedButton(
                         onPressed: () => DownloadingProgressDialog().show(
                             downloadUrl: _universityAdmissionModel!.admissionUrl!,
-                            fileName: '${widget.pathName}-Admission'),
+                            fileName: '${widget.pathName}-Admission.pdf'),
                         child: Text(
-                          'Download Admission',
+                          tr(LocaleKeys.download_admission),
                           style: CustomTextStyle.buttonTextStyle(),
                         ),
                       ),
@@ -927,7 +923,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Major & Specialize',
+                  '${LocaleKeys.major} & ${LocaleKeys.specialize}',
                   style: CustomTextStyle.titleTextStyle(bold: true),
                 ),
               ),
@@ -972,50 +968,53 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
       },
       child: _universityMajorDetailModel != null
           ? SingleChildScrollView(
-              child: Column(
-                children: [
-                  // * Major Detail
-                  CustomHtmlWidget(
-                    data: _universityMajorDetailModel!.description,
-                  ),
-                  // * Download Curriculum Button
-                  Container(
-                    margin: const EdgeInsets.only(top: Dimen.largeSpace),
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () => DownloadingProgressDialog().show(
-                        downloadUrl: _universityMajorDetailModel!.curriculumUrl,
-                        fileName: '${widget.pathName}-Curriculum',
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: Dimen.extraLargeSpace,
+              child: Padding(
+                padding: const EdgeInsets.all(Dimen.contentPadding),
+                child: Column(
+                  children: [
+                    // * Major Detail
+                    CustomHtmlWidget(
+                      data: _universityMajorDetailModel!.description,
+                    ),
+                    // * Download Curriculum Button
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () => DownloadingProgressDialog().show(
+                          downloadUrl: _universityMajorDetailModel!.curriculumUrl,
+                          fileName: '${widget.pathName}-Curriculum.pdf',
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: Dimen.extraLargeSpace,
+                          ),
+                        ),
+                        child: Text(
+                          'Download Curriculum',
+                          style: CustomTextStyle.buttonTextStyle(),
                         ),
                       ),
-                      child: Text(
-                        'Download Curriculum',
-                        style: CustomTextStyle.buttonTextStyle(),
-                      ),
                     ),
-                  ),
-                  // * More About Admission Button
-                  Container(
-                    margin: const EdgeInsets.only(top: Dimen.largeSpace),
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () => _tabController.animateTo(2),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: Dimen.extraLargeSpace,
-                        ),
-                      ),
-                      child: Text(
-                        'More About Admission',
-                        style: CustomTextStyle.buttonTextStyle(),
-                      ),
-                    ),
-                  ),
-                ],
+                    // * More About Admission Button
+                    // Container(
+                    //   margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                    //   height: 50,
+                    //   child: ElevatedButton(
+                    //     onPressed: () => _tabController.animateTo(2),
+                    //     style: ElevatedButton.styleFrom(
+                    //       padding: const EdgeInsets.symmetric(
+                    //         horizontal: Dimen.extraLargeSpace,
+                    //       ),
+                    //     ),
+                    //     child: Text(
+                    //       'More About Admission',
+                    //       style: CustomTextStyle.buttonTextStyle(),
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                ),
               ),
             )
           : const ProgressBar(),
@@ -1042,47 +1041,50 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
       },
       child: _universitySpecializeDetailModel != null
           ? SingleChildScrollView(
-              child: Column(
-                children: [
-                  // * Major Detail
-                  CustomHtmlWidget(
-                    data: _universitySpecializeDetailModel!.description,
-                  ),
-                  // * Download Curriculum Button
-                  Container(
-                    margin: const EdgeInsets.only(top: Dimen.largeSpace),
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: Dimen.extraLargeSpace,
+              child: Padding(
+                padding: const EdgeInsets.all(Dimen.contentPadding),
+                child: Column(
+                  children: [
+                    // * Major Detail
+                    CustomHtmlWidget(
+                      data: _universitySpecializeDetailModel!.description,
+                    ),
+                    // * Download Curriculum Button
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: Dimen.extraLargeSpace,
+                          ),
+                        ),
+                        child: Text(
+                          'Download Curriculum',
+                          style: CustomTextStyle.buttonTextStyle(),
                         ),
                       ),
-                      child: Text(
-                        'Download Curriculum',
-                        style: CustomTextStyle.buttonTextStyle(),
-                      ),
                     ),
-                  ),
-                  // * More About Admission Button
-                  Container(
-                    margin: const EdgeInsets.only(top: Dimen.largeSpace),
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: Dimen.extraLargeSpace,
+                    // * More About Admission Button
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: Dimen.extraLargeSpace,
+                          ),
+                        ),
+                        child: Text(
+                          'More About Admission',
+                          style: CustomTextStyle.buttonTextStyle(),
                         ),
                       ),
-                      child: Text(
-                        'More About Admission',
-                        style: CustomTextStyle.buttonTextStyle(),
-                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             )
           : const ProgressBar(),
