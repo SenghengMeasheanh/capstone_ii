@@ -17,5 +17,22 @@ class RequestSignInEvent extends AuthEvent {
   RequestSignInEvent({required this.signInRequest});
 }
 
+// * Profile | Event 
+class RequestProfileEvent extends AuthEvent {
+  final int id;
+
+  RequestProfileEvent({required this.id});
+} 
+
+// * Update Profile | Event
+class RequestUpdateProfileEvent extends AuthEvent {
+  final int id;
+  final ProfileUpdateRequest profileUpdateRequest;
+
+  RequestUpdateProfileEvent({
+    required this.id,
+    required this.profileUpdateRequest,
+  });
+}
 
 

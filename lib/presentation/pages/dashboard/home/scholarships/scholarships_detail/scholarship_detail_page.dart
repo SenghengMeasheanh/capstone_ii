@@ -1,6 +1,7 @@
 import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
@@ -112,7 +113,7 @@ class _ScholarshipsDetailPageState extends State<ScholarshipsDetailPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Contact Information',
+                              tr(LocaleKeys.contact_info),
                               style: CustomTextStyle.titleTextStyle(bold: true),
                             ),
                             const SizedBox(height: Dimen.largeSpace),
@@ -121,7 +122,7 @@ class _ScholarshipsDetailPageState extends State<ScholarshipsDetailPage> {
                               margin: const EdgeInsets.only(bottom: Dimen.smallSpace),
                               child: Text.rich(
                                 TextSpan(
-                                  text: 'Email: ',
+                                  text: '${tr(LocaleKeys.email)}: ',
                                   style: CustomTextStyle.bodyTextStyle(),
                                   children: [
                                     TextSpan(
@@ -141,7 +142,7 @@ class _ScholarshipsDetailPageState extends State<ScholarshipsDetailPage> {
                               margin: const EdgeInsets.only(bottom: Dimen.smallSpace),
                               child: Text.rich(
                                 TextSpan(
-                                  text: 'Phone Number: ',
+                                  text: '${tr(LocaleKeys.phone_number)}: ',
                                   style: CustomTextStyle.bodyTextStyle(),
                                   children: [
                                     TextSpan(
@@ -179,7 +180,7 @@ class _ScholarshipsDetailPageState extends State<ScholarshipsDetailPage> {
                             // * Address
                             Text.rich(
                               TextSpan(
-                                text: 'Address: ',
+                                text: '${tr(LocaleKeys.address)}: ',
                                 style: CustomTextStyle.bodyTextStyle(),
                                 children: [
                                   TextSpan(

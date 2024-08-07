@@ -1,18 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_models.dart';
+part of 'profile_update_request.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserModels _$UserModelsFromJson(Map<String, dynamic> json) => UserModels(
-      id: (json['id'] as num).toInt(),
+ProfileUpdateRequest _$ProfileUpdateRequestFromJson(
+        Map<String, dynamic> json) =>
+    ProfileUpdateRequest(
       name: json['name'] as String,
-      gender: json['gender'] as String,
       birthday: json['birthday'] as String,
-      email: json['email'] as String,
-      phoneNumber: json['phone_number'] as String?,
+      gender: json['gender'] as String,
+      phoneNumber: json['phone_numer'] as String?,
       address: json['address'] as String?,
       universityName: json['university_name'] as String?,
       universityGraduationYear:
@@ -23,19 +23,18 @@ UserModels _$UserModelsFromJson(Map<String, dynamic> json) => UserModels(
           (json['high_school_graduation_year'] as num?)?.toInt(),
       highSchoolGrade: json['high_school_grade'] as String?,
       religion: json['religion'] as String?,
-      country: json['country'] as String?,
       nationality: json['nationality'] as String?,
+      country: json['country'] as String?,
       imageProfile: json['image_profile'] as String?,
     );
 
-Map<String, dynamic> _$UserModelsToJson(UserModels instance) =>
+Map<String, dynamic> _$ProfileUpdateRequestToJson(
+        ProfileUpdateRequest instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'name': instance.name,
-      'gender': instance.gender,
       'birthday': instance.birthday,
-      'email': instance.email,
-      'phone_number': instance.phoneNumber,
+      'gender': instance.gender,
+      'phone_numer': instance.phoneNumber,
       'address': instance.address,
       'university_name': instance.universityName,
       'university_graduation_year': instance.universityGraduationYear,

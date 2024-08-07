@@ -16,5 +16,6 @@ final class RequestStaticPageSuccessState extends SettingsState {
 // ! Static Page | State
 
 final class RequestStaticPageErrorState extends SettingsState {
-  
+  final String message;
+  RequestStaticPageErrorState({required this.message});
 }

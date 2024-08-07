@@ -22,20 +22,26 @@ class ItemCareerQuizQuestion extends StatelessWidget {
     return Column(
       children: [
         // * Question
-        Text(
-          '$questionIndex.${models.questionText}',
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            '$questionIndex.${models.questionText}',
+          ),
         ),
         // * Choice of Answer
         Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: answerChoices
-                .map((answer) => RadioAnswerChoice(
-                      chosenAnswer: chosenAnswer,
-                      answerIndex: answer,
-                      currentAnswer: answer,
-                      onChanged: onChanged,
-                    ))
-                .toList()),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: answerChoices
+              .map(
+                (answer) => RadioAnswerChoice(
+                  chosenAnswer: chosenAnswer,
+                  answerIndex: answer,
+                  currentAnswer: answer,
+                  onChanged: onChanged,
+                ),
+              )
+              .toList(),
+        ),
       ],
     );
   }

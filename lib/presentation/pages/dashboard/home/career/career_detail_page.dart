@@ -2,12 +2,10 @@ import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
-import 'package:flutter/gestures.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CareerDetailPage extends StatefulWidget {
   final int id;
@@ -120,21 +118,21 @@ class _CareerDetailPageState extends State<CareerDetailPage> {
                             children: [
                               // * Yearly Income
                               CustomBriefWidget(
-                                title: 'Median Yearly Income',
+                                title: tr(LocaleKeys.median_yearly_income),
                                 subtitle: '${_careerDetailModels!.yearlyIncome} \$',
                                 icon: Assets.iconMoney,
                                 isSubtitleBold: true,
                               ),
                               // * Education Level
                               CustomBriefWidget(
-                                title: 'Most Common Education Level',
+                                title: tr(LocaleKeys.most_common_education_level),
                                 subtitle: _careerDetailModels!.commonDegreeLevel.name,
                                 icon: Assets.iconEducationLevel,
                                 isSubtitleBold: true,
                               ),
                               // * Job Growth
                               CustomBriefWidget(
-                                title: 'Projected Job Growth',
+                                title: tr(LocaleKeys.projected_job_growth),
                                 subtitle: '${_careerDetailModels!.jobGrowthRate}%',
                                 icon: Assets.iconJobGrowth,
                                 isSubtitleBold: true,
@@ -158,7 +156,8 @@ class _CareerDetailPageState extends State<CareerDetailPage> {
                               children: [
                                 // * Title
                                 Text(
-                                  'What do ${_careerDetailModels!.name} do?',
+                                  tr(LocaleKeys.what_do_career_do,
+                                      namedArgs: {'career': _careerDetailModels!.name}),
                                   style: CustomTextStyle.titleTextStyle(bold: true),
                                 ),
                                 // * Description
@@ -181,15 +180,22 @@ class _CareerDetailPageState extends State<CareerDetailPage> {
                               children: [
                                 // * Title
                                 Text(
-                                  'How much do ${_careerDetailModels!.name} earn yearly?',
+                                  tr(LocaleKeys.how_much_do_career_earn_yearly,
+                                      namedArgs: {'career': _careerDetailModels!.name}),
                                   style: CustomTextStyle.titleTextStyle(bold: true),
                                 ),
                                 // * Description
                                 Container(
                                   margin: const EdgeInsets.only(top: Dimen.mediumSpace),
-                                  child: CustomHtmlWidget(
-                                    data: _careerDetailModels!.earning,
-                                  ),
+                                  child: _careerDetailModels!.earning == null
+                                      ? Text(
+                                          tr(LocaleKeys.this_information_is_not_currently_provided),
+                                          style:
+                                              CustomTextStyle.bodyTextStyle(color: primaryColor.withOpacity(0.3)),
+                                        )
+                                      : CustomHtmlWidget(
+                                          data: _careerDetailModels!.earning!,
+                                        ),
                                 ),
                               ],
                             ),
@@ -202,15 +208,24 @@ class _CareerDetailPageState extends State<CareerDetailPage> {
                               children: [
                                 // * Title
                                 Text(
-                                  'What is the job outlook for new ${_careerDetailModels!.name}?',
+                                  tr(
+                                    LocaleKeys.what_is_the_job_outlook_for_new_career,
+                                    namedArgs: {'career': _careerDetailModels!.name},
+                                  ),
                                   style: CustomTextStyle.titleTextStyle(bold: true),
                                 ),
                                 // * Description
                                 Container(
                                   margin: const EdgeInsets.only(top: Dimen.mediumSpace),
-                                  child: CustomHtmlWidget(
-                                    data: _careerDetailModels!.jobOutlook,
-                                  ),
+                                  child: _careerDetailModels!.jobOutlook == null
+                                      ? Text(
+                                          tr(LocaleKeys.this_information_is_not_currently_provided),
+                                          style:
+                                              CustomTextStyle.bodyTextStyle(color: primaryColor.withOpacity(0.3)),
+                                        )
+                                      : CustomHtmlWidget(
+                                          data: _careerDetailModels!.jobOutlook!,
+                                        ),
                                 ),
                               ],
                             ),
@@ -226,7 +241,7 @@ class _CareerDetailPageState extends State<CareerDetailPage> {
                               color: primaryColor.withOpacity(0.3),
                             ),
                             child: Text(
-                              'Project Growth Rate: ${_careerDetailModels!.jobGrowthRate}%',
+                              '${tr(LocaleKeys.project_growth_rate)}: ${_careerDetailModels!.jobGrowthRate}%',
                               style: CustomTextStyle.bodyTextStyle(),
                               textAlign: TextAlign.center,
                             ),
@@ -239,14 +254,15 @@ class _CareerDetailPageState extends State<CareerDetailPage> {
                               children: [
                                 // * Title
                                 Text(
-                                  'What education level do ${_careerDetailModels!.name} do?',
+                                  tr(LocaleKeys.what_education_level_do_career_have,
+                                      namedArgs: {'career': _careerDetailModels!.name}),
                                   style: CustomTextStyle.titleTextStyle(bold: true),
                                 ),
                                 // * Description
                                 Container(
                                   margin: const EdgeInsets.only(top: Dimen.mediumSpace),
                                   child: Text(
-                                    'This table shows the percentage of responses to a survey asking what education level is needed in this career.',
+                                    tr(LocaleKeys.career_detail_table_description),
                                     style: CustomTextStyle.bodyTextStyle(),
                                     textAlign: TextAlign.justify,
                                   ),
@@ -258,11 +274,11 @@ class _CareerDetailPageState extends State<CareerDetailPage> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Education Level',
+                                        tr(LocaleKeys.education_level),
                                         style: CustomTextStyle.bodyTextStyle(),
                                       ),
                                       Text(
-                                        'Percentage',
+                                        tr(LocaleKeys.percentage),
                                         style: CustomTextStyle.bodyTextStyle(),
                                       ),
                                     ],
@@ -300,24 +316,35 @@ class _CareerDetailPageState extends State<CareerDetailPage> {
                               children: [
                                 // * Title
                                 Text(
-                                  'Tasks',
+                                  tr(LocaleKeys.tasks),
                                   style: CustomTextStyle.titleTextStyle(bold: true),
                                 ),
                                 // * Descriptions
                                 Container(
                                   margin: const EdgeInsets.only(top: Dimen.mediumSpace),
                                   child: Text(
-                                    'What tasks do ${_careerDetailModels!.name} perform?',
+                                    tr(LocaleKeys.what_tasks_do_career_perform,
+                                        namedArgs: {'career': _careerDetailModels!.name}),
                                     style: CustomTextStyle.titleTextStyle(),
                                     textAlign: TextAlign.justify,
                                   ),
                                 ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: Dimen.mediumSpace),
-                                  child: CustomHtmlWidget(
-                                    data: _careerDetailModels!.task,
-                                  ),
-                                ),
+                                _careerDetailModels!.task == null
+                                    ? Container(
+                                        margin: const EdgeInsets.only(top: Dimen.mediumSpace),
+                                        child: Text(
+                                          tr(LocaleKeys.this_information_is_not_currently_provided),
+                                          style:
+                                              CustomTextStyle.bodyTextStyle(color: primaryColor.withOpacity(0.3)),
+                                        ),
+                                      )
+                                    : Container(
+                                        margin: const EdgeInsets.only(top: Dimen.mediumSpace),
+                                        alignment: Alignment.centerLeft,
+                                        child: CustomHtmlWidget(
+                                          data: _careerDetailModels!.task!,
+                                        ),
+                                      ),
                               ],
                             ),
                           ),
@@ -329,14 +356,15 @@ class _CareerDetailPageState extends State<CareerDetailPage> {
                               children: [
                                 // * Title
                                 Text(
-                                  'Knowledge',
+                                  tr(LocaleKeys.knowledge),
                                   style: CustomTextStyle.titleTextStyle(bold: true),
                                 ),
                                 // * Descriptions
                                 Container(
                                   margin: const EdgeInsets.only(top: Dimen.mediumSpace),
                                   child: Text(
-                                    'What do ${_careerDetailModels!.name} need to know?',
+                                    tr(LocaleKeys.what_do_career_need_to_know,
+                                        namedArgs: {'career': _careerDetailModels!.name}),
                                     style: CustomTextStyle.titleTextStyle(),
                                     textAlign: TextAlign.justify,
                                   ),
@@ -345,12 +373,12 @@ class _CareerDetailPageState extends State<CareerDetailPage> {
                                   margin: const EdgeInsets.only(top: Dimen.mediumSpace),
                                   child: _careerDetailModels!.knowledge == null
                                       ? Text(
-                                          'This information is not currently provided.',
+                                          tr(LocaleKeys.this_information_is_not_currently_provided),
                                           style:
                                               CustomTextStyle.bodyTextStyle(color: primaryColor.withOpacity(0.3)),
                                         )
                                       : CustomHtmlWidget(
-                                          data: _careerDetailModels!.knowledge,
+                                          data: _careerDetailModels!.knowledge!,
                                         ),
                                 ),
                               ],
@@ -364,23 +392,30 @@ class _CareerDetailPageState extends State<CareerDetailPage> {
                               children: [
                                 // * Title
                                 Text(
-                                  'Skills',
+                                  tr(LocaleKeys.skills),
                                   style: CustomTextStyle.titleTextStyle(bold: true),
                                 ),
                                 // * Descriptions
                                 Container(
                                   margin: const EdgeInsets.only(top: Dimen.mediumSpace),
                                   child: Text(
-                                    'What skills do ${_careerDetailModels!.name} need?',
+                                    tr(LocaleKeys.what_do_career_need_to_know,
+                                        namedArgs: {'career': _careerDetailModels!.name}),
                                     style: CustomTextStyle.titleTextStyle(),
                                     textAlign: TextAlign.justify,
                                   ),
                                 ),
                                 Container(
                                   margin: const EdgeInsets.only(top: Dimen.mediumSpace),
-                                  child: CustomHtmlWidget(
-                                    data: _careerDetailModels!.skill,
-                                  ),
+                                  child: _careerDetailModels!.skill == null
+                                      ? Text(
+                                          tr(LocaleKeys.this_information_is_not_currently_provided),
+                                          style:
+                                              CustomTextStyle.bodyTextStyle(color: primaryColor.withOpacity(0.3)),
+                                        )
+                                      : CustomHtmlWidget(
+                                          data: _careerDetailModels!.skill!,
+                                        ),
                                 ),
                               ],
                             ),

@@ -6,8 +6,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class DashboardPage extends StatefulWidget {
+  final int? index;
   const DashboardPage({
     super.key,
+    this.index,
   });
 
   @override
@@ -23,6 +25,10 @@ class _DashboardPageState extends State<DashboardPage> {
     super.initState();
     // * Listen Stream Controller
     languageStreamController.stream.listen((_) => setState(() {}));
+    // * Set Index
+    if (widget.index != null) {
+      _persisTabController.jumpToTab(widget.index!);
+    }
   }
 
   @override
@@ -49,7 +55,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ),
       PersistentTabConfig(
-        screen: const BookmarkScreen(),
+        screen: const UnderConstructionPage(),
         item: ItemConfig(
           iconSize: 18,
           title: tr(LocaleKeys.bookmark),
@@ -64,7 +70,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ),
       PersistentTabConfig(
-        screen: const UnderCostructionPage(),
+        screen: const UnderConstructionPage(),
         item: ItemConfig(
           iconSize: 18,
           activeForegroundColor: primaryColor,
@@ -99,8 +105,11 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
+      controller: _persisTabController,
+      navBarOverlap: const NavBarOverlap.none(),
       navBarHeight: 70,
       tabs: _navBarsTab,
+      hideNavigationBar: false,
       navBarBuilder: (navBarConfig) => Style7BottomNavBar(
         navBarConfig: navBarConfig,
       ),

@@ -21,6 +21,16 @@ final class RequestSignInSuccessState extends AuthState {
   RequestSignInSuccessState({required this.response, required this.msg});
 }
 
+// * Profile | State
+final class RequestProfileSuccessState extends AuthState {
+  final MapBodySecureResponse<UserModels> response;
+
+  RequestProfileSuccessState({required this.response});
+}
+
+// * Update Profile | State
+final class RequestUpdateProfileSuccessState extends AuthState {}
+
 // ! Sign Up | State
 final class RequestSignUpErrorState extends AuthState {
   final String message;
@@ -35,3 +45,12 @@ final class RequestSignInErrorState extends AuthState {
   RequestSignInErrorState({required this.message});
 }
 
+// ! Profile | State
+final class RequestProfileErrorState extends AuthState {}
+
+// ! Update Profile | State
+final class RequestUpdateProfileErrorState extends AuthState {
+  final String message;
+
+  RequestUpdateProfileErrorState({required this.message});
+}

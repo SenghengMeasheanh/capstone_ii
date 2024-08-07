@@ -1,12 +1,11 @@
 import 'package:capstone_ii/helper/helper_export.dart';
-import 'package:capstone_ii/helper/styles/dimen.dart';
 import 'package:capstone_ii/presentation/items/item_guide.dart';
 import 'package:capstone_ii/presentation/pages/dashboard/home/guides/guides_details/guides_details.dart';
 import 'package:capstone_ii/presentation/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 class GuidesPage extends StatefulWidget {
-  const GuidesPage({Key? key}) : super(key: key);
+  const GuidesPage({super.key});
 
   @override
   State<GuidesPage> createState() => _GuidesPageState();
@@ -68,7 +67,7 @@ class _GuidesPageState extends State<GuidesPage> {
               // Title
               Container(
                 margin: const EdgeInsets.only(bottom: Dimen.mediumSpace),
-                child: Text(
+                child: const Text(
                   'College Guidance',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
@@ -89,7 +88,7 @@ class _GuidesPageState extends State<GuidesPage> {
                     child: ItemGuide(
                       index: index,
                       guides: guides,
-                      captionTextStyle: TextStyle(fontSize: 16),
+                      captionTextStyle: const TextStyle(fontSize: 16),
                       captionTextColor: Colors.black,
                     
                     ),

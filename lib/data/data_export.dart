@@ -47,6 +47,7 @@ export 'repositories/setting_repo.dart';
 export 'repositories/university_repo.dart';
 
 // * Request
+export 'request/auth/profile/profile_update_request.dart';
 export 'request/auth/sign_in/sign_in_request.dart';
 export 'request/auth/sign_up/sign_up_request.dart';
 export 'request/career_quiz/submit_answer_request.dart';
@@ -60,3 +61,4 @@ export 'response/list_body_response/secure/list_body_secure_response.dart';
 export 'response/list_response/list_response.dart';
 export 'response/list_response/secure/list_secure_response.dart';
 export 'response/map_body_response/map_body_response.dart';
+export 'response/map_body_response/secure/map_body_secure_response.dart';

@@ -10,6 +10,6 @@ class BookmarkGuideTab extends StatefulWidget {
 class _BookmarkGuideTabState extends State<BookmarkGuideTab> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

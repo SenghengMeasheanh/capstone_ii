@@ -13,25 +13,65 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   // * Variable
   late String _fullname;
+  late String _email;
+  late String _university;
+  late String _universityGraduationYear;
+  late String _universityMajor;
+  late String _highSchool;
+  late String _highSchoolGraduationYear;
+  late String _highSchoolGrade;
+  late String _religion;
+  late String _phoneNumber;
+  late String _address;
+  late String _country;
+  late String _nationality;
+  late String _gender;
+  late String _birthday;
+  late String _imageProfile;
 
   // * Init State
   @override
   void initState() {
     super.initState();
     // * Get User Info
-    _getUserInfo();
+    setState(() {
+      _getUserInfo();
+    });
   }
 
   // * Get User Info
   void _getUserInfo() {
     // * Get User Info
-    _fullname = AppPreference.getUser?.name ?? 'Username';
+    _fullname = AppPreference.getUser!.name;
+    _university = AppPreference.getUser?.universityName ?? '__';
+    _universityGraduationYear = AppPreference.getUser?.universityGraduationYear != null
+        ? AppPreference.getUser!.universityGraduationYear.toString()
+        : '__';
+    _universityMajor = AppPreference.getUser?.universityMajor ?? '__';
+    _highSchool = AppPreference.getUser?.highSchoolName ?? '__';
+    _highSchoolGraduationYear = AppPreference.getUser?.highSchoolGraduationYear != null
+        ? AppPreference.getUser!.highSchoolGraduationYear.toString()
+        : '__';
+    _highSchoolGrade = AppPreference.getUser?.highSchoolGrade ?? '__';
+    _religion = AppPreference.getUser?.religion ?? '__';
+    _phoneNumber = AppPreference.getUser?.phoneNumber ?? '__';
+    _address = AppPreference.getUser?.address ?? '__';
+    _country = AppPreference.getUser?.country ?? '__';
+    _nationality = AppPreference.getUser?.nationality ?? '__';
+    _imageProfile = AppPreference.getUser?.imageProfile ?? '__';
+    _email = AppPreference.getUser?.email ?? '__';
+    _gender = AppPreference.getUser?.gender ?? '__';
+    _birthday = AppPreference.getUser?.birthday ?? '__';
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => context.go(destination: const DashboardPage(index: 3)).then((value) => setState(() {})),
+          icon: const Icon(Icons.arrow_back),
+        ),
         title: Text(tr(LocaleKeys.profile)),
         centerTitle: true,
       ),
@@ -48,8 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     CustomCachedNetworkImage(
-                      imageUrl:
-                          'https://www.nme.com/wp-content/uploads/2016/09/2015Eminem_GettyImages-187596325020615.jpg',
+                      imageUrl: _imageProfile,
                       config: CustomCachedNetworkImageConfig(
                         height: 73,
                         width: 73,
@@ -69,13 +108,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(_fullname, style: CustomTextStyle.largeTitleTextStyle(bold: true)),
-                          Text('CADT', style: CustomTextStyle.bodyTextStyle()),
+                          Text(_university, style: CustomTextStyle.bodyTextStyle()),
                         ],
                       ),
                     ),
                     const Spacer(),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () => context.pushReplaceTo(destination: const EditProfilePage()),
                       icon: const Icon(
                         Icons.edit,
                         color: primaryColor,
@@ -96,9 +135,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _buidTitleRow(title: tr(LocaleKeys.university), onTap: () {}),
-                    _buildProfileInfo(field: 'Current University', value: 'CADT'),
-                    _buildProfileInfo(field: 'Graduation Year', value: '2025'),
-                    _buildProfileInfo(field: 'Major', value: 'Software Engineering'),
+                    _buildProfileInfo(field: tr(LocaleKeys.current_university), value: _university),
+                    _buildProfileInfo(field: tr(LocaleKeys.graduation_year), value: _universityGraduationYear),
+                    _buildProfileInfo(field: tr(LocaleKeys.major), value: _universityMajor),
                   ],
                 ),
               ),
@@ -113,10 +152,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buidTitleRow(title: tr(LocaleKeys.highschool), onTap: () {}),
-                    _buildProfileInfo(field: 'High School'),
-                    _buildProfileInfo(field: 'Graduation Year', value: '2021'),
-                    _buildProfileInfo(field: 'Highschool Grade', value: 'A'),
+                    _buidTitleRow(
+                        title: tr(LocaleKeys.highschool),
+                        onTap: () => context.pushReplaceTo(destination: const EditProfilePage())),
+                    _buildProfileInfo(field: tr(LocaleKeys.highschool), value: _highSchool),
+                    _buildProfileInfo(field: tr(LocaleKeys.graduation_year), value: _highSchoolGraduationYear),
+                    _buildProfileInfo(field: tr(LocaleKeys.high_school_grade), value: _highSchoolGrade),
                   ],
                 ),
               ),
@@ -131,17 +172,19 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buidTitleRow(title: tr(LocaleKeys.personal_information), onTap: () {}),
+                    _buidTitleRow(
+                        title: tr(LocaleKeys.personal_information),
+                        onTap: () => context.pushReplaceTo(destination: const EditProfilePage())),
                     Row(
                       children: [
-                        Expanded(child: _buildProfileInfo(field: 'Date of Birth', value: '01/01/2000')),
-                        Expanded(child: _buildProfileInfo(field: 'Gender', value: 'Gay')),
+                        Expanded(child: _buildProfileInfo(field: tr(LocaleKeys.birthday), value: _birthday)),
+                        Expanded(child: _buildProfileInfo(field: tr(LocaleKeys.gender), value: _gender)),
                       ],
                     ),
                     Row(
                       children: [
-                        Expanded(child: _buildProfileInfo(field: 'Religion', value: 'Buddha')),
-                        Expanded(child: _buildProfileInfo(field: 'Nationality', value: 'Cambodian')),
+                        Expanded(child: _buildProfileInfo(field: tr(LocaleKeys.religion), value: _religion)),
+                        Expanded(child: _buildProfileInfo(field: tr(LocaleKeys.nationality), value: _nationality)),
                       ],
                     )
                   ],
@@ -158,11 +201,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buidTitleRow(title: tr(LocaleKeys.contact_info), onTap: () {}),
-                    _buildProfileInfo(field: 'Email', value: 'piseybekbek@gmail.com'),
-                    _buildProfileInfo(field: 'Country', value: 'Cambodia'),
-                    _buildProfileInfo(field: 'Phone Number', value: '012345678'),
-                    _buildProfileInfo(field: 'Address', value: 'Phnom Penh'),
+                    _buidTitleRow(
+                        title: tr(LocaleKeys.contact_info),
+                        onTap: () => context.pushReplaceTo(destination: const EditProfilePage())),
+                    _buildProfileInfo(field: tr(LocaleKeys.email), value: _email),
+                    _buildProfileInfo(field: tr(LocaleKeys.country), value: _country),
+                    _buildProfileInfo(field: tr(LocaleKeys.phone_number), value: _phoneNumber),
+                    _buildProfileInfo(field: tr(LocaleKeys.address), value: _address),
                   ],
                 ),
               ),

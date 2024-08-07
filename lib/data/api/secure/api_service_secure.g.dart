@@ -46,6 +46,71 @@ class _ApiServiceSecure implements ApiServiceSecure {
   }
 
   @override
+  Future<MapBodySecureResponse<UserModels>> getProfile(
+      {required int id}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<MapBodySecureResponse<UserModels>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/profile/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = MapBodySecureResponse<UserModels>.fromJson(
+      _result.data!,
+      (json) => UserModels.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<MapBodySecureResponse<UserModels>> requestUpdateProfile({
+    required int id,
+    required ProfileUpdateRequest profileUpdateRequest,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(profileUpdateRequest.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<MapBodySecureResponse<UserModels>>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/profile/${id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = MapBodySecureResponse<UserModels>.fromJson(
+      _result.data!,
+      (json) => UserModels.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<ListBodySecureResponse<CareerQuizModels>> getCareerQuiz() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

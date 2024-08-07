@@ -10,10 +10,10 @@ class GuidesDetails extends StatelessWidget {
   final List<Map<String, dynamic>> guides;
 
   const GuidesDetails({
-    Key? key,
+    super.key,
     required this.guides,
     required this.guideIndex,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

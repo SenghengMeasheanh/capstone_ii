@@ -14,6 +14,11 @@ class AppPreference {
   // * User Info
   static const _keyUser = 'user';
 
+  // * Remember Me Info
+  static const _keyEmail = 'email';
+  static const _keyPassword = 'password';
+  static const _keyRememberMe = 'remember_me';
+
   // * Ensure Initialized
   static Future<void> ensureInitialized() async => _preferences = await SharedPreferences.getInstance();
 
@@ -28,6 +33,18 @@ class AppPreference {
 
   static Future<void> saveUser(UserModels userModels) async {
     await _preferences.setString(_keyUser, jsonEncode(userModels));
+  }
+
+  static Future<void> saveEmail(String email) async {
+    await _preferences.setString(_keyEmail, email);
+  }
+
+  static Future<void> savePassword(String password) async {
+    await _preferences.setString(_keyPassword, password);
+  }
+
+  static Future<void> saveRememberMe(bool rememberMe) async {
+    await _preferences.setBool(_keyRememberMe, rememberMe);
   }
 
   // * Getter
@@ -45,6 +62,18 @@ class AppPreference {
     } catch (_) {
       return null;
     }
+  }
+
+  static String? get getEmail {
+    return _preferences.getString(_keyEmail);
+  }
+
+  static String? get getPassword {
+    return _preferences.getString(_keyPassword);
+  }
+
+  static bool get getRememberMe {
+    return _preferences.getBool(_keyRememberMe) ?? false;
   }
 
   // * Operation

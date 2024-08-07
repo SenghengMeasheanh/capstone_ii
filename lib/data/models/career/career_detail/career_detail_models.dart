@@ -10,37 +10,37 @@ class CareerDetailModels extends CareerModels {
   final DegreeLevelsModels commonDegreeLevel;
 
   @JsonKey(name: 'earning_en')
-  final String earningEn;
+  final String? earningEn;
 
   @JsonKey(name: 'job_outlook_en')
-  final String jobOutlookEn;
+  final String? jobOutlookEn;
 
   @JsonKey(name: 'task_en')
-  final String taskEn;
+  final String? taskEn;
 
   @JsonKey(name: 'knowledge_en')
-  final String knowledgeEn;
+  final String? knowledgeEn;
 
   @JsonKey(name: 'skill_en')
-  final String skillEn;
+  final String ?skillEn;
 
   @JsonKey(name: 'is_active')
   final int isActive;
 
   @JsonKey(name: 'earning_kh')
-  final String earningKh;
+  final String? earningKh;
 
   @JsonKey(name: 'job_outlook_kh')
-  final String jobOutlookKh;
+  final String? jobOutlookKh;
 
   @JsonKey(name: 'task_kh')
-  final String taskKh;
+  final String? taskKh;
 
   @JsonKey(name: 'knowledge_kh')
-  final String knowledgeKh;
+  final String? knowledgeKh;
 
   @JsonKey(name: 'skill_kh')
-  final String skillKh;
+  final String? skillKh;
 
   @JsonKey(name: 'career_types')
   final List<CareerTypeModels> careerTypes;
@@ -73,15 +73,15 @@ class CareerDetailModels extends CareerModels {
     required this.careerEducationLevels,
   });
 
-  get earning => getDataBasedOnCurrentLanguage(kh: earningKh, en: earningEn);
+  String? get earning => getDataBasedOnCurrentLanguage(kh: earningKh, en: earningEn);
 
-  get jobOutlook => getDataBasedOnCurrentLanguage(kh: jobOutlookKh, en: jobOutlookEn);
+  String? get jobOutlook => getDataBasedOnCurrentLanguage(kh: jobOutlookKh, en: jobOutlookEn);
 
-  get task => getDataBasedOnCurrentLanguage(kh: taskKh, en: taskEn);
+  String? get task => getDataBasedOnCurrentLanguage(kh: taskKh, en: taskEn);
 
-  get knowledge => getDataBasedOnCurrentLanguage(kh: knowledgeKh, en: knowledgeEn);
+  String? get knowledge => getDataBasedOnCurrentLanguage(kh: knowledgeKh, en: knowledgeEn);
 
-  get skill => getDataBasedOnCurrentLanguage(kh: skillKh, en: skillEn);
+  String? get skill => getDataBasedOnCurrentLanguage(kh: skillKh, en: skillEn);
 
   factory CareerDetailModels.fromJson(Map<String, dynamic> json) => _$CareerDetailModelsFromJson(json);
 
