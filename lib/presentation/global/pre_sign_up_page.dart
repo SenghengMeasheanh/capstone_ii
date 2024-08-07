@@ -1,6 +1,6 @@
 import 'package:capstone_ii/helper/helper_export.dart';
-import 'package:capstone_ii/helper/styles/styles.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -20,7 +20,7 @@ class PreSignUpPage extends StatelessWidget {
         children: [
           // * Lottie
           Lottie.asset(Assets.lottieStudent, repeat: false),
-          // * Go Sign Up Button
+          // * Go Sign In Button
           Container(
             margin: const EdgeInsets.only(top: Dimen.largeSpace),
             child: ElevatedButton(
@@ -30,8 +30,8 @@ class PreSignUpPage extends StatelessWidget {
                   vertical: Dimen.defaultSpace,
                 ),
               ),
-              onPressed: () => context.push(destination: const SignUpPage()),
-              child: Text('Go Sign Up', style: CustomTextStyle.bodyTextStyle()),
+              onPressed: () => context.push(destination: const SignInPage()),
+              child: Text(tr(LocaleKeys.sign_in), style: CustomTextStyle.bodyTextStyle()),
             ),
           ),
         ],

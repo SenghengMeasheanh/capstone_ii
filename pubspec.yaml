@@ -51,6 +51,8 @@ dependencies:
   cached_network_image: ^3.3.1
   # Carousel Slider
   carousel_slider: ^4.2.1
+  # Country Picker
+  country_picker: ^2.0.26
   # Connectivity Plus
   connectivity_plus: ^6.0.3
   # Device Info Plus
@@ -63,8 +65,6 @@ dependencies:
   dropdown_textfield: ^1.0.8
   # Easy Localization
   easy_localization: ^3.0.6
-  # Envied
-  envied: ^0.5.3
   # Flutter Bloc
   flutter_bloc: ^8.1.6
   # Flutter Cache Manager
@@ -75,18 +75,18 @@ dependencies:
   flutter_screenutil: ^5.9.1
   # Flutter SVG
   flutter_svg: ^2.0.10+1
-  #Fuzzy
+  # Fuzzy
   fuzzy: ^0.5.1
   # In App Review
   in_app_review: ^2.0.9
   # Image Cropper
-  image_cropper: ^7.0.5
+  image_cropper: ^8.0.1
   # Image Picker
   image_picker: ^1.0.7
   # Infinite Scroll Pagination
   infinite_scroll_pagination: ^4.0.0
   # Json
-  json_serializable: ^6.7.1
+  json_serializable: ^6.8.0
   json_annotation: ^4.8.1
   # Lottie
   lottie: ^3.1.0
@@ -96,6 +96,8 @@ dependencies:
   onesignal_flutter: ^5.1.0
   # Package Info Plus
   package_info_plus: ^8.0.0
+  # Path
+  path: ^1.9.0
   # Path Provider
   path_provider: ^2.1.2
   # # Persistant Bottom Nav Bar

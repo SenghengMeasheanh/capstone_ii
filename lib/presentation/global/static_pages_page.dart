@@ -1,4 +1,3 @@
-import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:flutter/material.dart';
@@ -52,19 +51,11 @@ class _StaticPagesPageState extends State<StaticPagesPage> {
           }
         },
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(Dimen.contentPadding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Visibility(
-                  visible: _content.isNotEmpty,
-                  replacement: const ProgressBar(),
-                  child: CustomHtmlWidget(data: _content),
-                ),
-              ],
+          child: Center(
+            child: Visibility(
+              visible: _content.isNotEmpty,
+              replacement: const ProgressBar(),
+              child: CustomHtmlWidget(data: _content),
             ),
           ),
         ),

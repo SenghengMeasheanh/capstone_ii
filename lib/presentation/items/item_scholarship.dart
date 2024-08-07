@@ -63,7 +63,7 @@ class ItemScholarship extends StatelessWidget {
                         children: [
                           const SizedBox(width: Dimen.smallSpace),
                           Text(
-                            'Open Date: ${DateFormat('d MMMM y').format(DateTime.parse(models.openDate))}',
+                            '${tr(LocaleKeys.open_date)}: ${DateFormat('d MMMM y').format(DateTime.parse(models.openDate))}',
                             style: CustomTextStyle.bodyTextStyle(),
                           ),
                         ],
@@ -73,7 +73,7 @@ class ItemScholarship extends StatelessWidget {
                         children: [
                           const SizedBox(width: Dimen.smallSpace),
                           Text(
-                            'Close Date: ${DateFormat('d MMMM y').format(DateTime.parse(models.closeDate))}',
+                            '${tr(LocaleKeys.close_date)}: ${DateFormat('d MMMM y').format(DateTime.parse(models.closeDate))}',
                             style: CustomTextStyle.bodyTextStyle(),
                           ),
                         ],

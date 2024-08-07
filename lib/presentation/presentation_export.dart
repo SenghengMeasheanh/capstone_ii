@@ -25,6 +25,7 @@ export 'items/item_university_tuition.dart';
 
 // * Modals
 // ? Modals (Bottom Sheets)
+export 'modals/bottom_sheets/image_picker_bottom_sheet.dart';
 export 'modals/bottom_sheets/language_picker_bottom_sheet.dart';
 
 // ? Modals (Dialogs)
@@ -100,9 +101,8 @@ export 'pages/dashboard/calender/calender_screen.dart';
 
 // ? Pages (Dashboard/Settings)
 export 'pages/dashboard/settings/account_screen.dart';
-export 'pages/dashboard/settings/privacy_policy/privacy_policy_page.dart';
-export 'pages/dashboard/settings/profile/profile_screen.dart';
-export 'pages/dashboard/settings/terms_and_conditions/terms_and_conditions_page.dart';
+export 'pages/dashboard/settings/profile/profile_page.dart';
+export 'pages/dashboard/settings/profile/edit_profile_page.dart';
 
 // * Widgets
 export 'widgets/action_menu_widget.dart';
@@ -111,6 +111,7 @@ export 'widgets/custom_button_with_icon.dart';
 export 'widgets/custom_cached_network_image_widget.dart';
 export 'widgets/custom_html_widget.dart';
 export 'widgets/empty_items_widget.dart';
+export 'widgets/is_required_title_widget.dart';
 export 'widgets/progress_bar_widget.dart';
 export 'widgets/scaffold_messenger_widget.dart';
 export 'widgets/search_bar_widget.dart';

@@ -89,7 +89,7 @@ class _MyAppState extends State<MyApp> {
       designSize: const Size(360, 800),
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Capstone II',
+        title: 'PathFinder',
         navigatorKey: navigatorKey,
         scaffoldMessengerKey: scaffoldMessengerKey,
         localizationsDelegates: context.localizationDelegates,

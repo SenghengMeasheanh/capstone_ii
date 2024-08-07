@@ -32,10 +32,27 @@ class _SignInPageState extends State<SignInPage> {
   var _isRememberMe = false;
 
   @override
+  void initState() {
+    super.initState();
+    // * Load Remember Me
+    _loadRememberMe();
+  }
+
+  @override
   void dispose() {
     super.dispose();
     _emailTextController.dispose();
     _passwordTextController.dispose();
+  }
+
+  Future<void> _loadRememberMe() async {
+    await AppPreference.ensureInitialized();
+    _isRememberMe = AppPreference.getRememberMe;
+    if (_isRememberMe) {
+      _emailTextController.text = AppPreference.getEmail ?? '';
+      _passwordTextController.text = AppPreference.getPassword ?? '';
+    }
+    setState(() {});
   }
 
   @override
@@ -46,10 +63,24 @@ class _SignInPageState extends State<SignInPage> {
         if (_progressDialog.isShowing) _progressDialog.dismiss();
         // * Request Sign In Success
         if (state is RequestSignInSuccessState) {
-          // * Go to Dashboard Page
-          context.go(destination: const DashboardPage());
+          // * Save Remember Me state
+          if (_isRememberMe) {
+            AppPreference.saveEmail(_emailTextController.text);
+            AppPreference.savePassword(_passwordTextController.text);
+          } else {
+            AppPreference.saveEmail('');
+            AppPreference.savePassword('');
+          }
+          AppPreference.saveRememberMe(_isRememberMe);
+          // * Request Profile
+          context.read<AuthBloc>().add(RequestProfileEvent(id: state.response.body!.user.id));
           // * Return
           return;
+        }
+        // * Request Profile Success
+        if (state is RequestProfileSuccessState) {
+          // * Navigate to Dashboard
+          context.go(destination: const DashboardPage());
         }
         // ! Request Sign In Error
         if (state is RequestSignInErrorState) {
@@ -89,6 +120,7 @@ class _SignInPageState extends State<SignInPage> {
                           validator: (value) => Validator.validateEmptyField(value),
                           controller: _emailTextController,
                           keyboardType: TextInputType.emailAddress,
+                          onChanged: (value) => setState(() {}),
                           decoration: InputDecoration(
                             hintText: tr(LocaleKeys.email),
                             prefixIcon: const Icon(Icons.email_outlined, size: 24),

@@ -40,15 +40,17 @@ class Assets {
   static const String imageLogo = '$_imagePath/logo.png';
   static const String imageLogoWithBg = '$_imagePath/logo_with_bg.png';
   static const imageNoImage = '$_imagePath/no_image.jpg';
-  static const imageNoImagePerson = '$_imagePath/ic_no_image_person.jpg';
+  static const imageNoImagePerson = '$_imagePath/ig_no_image_person.jpg';
   static const imagePaymentABAPay = '$_imagePath/payment_aba_pay.png';
   static const imagePaymentCreditCard = '$_imagePath/payment_credit_card.png';
   static const imagePaymentDebitCard = '$_imagePath/payment_debit_card.png';
   static const String imageQrCode = '$_imagePath/qr_code.png';
+  static const String imageSmallLogo = '$_imagePath/small_logo.png';
 
   // * Lottie
   static const lottieEmptyItems = '$_lottiePath/empty_items.json';
   static const lottieBooks = '$_lottiePath/books.json';
+  static const lottieDownloading = '$_lottiePath/downloading.json';
   static const lottieComingSoon = '$_lottiePath/coming_soon.json';
   static const lottieInfo = '$_lottiePath/info.json';
   static const lottieNoInternet = '$_lottiePath/no_internet_connection.json';

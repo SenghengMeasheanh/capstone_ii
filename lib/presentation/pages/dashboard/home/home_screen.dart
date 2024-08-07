@@ -19,13 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
   // * Controller
   final _searchBarController = TextEditingController();
 
-  // * Dummy Data
-  List<String> images = [
-    'https://images.daznservices.com/di/library/DAZN_News/93/c7/devin-haney-vs-ryan-garcia-promo-art_8q1j8kix4h2f1jsggsqpu0u71.jpg?t=-988126179',
-    'https://images.squarespace-cdn.com/content/v1/622100331a5f6258ce172735/c418da0d-1277-404c-8c91-1b14d078dac0/532452769368407943.jpeg',
-    'https://www.wwe.com/f/styles/wwe_large/public/all/2024/04/20240314_WM40_Match_USTitle_FC_tonight--fe130dabb803acea2d41f160726019b5.jpg'
-  ];
-
   // * Popular List
   var _popularUniversityList = <UniversityModels>[];
   var _popularCareerList = <CareerModels>[];
@@ -52,8 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[150],
         appBar: AppBar(
-          title: Text(tr(LocaleKeys.home), style: CustomTextStyle.titleTextStyle(fontSize: 30, bold: true)),
+          toolbarHeight: 70,
+          centerTitle: false,
+          elevation: 10,
+          title: Text(
+            tr(LocaleKeys.home),
+            style: CustomTextStyle.largeTitleTextStyle(bold: true),
+          ),
           actions: [
             IconButton(
               onPressed: () => context.push(destination: const NotificationPage()),
@@ -90,36 +90,40 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(Dimen.contentPadding),
               child: Column(
                 children: [
-                  // * Search Bar
-                  SearchBarWidget(
-                    controller: _searchBarController,
-                    onChange: (value) => {},
-                  ),
-                  const SizedBox(height: Dimen.mediumSpace),
                   // * Menu
-                  GridView.count(
-                    clipBehavior: Clip.antiAlias,
-                    crossAxisCount: 3,
-                    crossAxisSpacing: Dimen.mediumSpace,
-                    mainAxisSpacing: Dimen.mediumSpace,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.zero,
-                    children: Menu.values
-                        .map(
-                          (e) => _MenuIcon(
-                            onTap: () => context.push(
-                              destination: getMenuRoute(value: e),
+                  Card(
+                    elevation: 7,
+                    shadowColor: Colors.black.withOpacity(0.2),
+                    borderOnForeground: true,
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.grey[200]!, width: 1),
+                      borderRadius: BorderRadius.circular(Dimen.defaultRadius),
+                    ),
+                    child: GridView.count(
+                      clipBehavior: Clip.antiAlias,
+                      crossAxisCount: 3,
+                      crossAxisSpacing: Dimen.mediumSpace,
+                      mainAxisSpacing: Dimen.mediumSpace,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.zero,
+                      children: Menu.values
+                          .map(
+                            (e) => _MenuIcon(
+                              onTap: () => context.push(
+                                destination: getMenuRoute(value: e),
+                              ),
+                              icon: SvgPicture.asset(
+                                getIconMenu(value: e),
+                                width: 30,
+                                height: 30,
+                                colorFilter: const ColorFilter.mode(primaryColor, BlendMode.srcIn),
+                              ),
+                              title: getMenuTitle(value: e),
                             ),
-                            icon: SvgPicture.asset(
-                              getIconMenu(value: e),
-                              width: 30,
-                              height: 30,
-                            ),
-                            title: getMenuTitle(value: e),
-                          ),
-                        )
-                        .toList(),
+                          )
+                          .toList(),
+                    ),
                   ),
                   // * Title
                   Container(
@@ -247,28 +251,28 @@ class _MenuIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Dimen.defaultRadius),
-          color: secondaryColor,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // * Icon
-            icon,
-            // * Title
-            Container(
-              margin: const EdgeInsets.only(top: Dimen.mediumSpace),
-              alignment: Alignment.center,
-              child: Text(
-                tr(title),
-                style: CustomTextStyle.captionTextStyle(bold: true),
-                textAlign: TextAlign.center,
-              ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(Dimen.defaultSpace),
+            decoration: BoxDecoration(
+              color: primaryColor.withOpacity(0.1),
+              shape: BoxShape.circle,
             ),
-          ],
-        ),
+            child: icon,
+          ),
+          const SizedBox(height: Dimen.smallSpace),
+          Container(
+            alignment: Alignment.center,
+            child: Text(
+              tr(title),
+              style: CustomTextStyle.bodyTextStyle(),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
       ),
     );
   }

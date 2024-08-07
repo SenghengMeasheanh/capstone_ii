@@ -1,8 +1,10 @@
 import 'package:capstone_ii/presentation/presentation_export.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:open_file/open_file.dart';
+import 'package:lottie/lottie.dart';
 
 class DownloadingProgressDialog with ModalUtilsMixin {
   // * Variable
@@ -70,14 +72,14 @@ class _DownloadingProgressDialogState extends State<_DownloadingProgressDialog> 
   Future<void> _tryDownloadFile() async {
     // * Awaiting for Download File Stream
     await downloadFile(
-        url: widget.downloadUrl,
-        onDownloadProgress: _setDownloadProgress,
-        cancelToken: _cancelToken,
-        onSuccess: (result) => _doOnComplete(msg: result),
-        onFailed: (result) => _doOnComplete(msg: result),
-        onDownloadCompleted: (filePath) => _openFile(filePath),
-        fileName: widget.fileName,
-      );
+      url: widget.downloadUrl,
+      onDownloadProgress: _setDownloadProgress,
+      cancelToken: _cancelToken,
+      onSuccess: (result) => _doOnComplete(msg: result),
+      onFailed: (result) => _doOnComplete(msg: result),
+      onDownloadCompleted: (filePath) => _openFile(filePath),
+      fileName: widget.fileName,
+    );
   }
 
   // * Open File
@@ -124,16 +126,21 @@ class _DownloadingProgressDialogState extends State<_DownloadingProgressDialog> 
             children: [
               // * Title
               Text(
-                'Downloading File',
+                tr(LocaleKeys.downloading_file),
                 style: CustomTextStyle.largeTitleTextStyle(bold: true),
+              ),
+              // * Lottie
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: Dimen.largeSpace),
+                child: Lottie.asset(Assets.lottieDownloading, animate: true, width: 200, height: 200),
               ),
               // * Subtitle
               Container(
                 margin: const EdgeInsets.symmetric(vertical: Dimen.largeSpace),
                 child: Text(
-                  'Please wait while the file is ${_progress == 100 ? 'installing' : 'downloading'}',
+                  '${tr(LocaleKeys.please_wait_while_the_file_is)}${_progress == 100 ? tr(LocaleKeys.installing) : tr(LocaleKeys.downloading)}',
                   textAlign: TextAlign.center,
-                  style: CustomTextStyle.largeTitleTextStyle(),
+                  style: CustomTextStyle.titleTextStyle(),
                 ),
               ),
               // * Progress Indicator
@@ -162,8 +169,13 @@ class _DownloadingProgressDialogState extends State<_DownloadingProgressDialog> 
                 height: 80,
                 margin: const EdgeInsets.only(top: Dimen.defaultSpace),
                 child: ElevatedButton(
-                  onPressed: () => _cancelToken.cancel(),
-                  child: Text('Cancel', style: CustomTextStyle.buttonTextStyle()),
+                  onPressed: () => {
+                    // * Cancel Download
+                    _cancelToken.cancel('Download Cancelled'),
+                    // * Dismiss Dialog
+                    dismiss(),
+                  },
+                  child: Text(tr(LocaleKeys.cancel), style: CustomTextStyle.buttonTextStyle()),
                 ),
               ),
             ],

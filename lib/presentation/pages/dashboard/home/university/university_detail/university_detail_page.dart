@@ -591,7 +591,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       },
                       firstPageProgressIndicatorBuilder: (context) =>
                           const Center(child: CircularProgressIndicator()),
-                      noItemsFoundIndicatorBuilder: (context) => const Center(child: Text('No Major found!')),
+                      noItemsFoundIndicatorBuilder: (context) => const EmptyItems(),
                       newPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
                     ),
                   ),
@@ -619,7 +619,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       },
                       firstPageProgressIndicatorBuilder: (context) =>
                           const Center(child: CircularProgressIndicator()),
-                      noItemsFoundIndicatorBuilder: (context) => const Center(child: Text('No Specialize found!')),
+                      noItemsFoundIndicatorBuilder: (context) => const EmptyItems(),
                       newPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
                     ),
                   ),
@@ -669,7 +669,8 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       children: [
                         CustomBriefWidget(
                           title: tr(LocaleKeys.acceptance_number),
-                          subtitle: '${_universityAdmissionModel!.averageStudentAcceptance.toString()} people',
+                          subtitle:
+                              '${_universityAdmissionModel!.averageStudentAcceptance.toString()} ${tr(LocaleKeys.people)}',
                           icon: Assets.iconAcceptance,
                         ),
                         CustomBriefWidget(
@@ -786,7 +787,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       child: ElevatedButton(
                         onPressed: () => DownloadingProgressDialog().show(
                             downloadUrl: _universityAdmissionModel!.admissionUrl!,
-                            fileName: '${widget.pathName}-Admission.pdf'),
+                            fileName: '${widget.pathName}-Admission'),
                         child: Text(
                           tr(LocaleKeys.download_admission),
                           style: CustomTextStyle.buttonTextStyle(),
@@ -824,34 +825,21 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
           // * Request University Scholarships List
           context.read<UniversityBloc>().add(RequestUniversityScholarshipListEvent(id: widget.universityId));
         },
-        child: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.all(Dimen.contentPadding),
-            child: Column(
-              children: [
-                const SizedBox(height: Dimen.largeSpace),
-                // * Scholarship List
-                PagedListView<int, UniversityScholarshipModels>.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  pagingController: _universityScholarshipController,
-                  separatorBuilder: (context, index) => const SizedBox(height: Dimen.largeSpace),
-                  builderDelegate: PagedChildBuilderDelegate<UniversityScholarshipModels>(
-                    itemBuilder: (context, models, index) {
-                      return ItemScholarship(
-                        models: models,
-                        onTap: () => _onShowScholarshipDetail(models.id),
-                      );
-                    },
-                    firstPageProgressIndicatorBuilder: (context) =>
-                        const Center(child: CircularProgressIndicator()),
-                    noItemsFoundIndicatorBuilder: (context) => const Center(child: Text('No Scholarship found!')),
-                    newPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
-                  ),
-                ),
-              ],
-            ),
+        child: PagedListView<int, UniversityScholarshipModels>.separated(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(Dimen.contentPadding),
+          pagingController: _universityScholarshipController,
+          separatorBuilder: (context, index) => const SizedBox(height: Dimen.largeSpace),
+          builderDelegate: PagedChildBuilderDelegate<UniversityScholarshipModels>(
+            itemBuilder: (context, models, index) {
+              return ItemScholarship(
+                models: models,
+                onTap: () => _onShowScholarshipDetail(models.id),
+              );
+            },
+            firstPageProgressIndicatorBuilder: (context) => const Center(child: CircularProgressIndicator()),
+            noItemsFoundIndicatorBuilder: (context) => const EmptyItems(),
+            newPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
           ),
         ),
       ),
@@ -889,7 +877,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
             );
           },
           firstPageProgressIndicatorBuilder: (context) => const Center(child: CircularProgressIndicator()),
-          noItemsFoundIndicatorBuilder: (context) => const Center(child: Text('No Event found!')),
+          noItemsFoundIndicatorBuilder: (context) => const EmptyItems(),
           newPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
         ),
       ),
@@ -923,7 +911,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '${LocaleKeys.major} & ${LocaleKeys.specialize}',
+                  '${tr(LocaleKeys.major)} & ${tr(LocaleKeys.specialize)}',
                   style: CustomTextStyle.titleTextStyle(bold: true),
                 ),
               ),
@@ -938,7 +926,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     return ItemUniversityTuition(models: models);
                   },
                   firstPageProgressIndicatorBuilder: (context) => const Center(child: CircularProgressIndicator()),
-                  noItemsFoundIndicatorBuilder: (context) => const Center(child: Text('No Tuition found!')),
+                  noItemsFoundIndicatorBuilder: (context) => const EmptyItems(),
                   newPageProgressIndicatorBuilder: (context) => const SizedBox.shrink(),
                 ),
               ),
@@ -983,7 +971,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       child: ElevatedButton(
                         onPressed: () => DownloadingProgressDialog().show(
                           downloadUrl: _universityMajorDetailModel!.curriculumUrl,
-                          fileName: '${widget.pathName}-Curriculum.pdf',
+                          fileName: '${widget.pathName}-Curriculum',
                         ),
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
@@ -991,28 +979,28 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                           ),
                         ),
                         child: Text(
-                          'Download Curriculum',
+                          tr(LocaleKeys.download_curriculum),
                           style: CustomTextStyle.buttonTextStyle(),
                         ),
                       ),
                     ),
                     // * More About Admission Button
-                    // Container(
-                    //   margin: const EdgeInsets.only(top: Dimen.largeSpace),
-                    //   height: 50,
-                    //   child: ElevatedButton(
-                    //     onPressed: () => _tabController.animateTo(2),
-                    //     style: ElevatedButton.styleFrom(
-                    //       padding: const EdgeInsets.symmetric(
-                    //         horizontal: Dimen.extraLargeSpace,
-                    //       ),
-                    //     ),
-                    //     child: Text(
-                    //       'More About Admission',
-                    //       style: CustomTextStyle.buttonTextStyle(),
-                    //     ),
-                    //   ),
-                    // ),
+                    Container(
+                      margin: const EdgeInsets.only(top: Dimen.largeSpace),
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () => _tabController.animateTo(2),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: Dimen.extraLargeSpace,
+                          ),
+                        ),
+                        child: Text(
+                          tr(LocaleKeys.more_about_admission),
+                          style: CustomTextStyle.buttonTextStyle(),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1054,14 +1042,17 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       margin: const EdgeInsets.only(top: Dimen.largeSpace),
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => DownloadingProgressDialog().show(
+                          downloadUrl: _universitySpecializeDetailModel!.curriculumUrl,
+                          fileName: '${widget.pathName}-Curriculum',
+                        ),
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                             horizontal: Dimen.extraLargeSpace,
                           ),
                         ),
                         child: Text(
-                          'Download Curriculum',
+                          tr(LocaleKeys.download_curriculum),
                           style: CustomTextStyle.buttonTextStyle(),
                         ),
                       ),
@@ -1071,14 +1062,14 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       margin: const EdgeInsets.only(top: Dimen.largeSpace),
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => _tabController.animateTo(2),
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                             horizontal: Dimen.extraLargeSpace,
                           ),
                         ),
                         child: Text(
-                          'More About Admission',
+                          tr(LocaleKeys.more_about_admission),
                           style: CustomTextStyle.buttonTextStyle(),
                         ),
                       ),
@@ -1148,7 +1139,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                     Container(
                       margin: const EdgeInsets.only(top: Dimen.extraLargeSpace),
                       child: CustomHtmlWidget(
-                        data: _universityScholarshipDetailModel!.detailEn,
+                        data: _universityScholarshipDetailModel!.detail,
                       ),
                     ),
                     // * Contact Information
@@ -1159,7 +1150,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Contact Information',
+                            tr(LocaleKeys.contact_info),
                             style: CustomTextStyle.titleTextStyle(bold: true),
                           ),
                           const SizedBox(height: Dimen.largeSpace),
@@ -1168,7 +1159,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                             margin: const EdgeInsets.only(bottom: Dimen.smallSpace),
                             child: Text.rich(
                               TextSpan(
-                                text: 'Email: ',
+                                text: '${tr(LocaleKeys.email)}: ',
                                 style: CustomTextStyle.bodyTextStyle(),
                                 children: [
                                   TextSpan(
@@ -1189,7 +1180,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                             margin: const EdgeInsets.only(bottom: Dimen.smallSpace),
                             child: Text.rich(
                               TextSpan(
-                                text: 'Phone Number: ',
+                                text: '${tr(LocaleKeys.phone_number)}: ',
                                 style: CustomTextStyle.bodyTextStyle(),
                                 children: [
                                   TextSpan(
@@ -1232,7 +1223,7 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                             margin: const EdgeInsets.only(bottom: Dimen.smallSpace),
                             child: Text.rich(
                               TextSpan(
-                                text: 'Address: ',
+                                text: '${tr(LocaleKeys.location)}: ',
                                 style: CustomTextStyle.bodyTextStyle(),
                                 children: [
                                   TextSpan(
@@ -1257,14 +1248,14 @@ class _UniversityDetailPageState extends State<UniversityDetailPage> with Ticker
                       child: ElevatedButton(
                         onPressed: () => _universityScholarshipDetailModel!.applyLink != null
                             ? openURILauncher(launchURL: _universityScholarshipDetailModel!.applyLink!)
-                            : getCurrentContext.showInfoSnackBar(msg: 'Link is not available'),
+                            : context.showInfoSnackBar(msg: 'Link is not available'),
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                             horizontal: Dimen.extraLargeSpace,
                           ),
                         ),
                         child: Text(
-                          'Apply',
+                          tr(LocaleKeys.apply),
                           style: CustomTextStyle.buttonTextStyle(),
                         ),
                       ),

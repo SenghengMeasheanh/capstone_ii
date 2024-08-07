@@ -28,7 +28,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final _confirmPasswordTextController = TextEditingController();
 
   // * Progress dialog
-  var _progressDialog = ProgressDialog();
+  final _progressDialog = ProgressDialog();
 
   // * Other
   DateTime? _savedPickedDate;
@@ -198,7 +198,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         prefixIcon: const Icon(Icons.lock_outline, size: 24),
                         suffixIcon: IconButton(
                           onPressed: () => setState(() => _isConfirmObsecure = !_isConfirmObsecure),
-                          icon: const Icon(Icons.clear),
+                          icon: Icon(_isConfirmObsecure ? Icons.visibility : Icons.visibility_off),
                           iconSize: 24,
                         ),
                       ),
@@ -322,7 +322,5 @@ class _SignUpPageState extends State<SignUpPage> {
       // * Set Picked Date
       _dateOfBirthTextController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
     }
-
-    print('Picked Date: ${_dateOfBirthTextController.text}');
   }
 }

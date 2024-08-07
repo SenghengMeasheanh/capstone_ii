@@ -1,6 +1,7 @@
 import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/logic/logic_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -84,7 +85,7 @@ class _ScholarshipsPageState extends State<ScholarshipsPage> {
                   Container(
                     margin: const EdgeInsets.only(bottom: Dimen.mediumSpace),
                     child: Text(
-                      'Scholarships',
+                      tr(LocaleKeys.scholarships),
                       style: CustomTextStyle.largeTitleTextStyle(bold: true),
                     ),
                   ),
@@ -109,7 +110,7 @@ class _ScholarshipsPageState extends State<ScholarshipsPage> {
                         },
                         firstPageProgressIndicatorBuilder: (context) => const ProgressBar(),
                         newPageProgressIndicatorBuilder: (context) => const ProgressBar(),
-                        noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
+                        noItemsFoundIndicatorBuilder: (context) => const EmptyItems(),
                       ),
                       separatorBuilder: (context, index) => const SizedBox(height: Dimen.largeSpace),
                     ),

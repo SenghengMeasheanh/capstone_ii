@@ -10,6 +10,6 @@ class BookmarkCareerTab extends StatefulWidget {
 class _BookmarkCareerTabState extends State<BookmarkCareerTab> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

@@ -7,21 +7,18 @@ class ItemGuide extends StatelessWidget {
   final List<Map<String, dynamic>> guides;
   final TextStyle captionTextStyle;
   final Color captionTextColor;
- 
 
   const ItemGuide({
-    Key? key,
+    super.key,
     required this.index,
     required this.guides,
     required this.captionTextStyle,
     required this.captionTextColor,
-
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      
       child: Card(
         margin: const EdgeInsets.only(top: Dimen.mediumSpace),
         shape: RoundedRectangleBorder(

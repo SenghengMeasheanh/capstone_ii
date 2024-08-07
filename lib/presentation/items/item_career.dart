@@ -1,6 +1,7 @@
 import 'package:capstone_ii/data/data_export.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:capstone_ii/presentation/presentation_export.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -103,7 +104,7 @@ class _ItemCareerState extends State<ItemCareer> {
                                         style: CustomTextStyle.bodyTextStyle(
                                           color: Colors.black.withOpacity(0.7),
                                         ),
-                                        text: '\tYearly Income',
+                                        text: '\t${tr(LocaleKeys.yearly_income)}',
                                       ),
                                     ],
                                   ),
@@ -143,7 +144,7 @@ class _ItemCareerState extends State<ItemCareer> {
                                   style: CustomTextStyle.bodyTextStyle(
                                     color: Colors.black.withOpacity(0.7),
                                   ),
-                                  text: '\tJob Growth',
+                                  text: '\t${tr(LocaleKeys.job_growth)}',
                                 ),
                               ],
                             ),

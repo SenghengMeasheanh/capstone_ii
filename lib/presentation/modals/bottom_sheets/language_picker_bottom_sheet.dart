@@ -47,8 +47,10 @@ class _LanguagePickerBottomSheet extends StatelessWidget with ModalUtilsMixin {
             // * Title & Close Button
             Container(
               margin: const EdgeInsets.symmetric(horizontal: Dimen.mediumSpace),
-              child: Text('Change Language',
-                  style: CustomTextStyle.titleTextStyle(bold: true, fontSize: Dimen.midTitleTextSize)),
+              child: Text(
+                tr(LocaleKeys.change_language),
+                style: CustomTextStyle.titleTextStyle(bold: true, fontSize: Dimen.midTitleTextSize),
+              ),
             ),
             // * Language Menu
             Padding(

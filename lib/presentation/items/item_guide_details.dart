@@ -6,11 +6,11 @@ class ItemGuideDetails extends StatelessWidget {
   final String subtitle;
 
   const ItemGuideDetails({
-    Key? key,
+    super.key,
     required this.imageAsset,
     required this.title,
     required this.subtitle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -9,10 +9,12 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:capstone_ii/helper/helper_export.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:path/path.dart' as p;
 
 // * Clear And Restart
 void clearAndRestart({
@@ -69,39 +71,47 @@ Future<void> fetchRefreshToken() async {
   );
 }
 
-// // * Crop Image
-// Future<String?> cropImage({
-//   required String sourcePath,
-// }) async {
-//   final croppedImage = await ImageCropper().cropImage(
-//     sourcePath: sourcePath,
-//     cropStyle: CropStyle.circle,
-//     compressQuality: 80,
-//     compressFormat: ImageCompressFormat.jpg,
-//     aspectRatioPresets: [
-//       CropAspectRatioPreset.square,
-//       CropAspectRatioPreset.ratio3x2,
-//       CropAspectRatioPreset.original,
-//       CropAspectRatioPreset.ratio4x3,
-//       CropAspectRatioPreset.ratio16x9,
-//     ],
-//     uiSettings: [
-//       AndroidUiSettings(
-//         toolbarTitle: tr(LocaleKeys.edit_photo),
-//         toolbarColor: primaryColor,
-//         toolbarWidgetColor: Colors.white,
-//         cropFrameColor: Colors.transparent,
-//         initAspectRatio: CropAspectRatioPreset.original,
-//         activeControlsWidgetColor: primaryColor,
-//         showCropGrid: false,
-//       ),
-//       IOSUiSettings(
-//         title: tr(LocaleKeys.edit_photo),
-//       ),
-//     ],
-//   );
-//   return croppedImage?.path;
-// }
+// * Crop Image
+Future<String?> cropImage({
+  required String sourcePath,
+}) async {
+  final croppedImage = await ImageCropper().cropImage(
+    sourcePath: sourcePath,
+    compressQuality: 80,
+    compressFormat: ImageCompressFormat.jpg,
+    uiSettings: [
+      AndroidUiSettings(
+        toolbarTitle: tr(LocaleKeys.edit_photo),
+        toolbarColor: primaryColor,
+        toolbarWidgetColor: Colors.white,
+        cropFrameColor: Colors.transparent,
+        initAspectRatio: CropAspectRatioPreset.original,
+        activeControlsWidgetColor: primaryColor,
+        showCropGrid: false,
+        cropStyle: CropStyle.circle,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9,
+        ],
+      ),
+      IOSUiSettings(
+        title: tr(LocaleKeys.edit_photo),
+        cropStyle: CropStyle.circle,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9,
+        ],
+      ),
+    ],
+  );
+  return croppedImage?.path;
+}
 
 // Future<void> downloadImage({
 //   required String image,
@@ -173,8 +183,17 @@ Future<void> downloadFile({
 }) async {
   // * Get Save Path
   final savePath = await getExternalStorageDirectory();
+  // * Check if URL is null
+  if (url == null) {
+    // ! Call on Failed
+    onFailed.call('URL is null');
+    return;
+  }
+  // * Extract file extension from URL
+  final extension = p.extension(url);
+  final updatedFileName = '$fileName$extension';
   // * File Path
-  final filePath = '${savePath!.uri.toFilePath()}/$fileName';
+  final filePath = '${savePath!.uri.toFilePath()}/$updatedFileName';
   // * Check iF URL null
   if (url != null) {
     // * Try Download
@@ -212,7 +231,7 @@ Future<void> downloadFile({
 }
 
 // * Get Data Based On Current Language
-String getDataBasedOnCurrentLanguage({required String kh, required String en, t}) {
+String getDataBasedOnCurrentLanguage({required String? kh, required String? en}) {
   final map = {
     LanguageManager.defaultLanguage: en,
     LanguageManager.khmerLanguage: kh,
@@ -296,42 +315,6 @@ Future<void> openURILauncher({
   }
 }
 
-double calculateCacheSize({
-  Directory? appCacheDirectory,
-}) {
-  if (appCacheDirectory != null && appCacheDirectory.existsSync()) {
-    double totalSize = 0.0;
-    appCacheDirectory.listSync(recursive: true).forEach((file) {
-      // * Init Cache Size
-      if (file is File) totalSize += file.lengthSync();
-    });
-    return totalSize;
-  } else {
-    return 0.0;
-  }
-}
-
-String formatBytes(double bytes) {
-  const sizes = ['B', 'KB', 'MB', 'GB'];
-  // * Default
-  var i = 0;
-  var result = bytes.toDouble();
-  // * Loop
-  while (result > 1024 && i < sizes.length - 1) {
-    // * Init Result
-    result /= 1024;
-    // * Increase Index
-    i++;
-  }
-  return '${result.toStringAsFixed(2)} ${sizes[i]}';
-}
-
-String format12Hour(String? time) {
-  DateTime dateTime = DateFormat('HH:mm:ss').parse(time!);
-  String formattedTime = DateFormat('h:mm a').format(dateTime);
-  return formattedTime;
-}
-
 String formatDuration(String? durationString) {
   // * Parse the input duration string
   List<String> parts = durationString!.split(':');
@@ -360,13 +343,13 @@ Widget getMenuRoute({required Menu value}) {
   final map = {
     Menu.university: const UniversityPage(),
     Menu.career: const CareerPage(),
-    Menu.forum: const UnderCostructionPage(),
+    Menu.forum: const UnderConstructionPage(),
     Menu.events: const EventPage(),
-    Menu.guides: const GuidesPage(),
+    Menu.guides: const UnderConstructionPage(),
     Menu.collegeQuiz: isSignedIn() ? const CareerQuizPage() : const PreSignUpPage(),
     Menu.scholarships: const ScholarshipsPage(),
     Menu.financialAid: const FinancialAidPage(),
-    Menu.compareColleges: const UnderCostructionPage(),
+    Menu.compareColleges: const UnderConstructionPage(),
   };
   return map[value]!;
 }
@@ -401,7 +384,7 @@ String getMenuTitle({required Menu value}) {
     Menu.forum: LocaleKeys.forum,
     Menu.events: LocaleKeys.events,
     Menu.guides: LocaleKeys.guides,
-    Menu.collegeQuiz: LocaleKeys.college_quiz,
+    Menu.collegeQuiz: LocaleKeys.career_quiz,
     Menu.scholarships: LocaleKeys.scholarships,
     Menu.financialAid: LocaleKeys.financial_aid,
     Menu.compareColleges: LocaleKeys.compare_colleges,
@@ -411,25 +394,12 @@ String getMenuTitle({required Menu value}) {
 
 String getUniversityFilterMenuTitle({required UniversityFilterMenu value}) {
   final map = {
-    UniversityFilterMenu.major: LocaleKeys.major,
-    UniversityFilterMenu.type: LocaleKeys.types,
-    UniversityFilterMenu.location: LocaleKeys.location,
-    UniversityFilterMenu.degree: LocaleKeys.degree,
+    UniversityFilterMenu.major: tr(LocaleKeys.major),
+    UniversityFilterMenu.type: tr(LocaleKeys.types),
+    UniversityFilterMenu.location: tr(LocaleKeys.location),
+    UniversityFilterMenu.degree: tr(LocaleKeys.degree),
   };
   return map[value]!;
-}
-
-String getEventFilterMenuTitle(EventFilterMenu value) {
-  switch (value) {
-    case EventFilterMenu.upcoming:
-      return 'Upcoming';
-    case EventFilterMenu.past:
-      return 'Past';
-    case EventFilterMenu.favorite:
-      return 'Favorite';
-    default:
-      return '';
-  }
 }
 
 // Future<void> screenshotTransaction({

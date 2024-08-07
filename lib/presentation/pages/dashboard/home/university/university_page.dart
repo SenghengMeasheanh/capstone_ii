@@ -146,11 +146,9 @@ class _UniversityPageState extends State<UniversityPage> {
                   Row(
                     children: [
                       // * Result
-                      Text('$_resultCounter ${tr(LocaleKeys.result)}', style: CustomTextStyle.titleTextStyle(bold: true)),
+                      Text('$_resultCounter ${tr(LocaleKeys.result)}',
+                          style: CustomTextStyle.titleTextStyle(bold: true)),
                       const Spacer(),
-                      // * Sort by
-                      Text('Sort by', style: CustomTextStyle.bodyTextStyle()),
-                      const Icon(Icons.arrow_drop_down),
                     ],
                   ),
                   const SizedBox(height: Dimen.extraLargeSpace),

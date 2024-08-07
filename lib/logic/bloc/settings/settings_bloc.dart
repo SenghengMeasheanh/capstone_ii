@@ -32,8 +32,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         // * Emit Success
         emit(RequestStaticPageSuccessState(response: response));
       } else {
+        if (response.body.data.isEmpty) {
+          // * Emit Error
+          emit(RequestStaticPageErrorState(message: servererrorMessage));
+        }
         // * Emit Error
-        emit(RequestStaticPageErrorState());
+        emit(RequestStaticPageErrorState(message: servererrorMessage));
       }
     }, onError: (exception, stackTrace) {
       // * Debug Print Error
@@ -44,9 +48,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         Future.delayed(const Duration(seconds: 5));
         // * Call Event Again
         add(RequestStaticPageEvent(alias: event.alias));
+        // * Return
+        return;
       }
-      // * Return
-      return;
     });
   }
 }

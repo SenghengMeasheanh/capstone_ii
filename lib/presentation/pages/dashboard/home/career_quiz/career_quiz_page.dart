@@ -52,7 +52,7 @@ class _CareerQuizPageState extends State<CareerQuizPage> {
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Career Quiz',
+                  tr(LocaleKeys.career_quiz),
                   style: CustomTextStyle.titleTextStyle(bold: true),
                 ),
               ),

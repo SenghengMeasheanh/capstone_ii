@@ -19,6 +19,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<RequestSignUpEvent>(_onRequestSignUp);
     // * Sign In | Bloc
     on<RequestSignInEvent>(_onRequestSignIn);
+    // * Profile | Bloc
+    on<RequestProfileEvent>(_onRequestProfile);
+    // * Update | Bloc
+    on<RequestUpdateProfileEvent>(_onRequestUpdateProfile);
   }
 
   Future<void> _onRequestSignUp(
@@ -77,6 +81,64 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (exception is DioException) {
         // * Emit Error State
         emit(RequestSignInErrorState(message: servererrorMessage));
+        // * Return
+        return;
+      }
+    });
+  }
+
+  Future<void> _onRequestProfile(
+    RequestProfileEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    // * Get Result
+    final result = _authRepo.getProfile(id: event.id);
+    // * Await Result
+    await result.then((response) {
+      // * Check Result
+      if (response.header.statusCode == 200) {
+        AppPreference.saveUser(response.body!.data);
+        emit(RequestProfileSuccessState(response: response));
+      } else {
+        emit(RequestProfileErrorState());
+      }
+    }, onError: (exception, stackTrace) {
+      // * Debug Print Error
+      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+      // * If Server Not Response
+      if (exception is DioException) {
+        // * Emit Error State
+        emit(RequestProfileErrorState());
+        // * Return
+        return;
+      }
+    });
+  }
+
+  Future<void> _onRequestUpdateProfile(
+    RequestUpdateProfileEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    // * Get Result
+    final result = _authRepo.requestUpdateProfile(
+      id: event.id,
+      profileUpdateRequest: event.profileUpdateRequest,
+    );
+    // * Await Result
+    await result.then((response) {
+      // * Check Result
+      if (response.header.statusCode == 200) {
+        emit(RequestUpdateProfileSuccessState());
+      } else {
+        emit(RequestUpdateProfileErrorState(message: servererrorMessage));
+      }
+    }, onError: (exception, stackTrace) {
+      // * Debug Print Error
+      debugPrint(getErrorContent(exception: exception, stackTrace: stackTrace));
+      // * If Server Not Response
+      if (exception is DioException) {
+        // * Emit Error State
+        emit(RequestUpdateProfileErrorState(message: servererrorMessage));
         // * Return
         return;
       }
